@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "17035764095",
+    "firebase_url": "https://crowdcheck-v1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "crowdcheck-v1",
+    "storage_bucket": "crowdcheck-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17035764095:android:9abc1fec4c178e6037ba4a",
+        "android_client_info": {
+          "package_name": "com.example.customchu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17035764095-kjqai7fnss084aku8c37lbakdj8uqqho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.customchu",
+            "certificate_hash": "0ed7865b5b32662efdd010dda575873683e2e63c"
+          }
+        },
+        {
+          "client_id": "17035764095-uf6qiftfii1a3sng19c6qvn36gfkbl42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIfNO-N4cfe488dZDM-OAXpauanqUgro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17035764095-oe0gdv3gqsgjger2mn4ngsu9eqhv6om2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

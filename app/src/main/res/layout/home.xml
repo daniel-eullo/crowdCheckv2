@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/orb" />
+
+    <TextView
+        android:id="@+id/userGreet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="User"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toEndOf="@+id/greetings" />
+
+    <TextView
+        android:id="@+id/greetings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/interreg"
+        android:text="Hi,"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="Library"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        app:layout_constraintTop_toBottomOf="@+id/greetings" />
+
+    <ImageButton
+        android:id="@+id/toScanQR"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location"
+        app:srcCompat="@drawable/container"
+        app:tint="#ECECEC" />
+
+    <ImageButton
+        android:id="@+id/toMap"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toScanQR"
+        app:srcCompat="@drawable/container"
+        app:tint="#ECECEC" />
+
+    <TextView
+        android:id="@+id/textlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:fontFamily="@font/interreg"
+        android:text="Scan QR"
+        android:textColor="@color/border"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textlabel2"
+        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        app:layout_constraintTop_toBottomOf="@+id/toScanQR" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toScanQR"
+        app:layout_constraintEnd_toEndOf="@+id/toScanQR"
+        app:layout_constraintTop_toTopOf="@+id/toScanQR"
+        app:srcCompat="@drawable/qr" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toMap"
+        app:layout_constraintEnd_toEndOf="@+id/toMap"
+        app:layout_constraintTop_toTopOf="@+id/toMap"
+        app:srcCompat="@drawable/map" />
+
+    <TextView
+        android:id="@+id/textlabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/interreg"
+        android:shadowRadius="5"
+        android:text="Scan to enter"
+        android:textColor="@color/border"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/toScanQR"
+        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        app:layout_constraintTop_toBottomOf="@+id/textlabel" />
+
+    <TextView
+        android:id="@+id/textlabel4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:fontFamily="@font/interreg"
+        android:text="Map Interface"
+        android:textColor="@color/border"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textlabel5"
+        app:layout_constraintStart_toStartOf="@+id/toMap"
+        app:layout_constraintTop_toBottomOf="@+id/toMap" />
+
+    <TextView
+        android:id="@+id/textlabel5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/interreg"
+        android:text="Check Occupancy"
+        android:textColor="@color/border"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/toMap"
+        app:layout_constraintStart_toStartOf="@+id/toMap"
+        app:layout_constraintTop_toBottomOf="@+id/textlabel4" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="88dp"
+        android:background="#ECECEC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/profilebtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/notificationbtn"
+        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
+        app:srcCompat="@drawable/icons8_user_90" />
+
+    <ImageButton
+        android:id="@+id/homebtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
+        app:layout_constraintEnd_toStartOf="@+id/notificationbtn"
+        app:layout_constraintStart_toStartOf="@+id/view7"
+        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
+        app:srcCompat="@drawable/icons8_home_90" />
+
+    <ImageButton
+        android:id="@+id/notificationbtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view7"
+        app:layout_constraintStart_toStartOf="@+id/view7"
+        app:layout_constraintTop_toTopOf="@+id/view7"
+        app:srcCompat="@drawable/icons8_notification_90" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

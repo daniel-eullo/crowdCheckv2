@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".updatedlibrary">
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bgcolored2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/textColorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view9" />
+
+    <View
+        android:id="@+id/slightcolor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view9" />
+
+    <View
+        android:id="@+id/radioheader"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/view13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view11"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view13"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:background="?android:attr/textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/toHome1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintStart_toStartOf="@+id/view9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icons8_back_30" />
+
+    <TextView
+        android:id="@+id/floornumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="1st Floor"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view9"
+        app:layout_constraintTop_toTopOf="@+id/view9" />
+
+    <TextView
+        android:id="@+id/floor1count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/interreg"
+        android:text="Current Occupied: 70"
+        android:textAlignment="center"
+        android:textColor="#388E3C"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crowdLogo" />
+
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/img_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/radioheader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floor1count"
+        app:srcCompat="@drawable/svgf1base"
+        app:tintMode="multiply"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_doubleTapToZoom="true"
+        app:zoomage_maxScale="5"
+        app:zoomage_minScale="0.5"
+        app:zoomage_zoomable="true" />
+
+    <Button
+        android:id="@+id/to2ndFloor"
+        android:layout_width="370dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        android:fontFamily="@font/interreg"
+        android:text="to 2nd Floor"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bgcolored2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view13" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/view13"
+        app:layout_constraintEnd_toEndOf="@+id/bgcolored2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioheader">
+
+        <RadioButton
+            android:id="@+id/radiobuttonnone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:checked="true"
+            android:text="None"
+            android:textColor="#FFFFFF"
+            app:buttonTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/scannerradiobutton"
+            app:layout_constraintEnd_toStartOf="@+id/scannerradiobutton"
+            app:layout_constraintTop_toTopOf="@+id/scannerradiobutton" />
+
+        <RadioButton
+            android:id="@+id/radiobuttonseats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="Seats"
+            android:textColor="#FFFFFF"
+            app:buttonTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/scannerradiobutton"
+            app:layout_constraintEnd_toStartOf="@+id/scannerradiobutton"
+            app:layout_constraintTop_toTopOf="@+id/scannerradiobutton" />
+
+        <RadioButton
+            android:id="@+id/radiobuttonscanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="Scanner"
+            android:textColor="#FFFFFF"
+            app:buttonTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/scannerradiobutton"
+            app:layout_constraintEnd_toStartOf="@+id/scannerradiobutton"
+            app:layout_constraintTop_toTopOf="@+id/scannerradiobutton" />
+
+        <RadioButton
+            android:id="@+id/radiobuttonopac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Opac"
+            android:textColor="#FFFFFF"
+            app:buttonTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/view10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view6" />
+
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/crowdLogo"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view9"
+        app:srcCompat="@drawable/usericon"
+        app:tint="@color/green" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
