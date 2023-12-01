@@ -54,6 +54,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/interreg"
+        android:enabled="false"
         android:hint="First Name"
         android:paddingLeft="10dp"
         android:textAlignment="center"
@@ -70,29 +71,46 @@
     <EditText
         android:id="@+id/studentNumber"
         android:layout_width="300dp"
+        android:inputType="numberDecimal"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/interreg"
-        android:hint="Student Number"
+        android:hint="Student ID"
         android:paddingLeft="10dp"
         android:textAlignment="center"
         android:textColor="?android:attr/textColorPrimary"
         android:textColorHighlight="?android:attr/textColorPrimary"
-        android:textColorHint="?android:attr/textColorPrimary"
         android:textColorLink="?android:attr/textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstname" />
 
+<!--    <Button-->
+<!--        android:id="@+id/changepassword"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:clickable="true"-->
+<!--        android:fontFamily="@font/interreg"-->
+<!--        android:text="Change Password"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="?android:attr/textColorPrimary"-->
+<!--        android:textSize="18dp"-->
+<!--        app:backgroundTint="@color/blue"-->
+<!--        app:cornerRadius="5dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/email" />-->
+
     <Button
-        android:id="@+id/changepassword"
+        android:id="@+id/changeinfo"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
         android:clickable="true"
         android:fontFamily="@font/interreg"
-        android:text="Change Password"
+        android:text="Update Information"
         android:textColor="@color/white"
         android:textColorHint="?android:attr/textColorPrimary"
         android:textSize="18dp"
@@ -116,7 +134,7 @@
         app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changepassword"
+        app:layout_constraintTop_toBottomOf="@+id/changeinfo"
         app:strokeColor="#FF0000"
         app:strokeWidth="1.3dp" />
 
@@ -126,6 +144,7 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
+        android:enabled="false"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"

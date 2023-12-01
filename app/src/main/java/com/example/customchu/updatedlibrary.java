@@ -41,8 +41,9 @@ public class updatedlibrary extends AppCompatActivity {
         //Navigation
         ImageButton mapBack = findViewById(R.id.toHome1);
         mapBack.setOnClickListener(view -> {
-            Intent intent = new Intent(updatedlibrary.this, home.class);
-            startActivity(intent);
+//            Intent intent = new Intent(updatedlibrary.this, home.class);
+//            startActivity(intent);
+            finish();
         });
 
         Button nextbutton = findViewById(R.id.to2ndFloor);
