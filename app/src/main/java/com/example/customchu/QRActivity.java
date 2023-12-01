@@ -45,12 +45,10 @@ public class QRActivity extends AppCompatActivity {
         setupPermissions();
 
         qrBack = findViewById(R.id.qrBack);
-        qrBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(QRActivity.this, home.class);
-                startActivity(intent);
-            }
+        qrBack.setOnClickListener(view -> {
+//            Intent intent = new Intent(QRActivity.this, home.class);
+//            startActivity(intent);
+            finish();
         });
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
@@ -87,48 +85,40 @@ public class QRActivity extends AppCompatActivity {
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
-        mCodeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String scannedContent = result.getText();
-                        String expectedContent = "Library Room1";
-                        if (scannedContent.equalsIgnoreCase("Library Ground Floor")) {
-                            txtScan.setText("QR Code successfully scanned: " + scannedContent);
-                            room1.setValue(libRoom1 + 1);
-                            //successful notif muna dapat dito
-                            Intent intent = new Intent(QRActivity.this, mapActivity.class);
-                            startActivity(intent);
-                        } else if (scannedContent.equalsIgnoreCase("Library Second Floor")) {
-                            txtScan.setText("QR Code successfully scanned: " + scannedContent);
-                            room2.setValue(libRoom2 + 1);
-                            //successful notif muna dapat dito
-                            Intent intent = new Intent(QRActivity.this, library2Activity.class);
-                            startActivity(intent);
-                        } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit")) {
-                            txtScan.setText("QR Code successfully scanned: " + scannedContent);
-                            room1.setValue(libRoom1 - 1);
-                            txtScan.setText("Exit scanned. See you again!");
-                            //successful notif muna dapat dito
-                            Intent intent = new Intent(QRActivity.this, mapActivity.class);
-                            startActivity(intent);
-                        } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit")) {
-                            txtScan.setText("QR Code successfully scanned: " + scannedContent);
-                            room2.setValue(libRoom2 - 1);
-                            txtScan.setText("Exit scanned. See you again!");
-                            //successful notif muna dapat dito
-                            Intent intent = new Intent(QRActivity.this, library2Activity.class);
-                           startActivity(intent);
-                        }else {
-                            txtScan.setText("Invalid QR Code, try again");
-                        }
-                        mCodeScanner.startPreview();
-                    }
-                });
+        mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
+            String scannedContent = result.getText();
+            String expectedContent = "Library Room1";
+            if (scannedContent.equalsIgnoreCase("Library Ground Floor")) {
+                txtScan.setText("QR Code successfully scanned: " + scannedContent);
+                room1.setValue(libRoom1 + 1);
+                //successful notif muna dapat dito
+                Intent intent = new Intent(QRActivity.this, mapActivity.class);
+                startActivity(intent);
+            } else if (scannedContent.equalsIgnoreCase("Library Second Floor")) {
+                txtScan.setText("QR Code successfully scanned: " + scannedContent);
+                room2.setValue(libRoom2 + 1);
+                //successful notif muna dapat dito
+                Intent intent = new Intent(QRActivity.this, library2Activity.class);
+                startActivity(intent);
+            } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit")) {
+                txtScan.setText("QR Code successfully scanned: " + scannedContent);
+                room1.setValue(libRoom1 - 1);
+                txtScan.setText("Exit scanned. See you again!");
+                //successful notif muna dapat dito
+                Intent intent = new Intent(QRActivity.this, mapActivity.class);
+                startActivity(intent);
+            } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit")) {
+                txtScan.setText("QR Code successfully scanned: " + scannedContent);
+                room2.setValue(libRoom2 - 1);
+                txtScan.setText("Exit scanned. See you again!");
+                //successful notif muna dapat dito
+                Intent intent = new Intent(QRActivity.this, library2Activity.class);
+               startActivity(intent);
+            }else {
+                txtScan.setText("Invalid QR Code, try again");
             }
-        });
+            mCodeScanner.startPreview();
+        }));
 
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override

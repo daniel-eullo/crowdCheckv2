@@ -45,8 +45,9 @@ public class profileActivity extends AppCompatActivity {
         logout.setOnClickListener(view -> {
             gsc.signOut().addOnCompleteListener(this, task -> {
                 // navigate back to home activity
-                Intent intent = new Intent(profileActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(profileActivity.this, MainActivity.class);
+//                startActivity(intent);
+                finish();
             });
         });
 

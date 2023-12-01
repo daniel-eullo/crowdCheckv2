@@ -40,8 +40,9 @@ public class mapActivity extends AppCompatActivity {
 
         mapBack = findViewById(R.id.mapBack);
         mapBack.setOnClickListener(view -> {
-            Intent intent = new Intent(mapActivity.this, home.class);
-            startActivity(intent);
+//            Intent intent = new Intent(mapActivity.this, home.class);
+//            startActivity(intent);
+            finish();
         });
         btn2ndFloor = findViewById(R.id.btn2ndFloor);
         btn2ndFloor.setOnClickListener(view -> {
