@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -44,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         gsc = GoogleSignIn.getClient(this, gso);
 
-        ProfileViewModel profileViewModel = new ProfileViewModel();
-
         DB = FirebaseDatabase.getInstance().getReference();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -63,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         userProfile = snapshot.getValue(Profile.class);
+                        Log.i("MainActivity", "onDataChange: " + userProfile);
                         toHomeActivity();
                     } else {
                         // notify the user to complete the profile
                         Toast.makeText(MainActivity.this, "Please complete your profile", Toast.LENGTH_SHORT).show();
                         toProfileActivity();
                     }
-                    profileViewModel.setProfile(userProfile);
                 }
 
                 @Override
@@ -77,21 +76,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("MainActivity", "onCancelled", databaseError.toException());
                 }
             });
-
-//            DB.child("Profiles").child(account.getId()).get().addOnCompleteListener(task -> {
-//                if (task.isSuccessful()) {
-//                    DataSnapshot snapshot = task.getResult();
-//                    Log.i("MainActivity", "onComplete: " + snapshot);
-//
-//                    if (snapshot.getValue(Profile.class).student_id != 0) {
-//                        userProfile = snapshot.getValue(Profile.class);
-//                        profileViewModel.setProfile(userProfile);
-//                        toHomeActivity();
-//                    } else {
-//                        toProfileActivity();
-//                    }
-//                }
-//            });
         }
     }
 
@@ -136,12 +120,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void toProfileActivity() {
         Intent intent = new Intent(getApplicationContext(), profileActivity.class);
+        intent.putExtra("profile", userProfile);
         startActivity(intent);
     }
 
     private void toHomeActivity() {
         finish();
         Intent intent = new Intent(getApplicationContext(), home.class);
+        intent.putExtra("profile", userProfile);
         startActivity(intent);
     }
 }
