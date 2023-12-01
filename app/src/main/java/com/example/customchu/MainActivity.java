@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +17,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -54,19 +57,41 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Log.i("account id", account.getId());
-            DB.child("Profiles").child(account.getId()).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DataSnapshot snapshot = task.getResult();
-                    Log.i("MainActivity", "onComplete: " + snapshot);
-                    if (Objects.requireNonNull(snapshot.getValue(Profile.class)).student_id != null) {
+            DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
+            ProfileReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
                         userProfile = snapshot.getValue(Profile.class);
-                        profileViewModel.setProfile(userProfile);
                         toHomeActivity();
                     } else {
+                        // notify the user to complete the profile
+                        Toast.makeText(MainActivity.this, "Please complete your profile", Toast.LENGTH_SHORT).show();
                         toProfileActivity();
                     }
+                    profileViewModel.setProfile(userProfile);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("MainActivity", "onCancelled", databaseError.toException());
                 }
             });
+
+//            DB.child("Profiles").child(account.getId()).get().addOnCompleteListener(task -> {
+//                if (task.isSuccessful()) {
+//                    DataSnapshot snapshot = task.getResult();
+//                    Log.i("MainActivity", "onComplete: " + snapshot);
+//
+//                    if (snapshot.getValue(Profile.class).student_id != 0) {
+//                        userProfile = snapshot.getValue(Profile.class);
+//                        profileViewModel.setProfile(userProfile);
+//                        toHomeActivity();
+//                    } else {
+//                        toProfileActivity();
+//                    }
+//                }
+//            });
         }
     }
 
@@ -91,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                GoogleSignInAccount gmsacc =  task.getResult(ApiException.class);
+                GoogleSignInAccount gmsacc = task.getResult(ApiException.class);
                 if (!isUserAdamsonian(gmsacc)) {
                     Toast.makeText(this, "Please use your Adamson email", Toast.LENGTH_SHORT).show();
                     gsc.signOut();
