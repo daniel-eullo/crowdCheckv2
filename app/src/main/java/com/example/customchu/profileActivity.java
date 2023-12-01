@@ -54,7 +54,11 @@ public class profileActivity extends AppCompatActivity {
         logout = findViewById(R.id.toLogout);
         changeInfo = findViewById(R.id.changeinfo);
 
-        profileBack.setOnClickListener(view -> finish());
+        profileBack.setOnClickListener(view -> {
+            Intent intent = new Intent(profileActivity.this, home.class);
+            intent.putExtra("profile", profile);
+            startActivity(intent);
+        });
         logout.setOnClickListener(view -> gsc.signOut().addOnCompleteListener(this, task -> {
             // navigate back to home activity
             Intent intent = new Intent(this, MainActivity.class);
@@ -114,15 +118,13 @@ public class profileActivity extends AppCompatActivity {
             DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
 
             // create a new profile object
-            Profile profile = new Profile(Integer.parseInt(studentNumber));
+            profile = new Profile(Integer.parseInt(studentNumber));
 
             // set the value of the profile
             ProfileReference.setValue(profile);
 
             // create or update the profile in the database
             ProfileReference.setValue(profile);
-
-
 
             // notify the user that the profile has been updated
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
