@@ -101,6 +101,12 @@ public class profileActivity extends AppCompatActivity {
             // fetch the student number from ui
             String studentNumber = this.studentNumber.getText().toString();
 
+            // check if the student number is empty
+            if (studentNumber.equals("")) {
+                Toast.makeText(this, "Please enter your student number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // fetch the id of the user
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
