@@ -38,16 +38,14 @@ public class profileActivity extends AppCompatActivity {
         firstName = findViewById(R.id.firstname);
         studentNumber = findViewById(R.id.studentNumber);
         email = findViewById(R.id.email);
-        changePass = findViewById(R.id.changepassword);
         logout = findViewById(R.id.toLogout);
 
         profileBack.setOnClickListener(view -> finish());
         logout.setOnClickListener(view -> {
             gsc.signOut().addOnCompleteListener(this, task -> {
                 // navigate back to home activity
-//                Intent intent = new Intent(profileActivity.this, MainActivity.class);
-//                startActivity(intent);
-                finish();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             });
         });
 
@@ -82,10 +80,6 @@ public class profileActivity extends AppCompatActivity {
             email.setEnabled(false);
             firstName.setEnabled(false);
             //studentNumber.setEnabled(false);
-
-
-            // disable the change password
-            changePass.setEnabled(false);
         }
     }
 }
