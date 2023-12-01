@@ -68,9 +68,9 @@ public class profileActivity extends AppCompatActivity {
             }
 
 
-            email.setTextColor(getResources().getColor(R.color.black));
-            firstName.setTextColor(getResources().getColor(R.color.black));
-            studentNumber.setTextColor(getResources().getColor(R.color.black));
+//            email.setTextColor(getResources().getColor(R.color.black));
+//            firstName.setTextColor(getResources().getColor(R.color.black));
+//            studentNumber.setTextColor(getResources().getColor(R.color.black));
 
             profilePicture.setImageURI(Uri.parse(profilePicUrl));
             email.setText(account.getEmail());
