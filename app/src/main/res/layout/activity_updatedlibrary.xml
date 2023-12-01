@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".updatedlibrary">
 
+    <ImageView
+        android:id="@+id/grid"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha=".05"
+        android:scaleType="centerCrop"
+        android:tint="?android:attr/textColorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/radioheader"
+        app:layout_constraintEnd_toEndOf="@+id/bgcolored2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view9"
+        app:srcCompat="@drawable/grid_png_thumb8" />
+
     <View
         android:id="@+id/view9"
         android:layout_width="411dp"
@@ -20,7 +33,6 @@
         android:id="@+id/bgcolored2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:attr/textColorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view9" />
 
@@ -28,7 +40,6 @@
         android:id="@+id/slightcolor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view9" />
 
@@ -56,7 +67,6 @@
         android:id="@+id/view13"
         android:layout_width="0dp"
         android:layout_height="125dp"
-        android:background="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -208,7 +218,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view9"
-        app:srcCompat="@drawable/usericon"
+        app:srcCompat="@drawable/one"
         app:tint="@color/green" />
 
 
