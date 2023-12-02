@@ -34,7 +34,7 @@ import android.content.SharedPreferences;
 
 public class home extends AppCompatActivity {
 
-    ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn;
+    ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn, toUserFeedback;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
@@ -76,10 +76,29 @@ public class home extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 
+
         darkModeSwitch.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 if (nightMode){
+
+        // Restore the state of the switch from SharedPreferences SSS
+        darkMS.setChecked(isDarkMode);
+
+        darkMS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                // Save the state of the switch to SharedPreferences
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(DARK_MODE_KEY, isChecked);
+                editor.apply();
+
+                // Set the night mode based on the switch state
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    darkMS.setText("Dark Mode");
+                } else {
+
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     editor = sharedPreferences.edit();
                     editor.putBoolean("night", false);
@@ -93,10 +112,18 @@ public class home extends AppCompatActivity {
             }
         });
 
+
         // DARK MODE
 
 
         // NAVIGATION
+
+        toUserFeedback = findViewById(R.id.toUserFeedback);
+        toUserFeedback.setOnClickListener(view -> {
+            Intent intent = new Intent(home.this, userFeedback.class);
+            startActivity(intent);
+        });
+
 
         toScanQR.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, QRActivity.class);

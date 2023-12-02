@@ -188,12 +188,11 @@
         android:id="@+id/profilebtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginEnd="30dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/notificationbtn"
-        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
         app:srcCompat="@drawable/icons8_user_90" />
 
     <ImageButton
@@ -204,6 +203,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
         app:layout_constraintEnd_toStartOf="@+id/notificationbtn"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="@+id/view7"
         app:layout_constraintTop_toTopOf="@+id/notificationbtn"
         app:srcCompat="@drawable/icons8_home_90" />
@@ -216,9 +216,22 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view7"
+        app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="@+id/view7"
         app:layout_constraintTop_toTopOf="@+id/view7"
         app:srcCompat="@drawable/icons8_notification_90" />
+
+    <ImageButton
+        android:id="@+id/toUserFeedback"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintEnd_toStartOf="@+id/profilebtn"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toEndOf="@+id/notificationbtn"
+        app:layout_constraintTop_toTopOf="@+id/view7"
+        app:layout_constraintVertical_bias="0.277"
+        app:srcCompat="@drawable/feedback_icon_" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
