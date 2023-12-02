@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import android.content.SharedPreferences;
 public class home extends AppCompatActivity {
 
     ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn;
+    ImageView toFeedback;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
@@ -97,6 +99,12 @@ public class home extends AppCompatActivity {
 
 
         // NAVIGATION
+
+        toFeedback= findViewById(R.id.toFeedback);
+        toFeedback.setOnClickListener(view -> {
+            Intent intent = new Intent(home.this, userFeedback.class);
+            startActivity(intent);
+        });
 
         toScanQR.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, QRActivity.class);
