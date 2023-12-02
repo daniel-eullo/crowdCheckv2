@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
+import android.content.SharedPreferences;
 
 
 public class home extends AppCompatActivity {
@@ -40,7 +42,8 @@ public class home extends AppCompatActivity {
     Button incrementBtn;
     Profile userProfile;
     int libRoom1 = 0;
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,49 +61,42 @@ public class home extends AppCompatActivity {
         profileBtn = findViewById(R.id.profilebtn);
 
 
-        String PREF_NAME = "MyPreferences";
-        String DARK_MODE_KEY = "darkMode";
 
-        Switch darkMS;
-        darkMS = findViewById(R.id.darkModeSwitch);
+        // DARK MODE
 
-        // Restore the state of the switch from SharedPreferences
-        SharedPreferences preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        boolean isDarkMode = preferences.getBoolean(DARK_MODE_KEY, false);
+        Switch darkModeSwitch;
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        boolean nightMode;
 
-        if (isDarkMode) {
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightMode = sharedPreferences.getBoolean("night", false);
+
+        if (nightMode){
+            darkModeSwitch.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
+        darkModeSwitch.setOnClickListener(new View.OnClickListener() {
 
-
-
-        // Restore the state of the switch from SharedPreferences SSS
-        darkMS.setChecked(isDarkMode);
-
-        darkMS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                // Save the state of the switch to SharedPreferences
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(DARK_MODE_KEY, isChecked);
+            public void onClick(View view) {
+                if (nightMode){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night", false);
+                } else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night", true);
+                }
                 editor.apply();
 
-                // Set the night mode based on the switch state
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    darkMS.setText("Dark Mode");
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    darkMS.setText("Light Mode");
-                }
-
-                // Recreate the activity to apply the night mode immediately
-                recreate();
             }
         });
+
+        // DARK MODE
+
+
+        // NAVIGATION
 
         toScanQR.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, QRActivity.class);
