@@ -137,11 +137,10 @@ public class home extends AppCompatActivity {
 
     private void updateUsername() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null && loginToast == false) {
+        if (account != null) {
             String name = account.getGivenName();
             greetings.setText(name);
             //Toast.makeText(this, "Login Success! Welcome " + name, Toast.LENGTH_SHORT).show();
-            loginToast = true;
         }
     }
 }
