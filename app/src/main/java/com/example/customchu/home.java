@@ -32,7 +32,7 @@ import java.util.Objects;
 
 public class home extends AppCompatActivity {
 
-    ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn;
+    ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn, toUserFeedback;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
@@ -74,9 +74,6 @@ public class home extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-
-
-
         // Restore the state of the switch from SharedPreferences SSS
         darkMS.setChecked(isDarkMode);
 
@@ -100,6 +97,12 @@ public class home extends AppCompatActivity {
                 // Recreate the activity to apply the night mode immediately
                 recreate();
             }
+        });
+
+        toUserFeedback = findViewById(R.id.toUserFeedback);
+        toUserFeedback.setOnClickListener(view -> {
+            Intent intent = new Intent(home.this, userFeedback.class);
+            startActivity(intent);
         });
 
         toScanQR.setOnClickListener(view -> {
