@@ -1,9 +1,12 @@
 package com.example.customchu;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,21 +14,42 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class userFeedback extends AppCompatActivity {
 
     ImageButton userFeedbackBack;
-    TextView ratingBarOutput, testRating;
+    TextView ratingBarOutput;
     RatingBar ratingBar;
     Float userRating;
     Button submitFeedback;
     EditText feedbackInput;
     String feedback;
+    GoogleSignInAccount user;
+    DatabaseReference databaseFacility, dbFeedback, idCheck;
+    int feedbackCounter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_feedback);
+
+        databaseFacility = FirebaseDatabase.getInstance().getReference();
+
+        // fetch the logged in user
+        user = GoogleSignIn.getLastSignedInAccount(this);
 
         userFeedbackBack = findViewById(R.id.userFeedbackBack);
         userFeedbackBack.setOnClickListener(view -> {
@@ -64,17 +88,44 @@ public class userFeedback extends AppCompatActivity {
         });
 
         submitFeedback = findViewById(R.id.submitFeedback);
-        testRating = findViewById(R.id.testRating);
         feedbackInput = findViewById(R.id.feedbackInput);
-        feedback = String.valueOf(feedbackInput.getText());
+        dbFeedback = databaseFacility.child("Feedback");
+
+        //check current feedbackID
+        idCheck = databaseFacility.child("Feedback");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                feedbackCounter = Integer.parseInt(dataSnapshot.child("feedbackID").getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+
+        };
+        idCheck.addValueEventListener(postListener);
+
+
+
         //testRating.setText(userRating.toString());
         submitFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                testRating.setText(feedbackInput.getText() + "");
-                feedback = testRating.getText() + " ";
+                //dbFeedback.child("User1").push().setValue(userRating);
+                String feedbackid = "feedbackID" + feedbackCounter;
+                feedback = feedbackInput.getText().toString();
+                Map <String, Object> data = new HashMap<>();
+                data.put("account_id", user.getId());
+                data.put("rating",userRating);
+                data.put("userFeedback",feedback);
+                dbFeedback.child(feedbackid).setValue(data);
+                idCheck.child("feedbackID").setValue(feedbackCounter + 1);
             }
         });
+
+
 
     }
 }

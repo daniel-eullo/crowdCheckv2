@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <TextView
         android:id="@+id/ratingBarOutput"
@@ -103,6 +103,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/interreg"
         android:text="Rate us"
+        android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/txtUserFeedback"
@@ -122,7 +123,7 @@
         android:gravity="start|top"
         android:hint="Share your experience with us!"
         android:inputType="textMultiLine"
-        android:lines="4"
+        android:lines="2"
         android:singleLine="false"
         app:guidelineUseRtl="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -146,15 +147,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feedbackInput"
         app:layout_constraintVertical_bias="0.19" />
-
-    <TextView
-        android:id="@+id/testRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitFeedback" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
