@@ -118,6 +118,7 @@ public class userFeedback extends AppCompatActivity {
                 feedback = feedbackInput.getText().toString();
                 Map <String, Object> data = new HashMap<>();
                 data.put("account_id", user.getId());
+                data.put("username", user.getDisplayName());
                 data.put("rating",userRating);
                 data.put("userFeedback",feedback);
                 dbFeedback.child(feedbackid).setValue(data);
