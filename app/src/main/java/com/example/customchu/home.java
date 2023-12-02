@@ -41,6 +41,7 @@ public class home extends AppCompatActivity {
     Profile userProfile;
     int libRoom1 = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,10 +137,11 @@ public class home extends AppCompatActivity {
 
     private void updateUsername() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null) {
+        if (account != null && loginToast == false) {
             String name = account.getGivenName();
             greetings.setText(name);
-            Toast.makeText(this, "Login Success! Welcome " + name, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Login Success! Welcome " + name, Toast.LENGTH_SHORT).show();
+            loginToast = true;
         }
     }
 }
