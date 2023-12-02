@@ -24,8 +24,8 @@ public class library2Activity extends AppCompatActivity {
     ImageView lowCrowd;
     ImageView midCrowd;
     ImageView hiCrowd;
-    ImageButton mapBack;
-    Button btn1stFloor;
+    ImageButton toHome1;
+    Button to1stFloor;
     int libRoom1, libRoom2;
     //TextView room1Count;
     TextView room2Count;
@@ -33,26 +33,26 @@ public class library2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library2);
+        setContentView(R.layout.activity_updatedlibraryb);
 
-        mapBack = findViewById(R.id.mapBack);
-        mapBack.setOnClickListener(view -> {
+        toHome1 = findViewById(R.id.toHome1);
+        toHome1.setOnClickListener(view -> {
             Intent intent = new Intent(library2Activity.this, home.class);
             startActivity(intent);
         });
 
-        btn1stFloor = findViewById(R.id.btn1stFloor);
-        btn1stFloor.setOnClickListener(view -> {
+        to1stFloor = findViewById(R.id.to1stFloor);
+        to1stFloor.setOnClickListener(view -> {
             Intent intent = new Intent(library2Activity.this, mapActivity.class);
             startActivity(intent);
         });
 
         //room1Count = findViewById(R.id.room1Count);
-        room2Count = findViewById(R.id.room2Count);
+        //room2Count = findViewById(R.id.room2Count);
 
-        lowCrowd = findViewById(R.id.imageView17);
-        midCrowd = findViewById(R.id.imageView16);
-        hiCrowd = findViewById(R.id.imageView9);
+//        lowCrowd = findViewById(R.id.imageView17);
+//        midCrowd = findViewById(R.id.imageView16);
+//        hiCrowd = findViewById(R.id.imageView9);
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
         //DatabaseReference room1 = databaseFacility.child("Rooms").child("GF").child("Current");
