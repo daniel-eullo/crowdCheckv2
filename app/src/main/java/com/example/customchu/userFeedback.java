@@ -2,7 +2,6 @@ package com.example.customchu;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -33,17 +32,16 @@ import java.util.Map;
 public class userFeedback extends AppCompatActivity {
 
     ImageButton userFeedbackBack;
-    TextView ratingBarOutput, textView14;
+    TextView ratingBarOutput;
     RatingBar ratingBar;
     Float userRating;
     Button submitFeedback;
     EditText feedbackInput;
     String feedback;
     GoogleSignInAccount user;
-    DatabaseReference databaseFacility, dbFeedback, idCheck, profileReference;
+    DatabaseReference databaseFacility, dbFeedback, idCheck;
     int feedbackCounter = 0;
-    int student_id = 0;
-    int account_id = 0;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_feedback);
@@ -120,14 +118,11 @@ public class userFeedback extends AppCompatActivity {
                 feedback = feedbackInput.getText().toString();
                 Map <String, Object> data = new HashMap<>();
                 data.put("account_id", user.getId());
-                data.put("student_id", student_id);
                 data.put("username", user.getDisplayName());
                 data.put("rating",userRating);
                 data.put("userFeedback",feedback);
                 dbFeedback.child(feedbackid).setValue(data);
                 idCheck.child("feedbackID").setValue(feedbackCounter + 1);
-
-
             }
         });
 
