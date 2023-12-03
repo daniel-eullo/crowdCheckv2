@@ -1,14 +1,33 @@
 package com.example.customchu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.widget.ImageButton;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class checkFeedbackActivity extends AppCompatActivity {
 
     ImageButton adminFeedbackBack;
+    RecyclerView recyclerView;
+    DatabaseReference database;
+
+    MainAdapter mainAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,5 +38,28 @@ public class checkFeedbackActivity extends AppCompatActivity {
             Intent intent = new Intent(checkFeedbackActivity.this, adminActivity.class);
             startActivity(intent);
         });
+
+        recyclerView = findViewById(R.id.rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseRecyclerOptions<MainModel> options =
+                new FirebaseRecyclerOptions.Builder<MainModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("students"), MainModel.class)
+                        .build();
+
+        mainAdapter = new MainAdapter(options);
+        recyclerView.setAdapter(mainAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mainAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mainAdapter.stopListening();
     }
 }
