@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.widget.ImageButton;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -44,22 +45,28 @@ public class checkFeedbackActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("students"), MainModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Feedback").child("feedbackMssg"), MainModel.class)
                         .build();
 
         mainAdapter = new MainAdapter(options);
         recyclerView.setAdapter(mainAdapter);
+
+        Log.d("CheckFeedbackActivity", "onCreate: Initialized successfully");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mainAdapter.startListening();
+        Log.d("CheckFeedbackActivity", "onStart: Adapter started listening");
     }
+
 
     @Override
     protected void onStop() {
         super.onStop();
         mainAdapter.stopListening();
+
+        Log.d("CheckFeedbackActivity", "onStop: Adapter stopped listening");
     }
 }

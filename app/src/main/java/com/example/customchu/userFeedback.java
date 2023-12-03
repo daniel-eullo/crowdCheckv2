@@ -89,7 +89,7 @@ public class userFeedback extends AppCompatActivity {
 
         submitFeedback = findViewById(R.id.submitFeedback);
         feedbackInput = findViewById(R.id.feedbackInput);
-        dbFeedback = databaseFacility.child("Feedback");
+        dbFeedback = databaseFacility.child("Feedback").child("feedbackMssg");
 
         //check current feedbackID
         idCheck = databaseFacility.child("Feedback");

@@ -2,39 +2,49 @@ package com.example.customchu;
 
 public class MainModel {
     //must be the same name to firebase key
-    String name, course, email;
+    String username, account_id, userFeedback;
+    Long rating;
 
     MainModel(){
 
     }
 
-    public MainModel(String name, String course, String email) {
-        this.name = name;
-        this.course = course;
-        this.email = email;
+    public MainModel(String username, String account_id, String userFeedback, int rating) {
+        this.username = username;
+        this.account_id = account_id;
+        this.userFeedback = userFeedback;
+        this.rating = (long) rating;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getCourse() {
-        return course;
+    public String getAccount_id() {
+        return account_id;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserFeedback() {
+        return userFeedback;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserFeedback(String userFeedback) {
+        this.userFeedback = userFeedback;
+    }
+
+    public int getRating() {
+        return Math.toIntExact(rating);
+    }
+
+    public void setRating(int rating) {
+        this.rating = (long) rating;
     }
 }

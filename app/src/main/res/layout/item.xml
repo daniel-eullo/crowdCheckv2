@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
-    android:layout_margin="16dp">
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/nametext"
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Steven"
@@ -48,16 +48,42 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="StudentID: "
+                android:text="AccountID: "
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/coursetext"
+                android:id="@+id/account_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2021835168"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginLeft="8dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating: "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= "3.5"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_marginLeft="8dp"/>
@@ -80,10 +106,10 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/emailtext"
+                android:id="@+id/userFeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "all features are working as intended"
+                android:text= "all are working as intended"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_marginLeft="8dp"

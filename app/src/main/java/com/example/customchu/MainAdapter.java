@@ -26,10 +26,10 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull MainModel model) {
-        holder.name.setText(model.getName());
-        holder.course.setText(model.getCourse());
-        holder.email.setText(model.getEmail());
-
+        holder.username.setText(model.getUsername());
+        holder.account_id.setText(model.getAccount_id());
+        holder.rating.setText(String.valueOf(model.getRating()));
+        holder.userFeedback.setText(model.getUserFeedback());
 
     }
 
@@ -41,13 +41,14 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
     }
 
     class myViewHolder extends RecyclerView.ViewHolder{
-        TextView name,course,email;
+        TextView username, account_id,rating,userFeedback;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.nametext);
-            course = itemView.findViewById(R.id.coursetext);
-            email = itemView.findViewById(R.id.emailtext);
+            username = itemView.findViewById(R.id.username);
+            account_id = itemView.findViewById(R.id.account_id);
+            rating = itemView.findViewById(R.id.rating);
+            userFeedback = itemView.findViewById(R.id.userFeedback);
         }
     }
 }
