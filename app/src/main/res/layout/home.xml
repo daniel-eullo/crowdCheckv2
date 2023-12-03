@@ -23,9 +23,8 @@
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:scaleType="fitXY"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/orb" />
@@ -233,6 +232,18 @@
         app:layout_constraintTop_toTopOf="@+id/view7"
         app:layout_constraintVertical_bias="0.071"
         app:srcCompat="@drawable/feedback_icon_" />
+
+    <ImageView
+        android:id="@+id/toAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/toScanQR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:layout_constraintVertical_bias="0.458"
+        app:srcCompat="@drawable/icons8_admin_48" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Customchu"
         tools:targetApi="31">
         <activity
+            android:name=".adminActivity"
+            android:exported="false" />
+        <activity
             android:name=".userFeedback"
             android:exported="false" />
         <activity

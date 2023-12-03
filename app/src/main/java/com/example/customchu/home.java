@@ -36,7 +36,7 @@ import android.content.SharedPreferences;
 public class home extends AppCompatActivity {
 
     ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn;
-    ImageView toFeedback;
+    ImageView toFeedback, toAdmin;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
@@ -103,6 +103,12 @@ public class home extends AppCompatActivity {
         toFeedback= findViewById(R.id.toFeedback);
         toFeedback.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, userFeedback.class);
+            startActivity(intent);
+        });
+
+        toAdmin= findViewById(R.id.toAdmin);
+        toAdmin.setOnClickListener(view -> {
+            Intent intent = new Intent(home.this, adminActivity.class);
             startActivity(intent);
         });
 
