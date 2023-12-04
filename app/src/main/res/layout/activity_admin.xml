@@ -17,6 +17,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <ImageView
+        android:id="@+id/checkLog"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:tint="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setNotif"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/setNotif"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:tint="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminView"
+        app:srcCompat="@drawable/border" />
+
+    <ImageView
+        android:id="@+id/checkFeedback"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+        android:tint="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkLog"
+        app:srcCompat="@drawable/border" />
+
     <TextView
         android:id="@+id/adminTxt"
         android:layout_width="wrap_content"
@@ -59,116 +94,74 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icons8_back_30" />
 
-    <View
-        android:id="@+id/notifView"
-        android:layout_width="413dp"
-        android:layout_height="100dp"
-        android:foreground="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/adminView"
-        app:layout_constraintVertical_bias="0.25" />
-
     <ImageView
-        android:id="@+id/setNotif"
+        android:id="@+id/icon1"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/notifView"
-        app:layout_constraintEnd_toEndOf="@+id/notifView"
-        app:layout_constraintHorizontal_bias="0.16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/notifView"
-        app:srcCompat="@drawable/icons8_add_reminder_96"/>
+        android:layout_marginStart="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setNotif"
+        app:layout_constraintStart_toStartOf="@+id/setNotif"
+        app:layout_constraintTop_toTopOf="@+id/setNotif"
+        app:srcCompat="@drawable/icons8_add_reminder_96" />
 
     <TextView
         android:id="@+id/setNotiftxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Notifications"
-        app:layout_constraintBottom_toBottomOf="@+id/notifView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/setNotif"
-        app:layout_constraintTop_toTopOf="@+id/notifView"
-        android:textSize="25dp"
+        android:layout_marginStart="15dp"
         android:fontFamily="@font/interbold"
-        android:textColor="@color/blue"/>
-
-    <View
-        android:id="@+id/checkFeedbackview"
-        android:layout_width="413dp"
-        android:layout_height="100dp"
-        android:foreground="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notifView"
-        app:layout_constraintVertical_bias="0.07999998" />
+        android:text="Set Notifications"
+        android:textColor="@color/blue"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setNotif"
+        app:layout_constraintStart_toEndOf="@+id/icon1"
+        app:layout_constraintTop_toTopOf="@+id/setNotif" />
 
     <ImageView
-        android:id="@+id/checkFeedback"
+        android:id="@+id/icon3"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkFeedbackview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/checkFeedbackview"
+        android:layout_marginStart="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/checkFeedback"
+        app:layout_constraintStart_toStartOf="@+id/checkFeedback"
+        app:layout_constraintTop_toTopOf="@+id/checkFeedback"
         app:srcCompat="@drawable/icons8_open_email_96" />
 
     <TextView
         android:id="@+id/checkFeedbacktxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="69dp"
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/interbold"
         android:text="Check Feedback"
         android:textColor="@color/blue"
         android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkFeedbackview"
-        app:layout_constraintEnd_toEndOf="@+id/checkFeedbackview"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toEndOf="@+id/checkFeedback"
-        app:layout_constraintTop_toTopOf="@+id/checkFeedbackview" />
-
-    <View
-        android:id="@+id/logHistoryview"
-        android:layout_width="413dp"
-        android:layout_height="100dp"
-        android:foreground="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkFeedbackview"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintBottom_toBottomOf="@+id/checkFeedback"
+        app:layout_constraintStart_toEndOf="@+id/icon3"
+        app:layout_constraintTop_toTopOf="@+id/checkFeedback" />
 
     <ImageView
-        android:id="@+id/checkLog"
+        android:id="@+id/icon2"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/logHistoryview"
-        app:layout_constraintEnd_toEndOf="@+id/logHistoryview"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/logHistoryview"
+        android:layout_marginStart="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/checkLog"
+        app:layout_constraintStart_toStartOf="@+id/checkLog"
+        app:layout_constraintTop_toTopOf="@+id/checkLog"
         app:srcCompat="@drawable/icons8_log_96" />
 
     <TextView
         android:id="@+id/logHistorytxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:fontFamily="@font/interbold"
         android:text="Log History"
         android:textColor="@color/blue"
         android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/logHistoryview"
-        app:layout_constraintEnd_toEndOf="@+id/logHistoryview"
-        app:layout_constraintHorizontal_bias="0.31"
-        app:layout_constraintStart_toEndOf="@+id/checkLog"
-        app:layout_constraintTop_toTopOf="@+id/logHistoryview" />
+        app:layout_constraintBottom_toBottomOf="@+id/checkLog"
+        app:layout_constraintStart_toEndOf="@+id/icon2"
+        app:layout_constraintTop_toTopOf="@+id/checkLog" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

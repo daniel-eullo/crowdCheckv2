@@ -23,6 +23,9 @@ public class adminActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+        // NAVIGATIONS
+
         setNotif = findViewById(R.id.setNotif);
         setNotif.setOnClickListener(view -> {
             Intent intent = new Intent(adminActivity.this, adminNotif.class);
