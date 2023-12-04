@@ -223,13 +223,13 @@
 
     <ImageView
         android:id="@+id/toFeedback"
-        android:layout_width="84dp"
-        android:layout_height="74dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
         app:layout_constraintEnd_toStartOf="@+id/profilebtn"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toEndOf="@+id/notificationbtn"
-        app:layout_constraintTop_toTopOf="@+id/view7"
+        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
         app:layout_constraintVertical_bias="0.071"
         app:srcCompat="@drawable/feedback_icon_" />
 
@@ -237,6 +237,7 @@
         android:id="@+id/toAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/toScanQR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.865"
