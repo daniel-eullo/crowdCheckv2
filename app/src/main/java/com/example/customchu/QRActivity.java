@@ -3,10 +3,14 @@ package com.example.customchu;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +46,8 @@ public class QRActivity extends AppCompatActivity {
     GoogleSignInAccount user;
 
     DatabaseReference room1, room2, capRoom1, capRoom2;
-
+    Dialog dialog;
+    Button qrDialogCancel, qrDialogProceed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,33 @@ public class QRActivity extends AppCompatActivity {
         qrBack.setOnClickListener(view -> finish());
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
+
+        //dialog box
+        dialog = new Dialog(QRActivity.this);
+        dialog.setContentView(R.layout.dialogbox_qr);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialog.setCancelable(false);
+
+        qrDialogCancel = dialog.findViewById(R.id.qrDialogCancel);
+        qrDialogProceed = dialog.findViewById(R.id.qrDialogProceed);
+
+        qrDialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        qrDialogProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+                startActivity(intent);
+
+                dialog.dismiss();
+            }
+        });
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -145,8 +177,9 @@ public class QRActivity extends AppCompatActivity {
                     room1.child("Current").setValue(libRoom1 + 1);
                     insertOnRoom1();
 
-                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                    startActivity(intent);
+                    dialog.show();
+//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                    startActivity(intent);
                 }
             } else if (scannedContent.equalsIgnoreCase("Library Second Floor")) {
                 // check if room is full
