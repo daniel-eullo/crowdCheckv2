@@ -4,10 +4,12 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,12 +37,13 @@ public class userFeedback extends AppCompatActivity {
     TextView ratingBarOutput;
     RatingBar ratingBar;
     Float userRating;
-    Button submitFeedback;
+    Button submitFeedback, userFBDialogProceed;
     EditText feedbackInput;
     String feedback;
     GoogleSignInAccount user;
     DatabaseReference databaseFacility, dbFeedback, idCheck;
     int feedbackCounter = 0;
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,10 +126,29 @@ public class userFeedback extends AppCompatActivity {
                 data.put("userFeedback",feedback);
                 dbFeedback.child(feedbackid).setValue(data);
                 idCheck.child("feedbackID").setValue(feedbackCounter + 1);
+
+                dialog.show();
             }
         });
 
 
+        //navigation box
+        dialog = new Dialog(userFeedback.this);
+        dialog.setContentView(R.layout.dialogbox_userfeedback);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialog.setCancelable(false);
 
+        userFBDialogProceed = dialog.findViewById(R.id.userFBDialogProceed);
+
+        userFBDialogProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(userFeedback.this, home.class);
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
+            }
+        });
     }
 }
