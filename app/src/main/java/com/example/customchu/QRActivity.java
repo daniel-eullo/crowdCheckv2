@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.os.Handler;
 
 public class QRActivity extends AppCompatActivity {
     ImageButton qrBack;
@@ -44,6 +45,7 @@ public class QRActivity extends AppCompatActivity {
     int capLibRoom1 = 50, capLibRoom2 = 50;
     private CodeScanner mCodeScanner;
     GoogleSignInAccount user;
+    Boolean qrScanned;
 
     DatabaseReference room1, room2, capRoom1, capRoom2;
     Dialog dialog;
@@ -156,13 +158,12 @@ public class QRActivity extends AppCompatActivity {
         capRoom2 = databaseFacility.child("Rooms").child("2F").child("Cap");
         capRoom2.addValueEventListener(postListener4);
 
-
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
             String scannedContent = result.getText();
             String expectedContent = "Library Room1";
-            if (scannedContent.equalsIgnoreCase("Library Ground Floor")) {
+            if (scannedContent.equalsIgnoreCase("Library Ground Floor") && qrScanned == false) {
                 // check if room is full
                 if (libRoom1 >= capLibRoom1) {
                     // show message that the room is full
@@ -177,11 +178,12 @@ public class QRActivity extends AppCompatActivity {
                     room1.child("Current").setValue(libRoom1 + 1);
                     insertOnRoom1();
 
-                    dialog.show();
-//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-//                    startActivity(intent);
+                    qrScanned = true;
+
+                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+                    startActivity(intent);
                 }
-            } else if (scannedContent.equalsIgnoreCase("Library Second Floor")) {
+            } else if (scannedContent.equalsIgnoreCase("Library Second Floor") && qrScanned == false) {
                 // check if room is full
                 if (libRoom2 >= capLibRoom2) {
                     txtScan.setText("Room is full, try again later");
@@ -195,12 +197,14 @@ public class QRActivity extends AppCompatActivity {
                     room2.child("Current").setValue(libRoom2 + 1);
                     insertOnRoom2();
 
+                    qrScanned = true;
+
                     Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
                     startActivity(intent);
                 }
 
 
-            } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit")) {
+            } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit") && qrScanned == false) {
                 // check if room is full
                 if (libRoom1 <= 0) {
                     txtScan.setText("Room is empty, try again later");
@@ -214,11 +218,13 @@ public class QRActivity extends AppCompatActivity {
                     room1.child("Current").setValue(libRoom1 - 1);
                     outsertOnRoom1();
 
+                    qrScanned = true;
+
                     txtScan.setText("Exit scanned. See you again!");
                     Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
                     startActivity(intent);
                 }
-            } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit")) {
+            } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit") && qrScanned == false) {
                 // check if room is full
                 if (libRoom2 <= 0) {
                     txtScan.setText("Room is empty, try again later");
@@ -231,6 +237,8 @@ public class QRActivity extends AppCompatActivity {
                     // insert to database
                     room2.child("Current").setValue(libRoom2 - 1);
                     outsertOnRoom2();
+
+                    qrScanned = true;
 
                     txtScan.setText("Exit scanned. See you again!");
                     //successful notif muna dapat dito
@@ -251,6 +259,7 @@ public class QRActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        qrScanned = false;
         mCodeScanner.startPreview();
     }
 
