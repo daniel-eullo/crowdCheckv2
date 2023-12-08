@@ -39,13 +39,13 @@ public class userFeedback extends AppCompatActivity {
     TextView ratingBarOutput;
     RatingBar ratingBar;
     Float userRating;
-    Button submitFeedback, userFBDialogProceed;
+    Button submitFeedback, userFBDialogProceed, userFBClose;
     EditText feedbackInput;
     String feedback;
     GoogleSignInAccount user;
     DatabaseReference databaseFacility, dbFeedback, idCheck;
     int feedbackCounter = 0;
-    Dialog dialog;
+    Dialog dialog, dialogNoInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +150,21 @@ public class userFeedback extends AppCompatActivity {
                 Intent intent = new Intent(userFeedback.this, home.class);
                 startActivity(intent);
                 finish();
+                dialog.dismiss();
+            }
+        });
+
+        //no input dialog box
+        dialogNoInput = new Dialog(userFeedback.this);
+        dialogNoInput.setContentView(R.layout.dialog_noinput);
+        dialogNoInput.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogNoInput.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialogNoInput.setCancelable(false);
+
+        userFBClose = dialogNoInput.findViewById(R.id.userFBClose);
+        userFBDialogProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
             }
         });
