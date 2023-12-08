@@ -298,7 +298,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", true);
                     data.put("date_and_time", dateAndTime);
 
-                    room1.child("History").child(date).child(user.getId()+"out").setValue(data);
+                    room1.child("History").child(date).child(user.getId()+":out:"+dateAndTime).setValue(data);
                 }
             }
 
@@ -323,7 +323,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", true);
                     data.put("date_and_time", dateAndTime);
 
-                    room2.child("History").child(date).child(user.getId()+"out").setValue(data);
+                    room2.child("History").child(date).child(user.getId()+":out:"+dateAndTime).setValue(data);
                 }
             }
 
@@ -348,7 +348,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", false);
                     data.put("date_and_time", dateAndTime);
 
-                    room1.child("History").child(date).child(user.getId()+"in").setValue(data);
+                    room1.child("History").child(date).child(user.getId()+":in:"+dateAndTime).setValue(data);
                 }
             }
 
@@ -373,7 +373,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", false);
                     data.put("date_and_time", dateAndTime);
 
-                    room2.child("History").child(date).child(user.getId()+"in").setValue(data);
+                    room2.child("History").child(date).child(user.getId()+":in:"+dateAndTime).setValue(data);
                 }
             }
 
