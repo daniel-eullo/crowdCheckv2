@@ -120,17 +120,21 @@ public class userFeedback extends AppCompatActivity {
             public void onClick(View view) {
                 //dbFeedback.child("User1").push().setValue(userRating);
                 //String feedbackid = "feedbackID" + feedbackCounter;
-                feedback = feedbackInput.getText().toString();
-                Map <String, Object> data = new HashMap<>();
-                data.put("account_id", user.getId());
-                data.put("username", user.getDisplayName());
-                data.put("rating",userRating);
-                data.put("userFeedback",feedback);
-                data.put("date",date);
-                dbFeedback.child(feedbackCounter + "").setValue(data);
-                idCheck.child("feedbackID").setValue(feedbackCounter + 1);
+                if ((feedbackInput.getText() == null) && (userRating == null)){
+                    dialogNoInput.show();
+                } else {
+                    feedback = feedbackInput.getText().toString();
+                    Map <String, Object> data = new HashMap<>();
+                    data.put("account_id", user.getId());
+                    data.put("username", user.getDisplayName());
+                    data.put("rating",userRating);
+                    data.put("userFeedback",feedback);
+                    data.put("date",date);
+                    dbFeedback.child(feedbackCounter + "").setValue(data);
+                    idCheck.child("feedbackID").setValue(feedbackCounter + 1);
 
-                dialog.show();
+                    dialog.show();
+                }
             }
         });
 
@@ -162,10 +166,11 @@ public class userFeedback extends AppCompatActivity {
         dialogNoInput.setCancelable(false);
 
         userFBClose = dialogNoInput.findViewById(R.id.userFBClose);
-        userFBDialogProceed.setOnClickListener(new View.OnClickListener() {
+        userFBClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+
+                dialogNoInput.dismiss();
             }
         });
     }
