@@ -126,6 +126,7 @@ public class userFeedback extends AppCompatActivity {
                 data.put("username", user.getDisplayName());
                 data.put("rating",userRating);
                 data.put("userFeedback",feedback);
+                data.put("date",date);
                 dbFeedback.child(feedbackCounter + "").setValue(data);
                 idCheck.child("feedbackID").setValue(feedbackCounter + 1);
 

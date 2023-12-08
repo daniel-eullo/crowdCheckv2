@@ -2,18 +2,19 @@ package com.example.customchu;
 
 public class MainModel {
     //must be the same name to firebase key
-    String username, account_id, userFeedback;
+    String username, account_id, userFeedback, date;
     Long rating;
 
-    MainModel(){
-
-    }
-
-    public MainModel(String username, String account_id, String userFeedback, int rating) {
+    public MainModel(String username, String account_id, String userFeedback, String date, Long rating) {
         this.username = username;
         this.account_id = account_id;
         this.userFeedback = userFeedback;
-        this.rating = (long) rating;
+        this.date = date;
+        this.rating = rating;
+    }
+
+    MainModel(){
+
     }
 
     public String getUsername() {
@@ -40,11 +41,19 @@ public class MainModel {
         this.userFeedback = userFeedback;
     }
 
-    public int getRating() {
-        return Math.toIntExact(rating);
+    public String getDate() {
+        return date;
     }
 
-    public void setRating(int rating) {
-        this.rating = (long) rating;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
     }
 }

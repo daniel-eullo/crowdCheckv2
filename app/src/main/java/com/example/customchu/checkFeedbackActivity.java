@@ -45,7 +45,7 @@ public class checkFeedbackActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Feedback").child("feedbackMssg"), MainModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Feedback").child("feedbackTicket"), MainModel.class)
                         .build();
 
         mainAdapter = new MainAdapter(options);

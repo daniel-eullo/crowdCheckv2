@@ -30,6 +30,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
         holder.account_id.setText(model.getAccount_id());
         holder.rating.setText(String.valueOf(model.getRating()));
         holder.userFeedback.setText(model.getUserFeedback());
+        holder.date.setText(model.getDate());
 
     }
 
@@ -41,10 +42,11 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
     }
 
     class myViewHolder extends RecyclerView.ViewHolder{
-        TextView username, account_id,rating,userFeedback;
+        TextView username, account_id,rating,userFeedback, date;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
+            date = itemView.findViewById(R.id.date);
             username = itemView.findViewById(R.id.username);
             account_id = itemView.findViewById(R.id.account_id);
             rating = itemView.findViewById(R.id.rating);
