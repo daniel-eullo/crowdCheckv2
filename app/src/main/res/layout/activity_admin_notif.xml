@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adminNotif">
+
+    <View
+        android:id="@+id/setNotifView"
+        android:layout_width="413dp"
+        android:layout_height="100dp"
+        android:foreground="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/adminTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="Set Notifications"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setNotifView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/setNotifView"
+        app:layout_constraintTop_toTopOf="@+id/setNotifView" />
+
+    <ImageButton
+        android:id="@+id/adminNotifBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/setNotifView"
+        app:layout_constraintEnd_toStartOf="@+id/adminTxt"
+        app:layout_constraintStart_toStartOf="@+id/setNotifView"
+        app:layout_constraintTop_toTopOf="@+id/setNotifView"
+        app:srcCompat="@drawable/icons8_back_30" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

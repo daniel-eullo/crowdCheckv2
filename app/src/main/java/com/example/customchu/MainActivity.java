@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null) {
-            toHomeActivity();
-        }
+//        if (account != null) {
+//            toHomeActivity();
+//        }
     }
 
     private void signIn() {
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toHomeActivity() {
-        finish();
         Intent intent = new Intent(getApplicationContext(), home.class);
         intent.putExtra("profile", userProfile);
         startActivity(intent);

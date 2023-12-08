@@ -31,6 +31,7 @@ public class updatedlibraryb extends AppCompatActivity {
     DatabaseReference databaseFacility;
     int libRoom2;
     TextView floor2count;
+    Button to1stFloor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,8 @@ public class updatedlibraryb extends AppCompatActivity {
             finish();
         });
 
-        Button nextbutton = findViewById(R.id.to2ndFloor);
-        nextbutton.setOnClickListener(view -> {
+        to1stFloor = findViewById(R.id.to1stFloor);
+        to1stFloor.setOnClickListener(view -> {
             Intent intent = new Intent(updatedlibraryb.this, updatedlibrary.class);
             startActivity(intent);
         });

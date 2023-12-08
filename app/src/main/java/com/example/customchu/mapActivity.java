@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ImageViewCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,9 +30,8 @@ public class mapActivity extends AppCompatActivity {
     ImageButton mapBack;
     Button btn2ndFloor;
     DatabaseReference databaseFacility;
-    int libRoom1, libRoom2;
+    int libRoom1;
     TextView room1Count;
-    //TextView room2Count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,8 @@ public class mapActivity extends AppCompatActivity {
 
         mapBack = findViewById(R.id.mapBack);
         mapBack.setOnClickListener(view -> {
-//            Intent intent = new Intent(mapActivity.this, home.class);
-//            startActivity(intent);
-            finish();
+            Intent intent = new Intent(mapActivity.this, home.class);
+            startActivity(intent);
         });
         btn2ndFloor = findViewById(R.id.btn2ndFloor);
         btn2ndFloor.setOnClickListener(view -> {
@@ -50,69 +49,56 @@ public class mapActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        room1Count = findViewById(R.id.room1Count);
-        // room2Count = findViewById(R.id.room2Count);
-
-        lowCrowd = findViewById(R.id.imageView9);
+        room1Count = findViewById(R.id.room1Count);lowCrowd = findViewById(R.id.imageView9);
         midCrowd = findViewById(R.id.imageView12);
         hiCrowd = findViewById(R.id.imageView15);
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
         DatabaseReference room1 = databaseFacility.child("Rooms").child("GF").child("Current");
-        //DatabaseReference room2 = databaseFacility.child("Rooms").child("2F").child("Current");
-
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 room1Count.setText(dataSnapshot.getValue() + "");
                 libRoom1 = Integer.parseInt(dataSnapshot.getValue() + "");
-                if (libRoom1 < 21) {
+
+                if (libRoom1 <= 10) {
                     lowCrowd.setVisibility(View.VISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                } else if (libRoom1 < 36) {
+                } else if (libRoom1 <= 30) {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.VISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                } else {
+                } else if (libRoom1 <= 50) {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.VISIBLE);
                 }
+
+                // Update notification preferences based on the current count
+                updateNotificationPreferences(libRoom1);
             }
 
+            private void updateNotificationPreferences(int currentCount) {
+                // Get the SharedPreferences editor
+                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+
+                // Save the notification preferences based on the current count
+                editor.putBoolean("lowDensity", currentCount <= 10);
+                editor.putBoolean("mediumDensity", currentCount > 10 && currentCount <= 30);
+                editor.putBoolean("highDensity", currentCount > 30 && currentCount <= 50);
+
+                // Apply changes
+                editor.apply();
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
+        // Attach the ValueEventListener to the DatabaseReference
         room1.addValueEventListener(postListener);
-//        ValueEventListener rtCrowdCheck = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//
-//            }
-//        };
-//        ValueEventListener postListener2 = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                room2Count.setText(dataSnapshot.getValue() + "");
-//                libRoom2 = Integer.parseInt(dataSnapshot.getValue() + "");
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//            }
-//        };
-//        room2.addValueEventListener(postListener2);
     }
 }
