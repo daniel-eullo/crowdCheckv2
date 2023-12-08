@@ -13,9 +13,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="listactivity"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/roundedlogo"
+        android:label="Crowd Check"
+        android:roundIcon="@drawable/roundedlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Customchu"
         tools:targetApi="31">

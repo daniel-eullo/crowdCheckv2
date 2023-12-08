@@ -107,7 +107,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
-        <!-- Toggle button for enabling/disabling notifications -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,6 +141,28 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/floortxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Select the floor level for notifications." />
+
+            <CheckBox
+                android:id="@+id/groundfloorchkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ground Floor"
+                android:enabled="false" />
+
+            <CheckBox
+                android:id="@+id/secondfloorchkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Second Floor"
+                android:enabled="false" />
+
+
+            <TextView
                 android:id="@+id/textViewDensity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:text="High Density"
                 android:enabled="false" />
+
         </RadioGroup>
     </LinearLayout>
 

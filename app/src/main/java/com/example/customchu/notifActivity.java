@@ -6,13 +6,10 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -30,13 +27,12 @@ public class notifActivity extends AppCompatActivity {
     private static final int LOW_DENSITY_NOTIFICATION_ID = 1;
     private static final int MEDIUM_DENSITY_NOTIFICATION_ID = 2;
     private static final int HIGH_DENSITY_NOTIFICATION_ID = 3;
-    private static final int SAME_DENSITY_NOTIFICATION_ID = 4;
 
     ImageButton notifBack;
     Switch enableSwitch;
     Switch soundVibrateSwitch;
 
-    CheckBox lowDensity, mediumDensity, highDensity;
+    CheckBox lowDensity, mediumDensity, highDensity, groundfloorchkb, secondfloorchkb;
 
     // SharedPreferences keys
     private static final String SWITCH_STATE_KEY = "enableSwitchState";
@@ -48,16 +44,12 @@ public class notifActivity extends AppCompatActivity {
 
     DatabaseReference databaseFacility;
 
-    private final Handler floatingNotificationHandler = new Handler();
-    private static final int FLOATING_NOTIFICATION_DELAY = 3000;
     private final Handler handler = new Handler();
     private static final long NOTIFICATION_CHECK_INTERVAL = 3000; // 3secs
 
     private boolean lowDensityNotificationShown = false;
     private boolean mediumDensityNotificationShown = false;
     private boolean highDensityNotificationShown = false;
-    private View floatingView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +62,8 @@ public class notifActivity extends AppCompatActivity {
         lowDensity = findViewById(R.id.lowDensity);
         mediumDensity = findViewById(R.id.mediumDensity);
         highDensity = findViewById(R.id.highDensity);
+        groundfloorchkb = findViewById(R.id.groundfloorchkb);
+        secondfloorchkb = findViewById(R.id.secondfloorchkb);
 
         // Initialize SharedPreferences
         sharedPreferences = getPreferences(MODE_PRIVATE);
@@ -78,6 +72,9 @@ public class notifActivity extends AppCompatActivity {
         lowDensity.setChecked(sharedPreferences.getBoolean("lowDensity", false));
         mediumDensity.setChecked(sharedPreferences.getBoolean("mediumDensity", false));
         highDensity.setChecked(sharedPreferences.getBoolean("highDensity", false));
+        groundfloorchkb.setChecked(sharedPreferences.getBoolean("groundfloorchkb", false));
+        secondfloorchkb.setChecked(sharedPreferences.getBoolean("secondfloorchkb", false));
+
         enableSwitch.setChecked(sharedPreferences.getBoolean(SWITCH_STATE_KEY, false));
         soundVibrateSwitch.setChecked(sharedPreferences.getBoolean(SOUND_VIBRATE_SWITCH_KEY, false));
 
@@ -85,6 +82,32 @@ public class notifActivity extends AppCompatActivity {
         enableSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             updateCheckBoxesAvailability(isChecked);
             saveSwitchState(isChecked, SWITCH_STATE_KEY);
+
+            if (!isChecked) {
+                // Reset the state of checkboxes when the switch is turned off
+                lowDensityNotificationShown = false;
+                mediumDensityNotificationShown = false;
+                highDensityNotificationShown = false;
+                // Uncheck the checkboxes when the switch is turned off
+                lowDensity.setChecked(false);
+                mediumDensity.setChecked(false);
+                highDensity.setChecked(false);
+                groundfloorchkb.setChecked(false);
+                secondfloorchkb.setChecked(false);
+
+                // Remove callbacks to stop periodic checks when the switch is turned off
+                handler.removeCallbacks(notificationCheckRunnable);
+            } else {
+                // Allow checking density checkboxes only if either groundfloorchkb or secondfloorchkb is checked
+                if (!groundfloorchkb.isChecked() && !secondfloorchkb.isChecked()) {
+                    lowDensity.setChecked(false);
+                    mediumDensity.setChecked(false);
+                    highDensity.setChecked(false);
+                }
+
+                // Schedule periodic notification checks when the switch is turned on
+                handler.postDelayed(notificationCheckRunnable, NOTIFICATION_CHECK_INTERVAL);
+            }
 
             if (isChecked) {
                 createNotifications();
@@ -100,6 +123,8 @@ public class notifActivity extends AppCompatActivity {
             saveCheckboxState(lowDensity, "lowDensity");
             saveCheckboxState(mediumDensity, "mediumDensity");
             saveCheckboxState(highDensity, "highDensity");
+            saveCheckboxState(groundfloorchkb, "groundfloorchkb");
+            saveCheckboxState(secondfloorchkb, "secondfloorchkb");
             saveSwitchState(enableSwitch.isChecked(), SWITCH_STATE_KEY);
             saveSwitchState(soundVibrateSwitch.isChecked(), SOUND_VIBRATE_SWITCH_KEY);
 
@@ -120,14 +145,42 @@ public class notifActivity extends AppCompatActivity {
             createNotifications();
         }
 
-        // Schedule periodic notification checks
-        handler.postDelayed(notificationCheckRunnable, NOTIFICATION_CHECK_INTERVAL);
+        // Add listeners to groundfloorchkb and secondfloorchkb
+        groundfloorchkb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateCheckBoxesAvailability(enableSwitch.isChecked());
+        });
+
+        secondfloorchkb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateCheckBoxesAvailability(enableSwitch.isChecked());
+        });
+
+        // Restore the state of checkboxes and switches when coming back to the activity
+        if (enableSwitch.isChecked()) {
+            updateCheckBoxesAvailability(true);
+            createNotifications();
+        } else {
+            updateCheckBoxesAvailability(false);
+        }
     }
 
     private void updateCheckBoxesAvailability(boolean isChecked) {
-        lowDensity.setEnabled(isChecked);
-        mediumDensity.setEnabled(isChecked);
-        highDensity.setEnabled(isChecked);
+        boolean isGroundFloorChecked = groundfloorchkb.isChecked();
+        boolean isSecondFloorChecked = secondfloorchkb.isChecked();
+
+        boolean enableDensityCheckboxes = isChecked && (isGroundFloorChecked || isSecondFloorChecked);
+
+        lowDensity.setEnabled(enableDensityCheckboxes);
+        mediumDensity.setEnabled(enableDensityCheckboxes);
+        highDensity.setEnabled(enableDensityCheckboxes);
+        groundfloorchkb.setEnabled(isChecked);
+        secondfloorchkb.setEnabled(isChecked);
+
+        // If both groundfloorchkb and secondfloorchkb are unchecked, uncheck density checkboxes
+        if (!isGroundFloorChecked && !isSecondFloorChecked) {
+            lowDensity.setChecked(false);
+            mediumDensity.setChecked(false);
+            highDensity.setChecked(false);
+        }
     }
 
     // Save the state of a checkbox in SharedPreferences
@@ -193,14 +246,18 @@ public class notifActivity extends AppCompatActivity {
                         // Check and show notifications for the first room (GF)
                         checkAndShowNotification(notificationManager, libRoom1, "Ground Floor");
 
-                        // Log statements to help diagnose the issue
-                        Log.d("NotificationDebug", "libRoom2: " + libRoom2);
-                        Log.d("NotificationDebug", "lowDensity: " + lowDensity.isChecked());
-                        Log.d("NotificationDebug", "mediumDensity: " + mediumDensity.isChecked());
-                        Log.d("NotificationDebug", "highDensity: " + highDensity.isChecked());
-
                         // Check and show notifications for the second room (2F)
                         checkAndShowNotification(notificationManager, libRoom2, "Second Floor");
+
+                        // Check and show notifications for groundfloorchkb
+                        if (groundfloorchkb.isChecked()) {
+                            checkAndShowNotification(notificationManager, libRoom1, "Ground Floor");
+                        }
+
+                        // Check and show notifications for secondfloorchkb
+                        if (secondfloorchkb.isChecked()) {
+                            checkAndShowNotification(notificationManager, libRoom2, "Second Floor");
+                        }
                     }
                 });
             }
@@ -208,55 +265,54 @@ public class notifActivity extends AppCompatActivity {
     }
 
     private void checkAndShowNotification(NotificationManager notificationManager, int roomCount, String floor) {
-        int lowDensityThreshold = 10;
-        int mediumDensityThreshold = 30;
-        int highDensityThreshold = 50;
+        boolean isGroundFloorChecked = groundfloorchkb.isChecked();
+        boolean isSecondFloorChecked = secondfloorchkb.isChecked();
 
-        boolean isLowDensity = roomCount <= lowDensityThreshold;
-        boolean isMediumDensity = roomCount <= mediumDensityThreshold;
-        boolean isHighDensity = roomCount <= highDensityThreshold;
-
-        boolean showLowDensityNotification = isLowDensity && lowDensity.isChecked();
-        boolean showMediumDensityNotification = isMediumDensity && mediumDensity.isChecked();
-        boolean showHighDensityNotification = isHighDensity && highDensity.isChecked();
-
-        if (showLowDensityNotification || showMediumDensityNotification || showHighDensityNotification) {
-            // Check if the densities are the same for both floors
-            boolean isSameDensity = libRoom1 <= lowDensityThreshold && libRoom2 <= lowDensityThreshold;
-
-            // Choose the appropriate channel and notification ID based on the density
-            String channel;
-            int notificationId;
-
-            if (isSameDensity) {
-                channel = "sameDensityChannel";
-                notificationId = SAME_DENSITY_NOTIFICATION_ID;
-            } else if (showLowDensityNotification) {
-                channel = "lowChannel";
-                notificationId = LOW_DENSITY_NOTIFICATION_ID;
-            } else if (showMediumDensityNotification) {
-                channel = "mediumChannel";
-                notificationId = MEDIUM_DENSITY_NOTIFICATION_ID;
-            } else {
-                channel = "highChannel";
-                notificationId = HIGH_DENSITY_NOTIFICATION_ID;
+        if ((isGroundFloorChecked && floor.equals("Ground Floor")) || (isSecondFloorChecked && floor.equals("Second Floor"))) {
+            if (floor.equals("Ground Floor")) {
+                if (roomCount <= 10 && lowDensity.isChecked() && !lowDensityNotificationShown) {
+                    Log.d("NotificationDebug", "Showing low density notification for " + floor);
+                    showNotification(notificationManager, "lowChannel", LOW_DENSITY_NOTIFICATION_ID, floor, "Low crowd detected!");
+                    lowDensityNotificationShown = true;
+                } else if (roomCount > 10 && roomCount <= 30 && mediumDensity.isChecked() && !mediumDensityNotificationShown) {
+                    Log.d("NotificationDebug", "Showing medium density notification for " + floor);
+                    showNotification(notificationManager, "mediumChannel", MEDIUM_DENSITY_NOTIFICATION_ID, floor, "Medium crowd detected!");
+                    mediumDensityNotificationShown = true;
+                } else if (roomCount > 30 && roomCount <= 50 && highDensity.isChecked() && !highDensityNotificationShown) {
+                    Log.d("NotificationDebug", "Showing high density notification for " + floor);
+                    showNotification(notificationManager, "highChannel", HIGH_DENSITY_NOTIFICATION_ID, floor, "High crowd detected!");
+                    highDensityNotificationShown = true;
+                }
+            } else if (floor.equals("Second Floor")) {
+                // Adjust conditions for Second Floor as needed
+                if (roomCount <= 10 && lowDensity.isChecked() && !lowDensityNotificationShown) {
+                    Log.d("NotificationDebug", "Showing low density notification for " + floor);
+                    showNotification(notificationManager, "lowChannel", LOW_DENSITY_NOTIFICATION_ID, floor, "Low crowd detected!");
+                    lowDensityNotificationShown = true;
+                } else if (roomCount > 10 && roomCount <= 30 && mediumDensity.isChecked() && !mediumDensityNotificationShown) {
+                    Log.d("NotificationDebug", "Showing medium density notification for " + floor);
+                    showNotification(notificationManager, "mediumChannel", MEDIUM_DENSITY_NOTIFICATION_ID, floor, "Medium crowd detected!");
+                    mediumDensityNotificationShown = true;
+                } else if (roomCount > 30 && roomCount <= 50 && highDensity.isChecked() && !highDensityNotificationShown) {
+                    Log.d("NotificationDebug", "Showing high density notification for " + floor);
+                    showNotification(notificationManager, "highChannel", HIGH_DENSITY_NOTIFICATION_ID, floor, "High crowd detected!");
+                    highDensityNotificationShown = true;
+                }
             }
+        }
 
-            Log.d("NotificationDebug", "Showing density notification for " + floor);
-            showNotification(notificationManager, channel, notificationId, floor, getDensityMessage(roomCount));
-            FloatingNotification.show(this, getDensityMessage(roomCount) + " (" + floor + ")");
+        // Reset flags if the density condition is no longer met
+        if (roomCount > 10) {
+            lowDensityNotificationShown = false;
+        }
+        if (roomCount > 30) {
+            mediumDensityNotificationShown = false;
+        }
+        if (roomCount > 50) {
+            highDensityNotificationShown = false;
         }
     }
 
-    private String getDensityMessage(int roomCount) {
-        if (roomCount <= 10) {
-            return "Low crowd detected!";
-        } else if (roomCount <= 30) {
-            return "Medium crowd detected!";
-        } else {
-            return "High crowd detected!";
-        }
-    }
     private void showNotification(NotificationManager notificationManager, String channelId, int notificationId, String title, String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.notificon)
@@ -293,25 +349,12 @@ public class notifActivity extends AppCompatActivity {
     };
 
 
-    // Show Floating Notification
-    private void showFloatingNotification(String message) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-            // If the user has not granted the permission, request it.
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, 1234);
-        } else {
-            // Display the floating notification
-            FloatingNotification.show(this, message);
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
         // Remove callbacks to prevent memory leaks
-        handler.removeCallbacks(notificationCheckRunnable);
-        floatingNotificationHandler.removeCallbacksAndMessages(null);
+        handler.removeCallbacksAndMessages(null);
     }
+
 }
