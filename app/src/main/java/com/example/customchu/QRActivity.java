@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.os.Handler;
 
 public class QRActivity extends AppCompatActivity {
     ImageButton qrBack;
@@ -46,10 +45,11 @@ public class QRActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     GoogleSignInAccount user;
     Boolean qrScanned;
+    String scannedContent;
 
     DatabaseReference room1, room2, capRoom1, capRoom2;
-    Dialog dialog;
-    Button qrDialogCancel, qrDialogProceed;
+    Dialog dialog, dialogExit;
+    Button qrDialogCancel, qrDialogProceed, qrToHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,12 +87,39 @@ public class QRActivity extends AppCompatActivity {
         qrDialogProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                startActivity(intent);
+//                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                startActivity(intent);
+
+                if (scannedContent.equalsIgnoreCase("Library Ground Floor")){
+                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+                    startActivity(intent);
+                } else if (scannedContent.equalsIgnoreCase("Library Second Floor")){
+                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+                    startActivity(intent);
+                }
 
                 dialog.dismiss();
             }
         });
+
+        //dialog box for
+        dialogExit = new Dialog(QRActivity.this);
+        dialogExit.setContentView(R.layout.dialog_exit);
+        dialogExit.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogExit.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialogExit.setCancelable(false);
+
+        qrToHome = dialogExit.findViewById(R.id.qrToHome);
+        qrToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QRActivity.this, home.class);
+                startActivity(intent);
+
+                dialogExit.dismiss();
+            }
+        });
+
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -161,7 +188,7 @@ public class QRActivity extends AppCompatActivity {
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
-            String scannedContent = result.getText();
+            scannedContent = result.getText();
             String expectedContent = "Library Room1";
             if (scannedContent.equalsIgnoreCase("Library Ground Floor") && qrScanned == false) {
                 // check if room is full
@@ -179,9 +206,9 @@ public class QRActivity extends AppCompatActivity {
                     insertOnRoom1();
 
                     qrScanned = true;
-
-                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                    startActivity(intent);
+                    dialog.show();
+//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                    startActivity(intent);
                 }
             } else if (scannedContent.equalsIgnoreCase("Library Second Floor") && qrScanned == false) {
                 // check if room is full
@@ -199,8 +226,10 @@ public class QRActivity extends AppCompatActivity {
 
                     qrScanned = true;
 
-                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-                    startActivity(intent);
+                    dialog.show();
+
+//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+//                    startActivity(intent);
                 }
 
 
@@ -220,9 +249,11 @@ public class QRActivity extends AppCompatActivity {
 
                     qrScanned = true;
 
+                    dialogExit.show();
+
                     txtScan.setText("Exit scanned. See you again!");
-                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                    startActivity(intent);
                 }
             } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit") && qrScanned == false) {
                 // check if room is full
@@ -240,10 +271,12 @@ public class QRActivity extends AppCompatActivity {
 
                     qrScanned = true;
 
+                    dialogExit.show();
+
                     txtScan.setText("Exit scanned. See you again!");
                     //successful notif muna dapat dito
-                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+//                    startActivity(intent);
                 }
 
 
