@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,7 +94,7 @@ public class userFeedback extends AppCompatActivity {
 
         submitFeedback = findViewById(R.id.submitFeedback);
         feedbackInput = findViewById(R.id.feedbackInput);
-        dbFeedback = databaseFacility.child("Feedback").child("feedbackMssg");
+        dbFeedback = databaseFacility.child("Feedback").child("feedbackTicket");
 
         //check current feedbackID
         idCheck = databaseFacility.child("Feedback");
@@ -109,7 +111,7 @@ public class userFeedback extends AppCompatActivity {
 
         };
         idCheck.addValueEventListener(postListener);
-
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 
         //testRating.setText(userRating.toString());
@@ -117,14 +119,14 @@ public class userFeedback extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //dbFeedback.child("User1").push().setValue(userRating);
-                String feedbackid = "feedbackID" + feedbackCounter;
+                //String feedbackid = "feedbackID" + feedbackCounter;
                 feedback = feedbackInput.getText().toString();
                 Map <String, Object> data = new HashMap<>();
                 data.put("account_id", user.getId());
                 data.put("username", user.getDisplayName());
                 data.put("rating",userRating);
                 data.put("userFeedback",feedback);
-                dbFeedback.child(feedbackid).setValue(data);
+                dbFeedback.child(feedbackCounter + "").setValue(data);
                 idCheck.child("feedbackID").setValue(feedbackCounter + 1);
 
                 dialog.show();
