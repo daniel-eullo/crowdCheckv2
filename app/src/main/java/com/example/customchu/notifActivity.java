@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -62,7 +63,8 @@ public class notifActivity extends AppCompatActivity {
         secondfloorchkb = findViewById(R.id.secondfloorchkb);
 
         // Initialize SharedPreferences
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         // Set the initial state of checkboxes and switches based on the stored values
         lowDensity.setChecked(sharedPreferences.getBoolean("lowDensity", false));
@@ -181,14 +183,14 @@ public class notifActivity extends AppCompatActivity {
     private void saveCheckboxState(CheckBox checkBox, String key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, checkBox.isChecked());
-        editor.apply();
+        editor.apply();  // Ensure that changes are persisted
     }
 
     // Save the state of the switches in SharedPreferences
     private void saveSwitchState(boolean isChecked, String key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, isChecked);
-        editor.apply();
+        editor.apply();  // Ensure that changes are persisted
     }
 
     private void getCurrentCount(String room, CountCallback callback) {
