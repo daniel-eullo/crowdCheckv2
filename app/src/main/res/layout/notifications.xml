@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/view5"
@@ -43,6 +42,7 @@
         android:layout_width="370dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
+        android:tint="?android:attr/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5"
@@ -101,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/border"
+        android:backgroundTint="?android:attr/textColorPrimary"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -151,15 +152,15 @@
                 android:id="@+id/groundfloorchkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ground Floor"
-                android:enabled="false" />
+                android:enabled="false"
+                android:text="Ground Floor" />
 
             <CheckBox
                 android:id="@+id/secondfloorchkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Second Floor"
-                android:enabled="false" />
+                android:enabled="false"
+                android:text="Second Floor" />
 
 
             <TextView
@@ -173,22 +174,22 @@
                 android:id="@+id/lowDensity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Low Density"
-                android:enabled="false" />
+                android:enabled="false"
+                android:text="Low Density" />
 
             <CheckBox
                 android:id="@+id/mediumDensity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium Density"
-                android:enabled="false" />
+                android:enabled="false"
+                android:text="Medium Density" />
 
             <CheckBox
                 android:id="@+id/highDensity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High Density"
-                android:enabled="false" />
+                android:enabled="false"
+                android:text="High Density" />
 
         </RadioGroup>
     </LinearLayout>
