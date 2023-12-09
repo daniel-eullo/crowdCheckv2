@@ -44,10 +44,12 @@ public class QRActivity extends AppCompatActivity {
     int capLibRoom1 = 50, capLibRoom2 = 50;
     private CodeScanner mCodeScanner;
     GoogleSignInAccount user;
+    Boolean qrScanned;
+    String scannedContent;
 
     DatabaseReference room1, room2, capRoom1, capRoom2;
-    Dialog dialog;
-    Button qrDialogCancel, qrDialogProceed;
+    Dialog dialog, dialogExit;
+    Button qrDialogCancel, qrDialogProceed, qrToHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +87,39 @@ public class QRActivity extends AppCompatActivity {
         qrDialogProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                startActivity(intent);
+//                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                startActivity(intent);
+
+                if (scannedContent.equalsIgnoreCase("Library Ground Floor")){
+                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+                    startActivity(intent);
+                } else if (scannedContent.equalsIgnoreCase("Library Second Floor")){
+                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+                    startActivity(intent);
+                }
 
                 dialog.dismiss();
             }
         });
+
+        //dialog box for
+        dialogExit = new Dialog(QRActivity.this);
+        dialogExit.setContentView(R.layout.dialog_exit);
+        dialogExit.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogExit.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialogExit.setCancelable(false);
+
+        qrToHome = dialogExit.findViewById(R.id.qrToHome);
+        qrToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(QRActivity.this, home.class);
+                startActivity(intent);
+
+                dialogExit.dismiss();
+            }
+        });
+
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -156,13 +185,12 @@ public class QRActivity extends AppCompatActivity {
         capRoom2 = databaseFacility.child("Rooms").child("2F").child("Cap");
         capRoom2.addValueEventListener(postListener4);
 
-
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
-            String scannedContent = result.getText();
+            scannedContent = result.getText();
             String expectedContent = "Library Room1";
-            if (scannedContent.equalsIgnoreCase("Library Ground Floor")) {
+            if (scannedContent.equalsIgnoreCase("Library Ground Floor") && qrScanned == false) {
                 // check if room is full
                 if (libRoom1 >= capLibRoom1) {
                     // show message that the room is full
@@ -177,11 +205,12 @@ public class QRActivity extends AppCompatActivity {
                     room1.child("Current").setValue(libRoom1 + 1);
                     insertOnRoom1();
 
+                    qrScanned = true;
                     dialog.show();
 //                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
 //                    startActivity(intent);
                 }
-            } else if (scannedContent.equalsIgnoreCase("Library Second Floor")) {
+            } else if (scannedContent.equalsIgnoreCase("Library Second Floor") && qrScanned == false) {
                 // check if room is full
                 if (libRoom2 >= capLibRoom2) {
                     txtScan.setText("Room is full, try again later");
@@ -195,12 +224,16 @@ public class QRActivity extends AppCompatActivity {
                     room2.child("Current").setValue(libRoom2 + 1);
                     insertOnRoom2();
 
-                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-                    startActivity(intent);
+                    qrScanned = true;
+
+                    dialog.show();
+
+//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+//                    startActivity(intent);
                 }
 
 
-            } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit")) {
+            } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit") && qrScanned == false) {
                 // check if room is full
                 if (libRoom1 <= 0) {
                     txtScan.setText("Room is empty, try again later");
@@ -214,11 +247,15 @@ public class QRActivity extends AppCompatActivity {
                     room1.child("Current").setValue(libRoom1 - 1);
                     outsertOnRoom1();
 
+                    qrScanned = true;
+
+                    dialogExit.show();
+
                     txtScan.setText("Exit scanned. See you again!");
-                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                    startActivity(intent);
                 }
-            } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit")) {
+            } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit") && qrScanned == false) {
                 // check if room is full
                 if (libRoom2 <= 0) {
                     txtScan.setText("Room is empty, try again later");
@@ -232,10 +269,14 @@ public class QRActivity extends AppCompatActivity {
                     room2.child("Current").setValue(libRoom2 - 1);
                     outsertOnRoom2();
 
+                    qrScanned = true;
+
+                    dialogExit.show();
+
                     txtScan.setText("Exit scanned. See you again!");
                     //successful notif muna dapat dito
-                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+//                    startActivity(intent);
                 }
 
 
@@ -251,6 +292,7 @@ public class QRActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        qrScanned = false;
         mCodeScanner.startPreview();
     }
 
@@ -298,7 +340,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", true);
                     data.put("date_and_time", dateAndTime);
 
-                    room1.child("History").child(date).child(user.getId()+"out").setValue(data);
+                    room1.child("History").child(date).child(user.getId()+":out:"+dateAndTime).setValue(data);
                 }
             }
 
@@ -323,7 +365,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", true);
                     data.put("date_and_time", dateAndTime);
 
-                    room2.child("History").child(date).child(user.getId()+"out").setValue(data);
+                    room2.child("History").child(date).child(user.getId()+":out:"+dateAndTime).setValue(data);
                 }
             }
 
@@ -348,7 +390,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", false);
                     data.put("date_and_time", dateAndTime);
 
-                    room1.child("History").child(date).child(user.getId()+"in").setValue(data);
+                    room1.child("History").child(date).child(user.getId()+":in:"+dateAndTime).setValue(data);
                 }
             }
 
@@ -373,7 +415,7 @@ public class QRActivity extends AppCompatActivity {
                     data.put("out", false);
                     data.put("date_and_time", dateAndTime);
 
-                    room2.child("History").child(date).child(user.getId()+"in").setValue(data);
+                    room2.child("History").child(date).child(user.getId()+":in:"+dateAndTime).setValue(data);
                 }
             }
 
