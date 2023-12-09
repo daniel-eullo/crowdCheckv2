@@ -62,15 +62,15 @@ public class mapActivity extends AppCompatActivity {
                 room1Count.setText(dataSnapshot.getValue() + "");
                 libRoom1 = Integer.parseInt(dataSnapshot.getValue() + "");
 
-                if (libRoom1 <= 10) {
+                if (libRoom1 < 21) {
                     lowCrowd.setVisibility(View.VISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                } else if (libRoom1 <= 30) {
+                } else if (libRoom1 < 36) {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.VISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                } else if (libRoom1 <= 50) {
+                } else {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.VISIBLE);

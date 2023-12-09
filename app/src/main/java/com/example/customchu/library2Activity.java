@@ -60,15 +60,15 @@ public class library2Activity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 room2Count.setText(dataSnapshot.getValue() + "");
                 libRoom2 = Integer.parseInt(dataSnapshot.getValue() + "");
-                if (libRoom2 <= 10) {
+                if (libRoom2 < 21) {
                     lowCrowd.setVisibility(View.VISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                } else if (libRoom2 <= 30) {
+                } else if (libRoom2 < 36) {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.VISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                } else if (libRoom2 <= 50) {
+                } else {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.VISIBLE);
