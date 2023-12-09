@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -43,9 +42,6 @@ public class notifActivity extends AppCompatActivity {
     int libRoom1, libRoom2;
 
     DatabaseReference databaseFacility;
-
-    private final Handler handler = new Handler();
-    private static final long NOTIFICATION_CHECK_INTERVAL = 3000; // 3secs
 
     private boolean lowDensityNotificationShown = false;
     private boolean mediumDensityNotificationShown = false;
@@ -94,9 +90,6 @@ public class notifActivity extends AppCompatActivity {
                 highDensity.setChecked(false);
                 groundfloorchkb.setChecked(false);
                 secondfloorchkb.setChecked(false);
-
-                // Remove callbacks to stop periodic checks when the switch is turned off
-                handler.removeCallbacks(notificationCheckRunnable);
             } else {
                 // Allow checking density checkboxes only if either groundfloorchkb or secondfloorchkb is checked
                 if (!groundfloorchkb.isChecked() && !secondfloorchkb.isChecked()) {
@@ -105,11 +98,7 @@ public class notifActivity extends AppCompatActivity {
                     highDensity.setChecked(false);
                 }
 
-                // Schedule periodic notification checks when the switch is turned on
-                handler.postDelayed(notificationCheckRunnable, NOTIFICATION_CHECK_INTERVAL);
-            }
-
-            if (isChecked) {
+                // Update notifications when the switch is turned on
                 createNotifications();
             }
         });
@@ -148,16 +137,21 @@ public class notifActivity extends AppCompatActivity {
         // Add listeners to groundfloorchkb and secondfloorchkb
         groundfloorchkb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             updateCheckBoxesAvailability(enableSwitch.isChecked());
+            if (enableSwitch.isChecked()) {
+                createNotifications();
+            }
         });
 
         secondfloorchkb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             updateCheckBoxesAvailability(enableSwitch.isChecked());
+            if (enableSwitch.isChecked()) {
+                createNotifications();
+            }
         });
 
         // Restore the state of checkboxes and switches when coming back to the activity
         if (enableSwitch.isChecked()) {
             updateCheckBoxesAvailability(true);
-            createNotifications();
         } else {
             updateCheckBoxesAvailability(false);
         }
@@ -336,25 +330,9 @@ public class notifActivity extends AppCompatActivity {
         void onCountReady(int count);
     }
 
-    // Runnable for periodic notification checks
-    private final Runnable notificationCheckRunnable = new Runnable() {
-        @Override
-        public void run() {
-            // Perform notification checks
-            createNotifications();
-
-            // Schedule the next notification check
-            handler.postDelayed(this, NOTIFICATION_CHECK_INTERVAL);
-        }
-    };
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        // Remove callbacks to prevent memory leaks
-        handler.removeCallbacksAndMessages(null);
+        // Cleanup if needed
     }
-
 }
