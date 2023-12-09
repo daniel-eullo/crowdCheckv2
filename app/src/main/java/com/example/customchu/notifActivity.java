@@ -264,30 +264,30 @@ public class notifActivity extends AppCompatActivity {
 
         if ((isGroundFloorChecked && floor.equals("Ground Floor")) || (isSecondFloorChecked && floor.equals("Second Floor"))) {
             if (floor.equals("Ground Floor")) {
-                if (roomCount <= 10 && lowDensity.isChecked() && !lowDensityNotificationShown) {
+                if (roomCount <= 20 && lowDensity.isChecked() && !lowDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing low density notification for " + floor);
                     showNotification(notificationManager, "lowChannel", LOW_DENSITY_NOTIFICATION_ID, floor, "Low crowd detected!");
                     lowDensityNotificationShown = true;
-                } else if (roomCount > 10 && roomCount <= 30 && mediumDensity.isChecked() && !mediumDensityNotificationShown) {
+                } else if (roomCount > 20 && roomCount <= 35 && mediumDensity.isChecked() && !mediumDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing medium density notification for " + floor);
                     showNotification(notificationManager, "mediumChannel", MEDIUM_DENSITY_NOTIFICATION_ID, floor, "Medium crowd detected!");
                     mediumDensityNotificationShown = true;
-                } else if (roomCount > 30 && roomCount <= 50 && highDensity.isChecked() && !highDensityNotificationShown) {
+                } else if (roomCount > 35 && roomCount <= 50 && highDensity.isChecked() && !highDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing high density notification for " + floor);
                     showNotification(notificationManager, "highChannel", HIGH_DENSITY_NOTIFICATION_ID, floor, "High crowd detected!");
                     highDensityNotificationShown = true;
                 }
             } else if (floor.equals("Second Floor")) {
                 // Adjust conditions for Second Floor as needed
-                if (roomCount <= 10 && lowDensity.isChecked() && !lowDensityNotificationShown) {
+                if (roomCount <= 20 && lowDensity.isChecked() && !lowDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing low density notification for " + floor);
                     showNotification(notificationManager, "lowChannel", LOW_DENSITY_NOTIFICATION_ID, floor, "Low crowd detected!");
                     lowDensityNotificationShown = true;
-                } else if (roomCount > 10 && roomCount <= 30 && mediumDensity.isChecked() && !mediumDensityNotificationShown) {
+                } else if (roomCount > 20 && roomCount <= 35 && mediumDensity.isChecked() && !mediumDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing medium density notification for " + floor);
                     showNotification(notificationManager, "mediumChannel", MEDIUM_DENSITY_NOTIFICATION_ID, floor, "Medium crowd detected!");
                     mediumDensityNotificationShown = true;
-                } else if (roomCount > 30 && roomCount <= 50 && highDensity.isChecked() && !highDensityNotificationShown) {
+                } else if (roomCount > 35 && roomCount <= 50 && highDensity.isChecked() && !highDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing high density notification for " + floor);
                     showNotification(notificationManager, "highChannel", HIGH_DENSITY_NOTIFICATION_ID, floor, "High crowd detected!");
                     highDensityNotificationShown = true;
