@@ -10,11 +10,10 @@
         android:id="@+id/darkModeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
+        android:layout_marginStart="162dp"
         android:layout_marginEnd="162dp"
         app:layout_constraintBottom_toTopOf="@+id/view7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toMap" />
 
@@ -187,12 +186,13 @@
         android:id="@+id/profilebtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="15dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/toFeedback"
+        app:layout_constraintTop_toTopOf="@+id/view7"
         app:srcCompat="@drawable/icons8_user_90" />
 
     <ImageButton
@@ -201,11 +201,12 @@
         android:layout_height="60dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/notificationbtn"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="@+id/view7"
-        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
+        app:layout_constraintTop_toTopOf="@+id/view7"
         app:srcCompat="@drawable/icons8_home_90" />
 
     <ImageButton
@@ -215,9 +216,9 @@
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/view7"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="@+id/view7"
+        app:layout_constraintEnd_toStartOf="@+id/toFeedback"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/homebtn"
         app:layout_constraintTop_toTopOf="@+id/view7"
         app:srcCompat="@drawable/icons8_notification_90" />
 
@@ -225,12 +226,11 @@
         android:id="@+id/toFeedback"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/notificationbtn"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintEnd_toStartOf="@+id/profilebtn"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/notificationbtn"
-        app:layout_constraintTop_toTopOf="@+id/notificationbtn"
-        app:layout_constraintVertical_bias="0.071"
+        app:layout_constraintTop_toTopOf="@+id/view7"
         app:srcCompat="@drawable/feedback_icon_" />
 
     <ImageView
@@ -248,24 +248,21 @@
 
     <ImageView
         android:id="@+id/toGraph"
-        android:layout_width="72dp"
-        android:layout_height="51dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toTopOf="@+id/view7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toEndOf="@+id/darkModeSwitch"
         app:layout_constraintTop_toBottomOf="@+id/toMap"
-        app:srcCompat="@drawable/icons8_statistic_96"
-        android:layout_marginBottom="10dp"/>
+        app:srcCompat="@drawable/chart_column_increase_svgrepo_com" />
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="39dp"
-        android:layout_height="43dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/view7"
         app:layout_constraintEnd_toStartOf="@+id/darkModeSwitch"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toMap"
         app:srcCompat="@drawable/icons8_darkmode_ios_48" />
 
