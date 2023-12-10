@@ -1,15 +1,13 @@
 package com.example.customchu;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -26,37 +24,32 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class graph_activity extends AppCompatActivity {
-    ImageButton graphBack;
-    TextView statTxt;
+public class activity_graph2 extends AppCompatActivity {
+    ImageButton graphBack2;
+    Button to1FLogs;
     DatabaseReference databaseReference2;
     ArrayList<BarEntry> barArrayList;
     BarChart barChart;
-    Button to2FLogs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graph);
+        setContentView(R.layout.activity_graph2);
 
-        graphBack = findViewById(R.id.graphBack);
-        graphBack.setOnClickListener(view -> {
-            Intent intent = new Intent(graph_activity.this, home.class);
+        graphBack2 = findViewById(R.id.graphBack2);
+        graphBack2.setOnClickListener(view -> {
+            Intent intent = new Intent(activity_graph2.this, home.class);
             startActivity(intent);
         });
 
-        to2FLogs = findViewById(R.id.to2FLogs);
-        to2FLogs.setOnClickListener(view -> {
-            Intent intent = new Intent(graph_activity.this, activity_graph2.class);
+        to1FLogs = findViewById(R.id.to1FLogs);
+        to1FLogs.setOnClickListener(view -> {
+            Intent intent = new Intent(activity_graph2.this, graph_activity.class);
             startActivity(intent);
         });
-        //statTxt = findViewById(R.id.statTxt);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference2 = database.getReference("Rooms").child("GF").child("History");
+        databaseReference2 = database.getReference("Rooms").child("2F").child("History");
 
         barArrayList = new ArrayList<>();
         barChart = findViewById(R.id.barChart);

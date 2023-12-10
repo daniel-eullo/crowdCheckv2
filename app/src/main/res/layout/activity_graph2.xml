@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="@+id/checkFeedbackView" />
 
     <ImageButton
-        android:id="@+id/graphBack"
+        android:id="@+id/graphBack2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
@@ -67,11 +67,11 @@
         app:layout_constraintVertical_bias="0.59" />
 
     <Button
-        android:id="@+id/to2FLogs"
+        android:id="@+id/to1FLogs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
-        android:text="to 2F Log ->"
+        android:text="to 1F Log ->"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@+id/barChart"
         app:layout_constraintEnd_toEndOf="parent"
