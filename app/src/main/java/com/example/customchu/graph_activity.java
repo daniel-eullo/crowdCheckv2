@@ -146,7 +146,7 @@ public class graph_activity extends AppCompatActivity {
             barArrayList.add(new BarEntry(hour, count));
         }
     }
-
+//
 //    private void updateGraphStat(Map<String, Integer> hourCounts) {
 //        // Display the counts in the TextView
 //        StringBuilder result = new StringBuilder();
