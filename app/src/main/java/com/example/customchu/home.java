@@ -8,14 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -23,14 +20,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
-import android.content.SharedPreferences;
 
 
 public class home extends AppCompatActivity {
@@ -47,6 +39,12 @@ public class home extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    String[] adminEmails = {
+            "leonard.jade.balajadia@adamson.edu.ph",
+            "mykah.anbea.cabiles@adamson.edu.ph",
+            "don.daniel.eullo@adamson.edu.ph"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +60,15 @@ public class home extends AppCompatActivity {
         notificationBtn = findViewById(R.id.notificationbtn);
         profileBtn = findViewById(R.id.profilebtn);
 
+        // fetch the last signed in google account
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
+        // check if the account's email does not exist in the admin email array
+        if (account != null && !Objects.equals(account.getEmail(), adminEmails[0]) && !Objects.equals(account.getEmail(), adminEmails[1]) && !Objects.equals(account.getEmail(), adminEmails[2])) {
+            // if the account's email does not exist in the admin email array, hide the admin button
+            toAdmin = findViewById(R.id.toAdmin);
+            toAdmin.setVisibility(View.GONE);
+        }
 
         // DARK MODE
 
@@ -73,26 +79,23 @@ public class home extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         nightMode = sharedPreferences.getBoolean("night", false);
 
-        if (nightMode){
+        if (nightMode) {
             darkModeSwitch.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 
-        darkModeSwitch.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                if (nightMode){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("night", false);
-                } else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("night", true);
-                }
-                editor.apply();
-
+        darkModeSwitch.setOnClickListener(view -> {
+            if (nightMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor = sharedPreferences.edit();
+                editor.putBoolean("night", false);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor = sharedPreferences.edit();
+                editor.putBoolean("night", true);
             }
+            editor.apply();
+
         });
 
         // DARK MODE
@@ -106,13 +109,13 @@ public class home extends AppCompatActivity {
             startActivity(intent);
         });
 
-        toFeedback= findViewById(R.id.toFeedback);
+        toFeedback = findViewById(R.id.toFeedback);
         toFeedback.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, userFeedback.class);
             startActivity(intent);
         });
 
-        toAdmin= findViewById(R.id.toAdmin);
+        toAdmin = findViewById(R.id.toAdmin);
         toAdmin.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, adminActivity.class);
             startActivity(intent);
@@ -142,7 +145,7 @@ public class home extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        gsc = GoogleSignIn.getClient(this,gso);
+        gsc = GoogleSignIn.getClient(this, gso);
 
         homeBtn.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, home.class);
