@@ -7,17 +7,42 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="listactivity"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/roundedlogo"
+        android:label="Crowd Check"
+        android:roundIcon="@drawable/roundedlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Customchu"
         tools:targetApi="31">
+        <activity
+            android:name=".dialog_exit"
+            android:exported="false" />
+        <activity
+            android:name=".graph_activity"
+            android:exported="false" />
+        <activity
+            android:name=".logHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".checkFeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adminNotif"
+            android:exported="false" />
+        <activity
+            android:name=".adminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userFeedback"
+            android:exported="false" />
+        <activity
+            android:name=".logActivity"
+            android:exported="false" />
         <activity
             android:name=".updatedlibraryb"
             android:exported="false" />

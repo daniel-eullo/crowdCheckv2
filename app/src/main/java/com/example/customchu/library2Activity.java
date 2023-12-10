@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +27,7 @@ public class library2Activity extends AppCompatActivity {
     ImageView hiCrowd;
     ImageButton mapBack;
     Button btn1stFloor;
-    int libRoom1, libRoom2;
-    //TextView room1Count;
+    int libRoom2;
     TextView room2Count;
     DatabaseReference databaseFacility;
     @Override
@@ -46,8 +46,6 @@ public class library2Activity extends AppCompatActivity {
             Intent intent = new Intent(library2Activity.this, mapActivity.class);
             startActivity(intent);
         });
-
-        //room1Count = findViewById(R.id.room1Count);
         room2Count = findViewById(R.id.room2Count);
 
         lowCrowd = findViewById(R.id.imageView17);
@@ -55,48 +53,40 @@ public class library2Activity extends AppCompatActivity {
         hiCrowd = findViewById(R.id.imageView9);
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
-        //DatabaseReference room1 = databaseFacility.child("Rooms").child("GF").child("Current");
         DatabaseReference room2 = databaseFacility.child("Rooms").child("2F").child("Current");
-
-//        ValueEventListener postListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                room1Count.setText(dataSnapshot.getValue() + "");
-//                libRoom1 = Integer.parseInt(dataSnapshot.getValue() + "");
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//            }
-//
-//        };
-//        room1.addValueEventListener(postListener);
 
         ValueEventListener postListener2 = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 room2Count.setText(dataSnapshot.getValue() + "");
                 libRoom2 = Integer.parseInt(dataSnapshot.getValue() + "");
-                if (libRoom2 < 26)
-                {
+                if (libRoom2 < 21) {
                     lowCrowd.setVisibility(View.VISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-
-                }
-                else if (libRoom2 < 51)
-                {
+                } else if (libRoom2 < 36) {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.VISIBLE);
                     hiCrowd.setVisibility(View.INVISIBLE);
-                }
-                else
-                {
+                } else {
                     lowCrowd.setVisibility(View.INVISIBLE);
                     midCrowd.setVisibility(View.INVISIBLE);
                     hiCrowd.setVisibility(View.VISIBLE);
                 }
+                // Update notification preferences based on the current count
+                updateNotificationPreferences(libRoom2);
+            }
+            private void updateNotificationPreferences(int currentCount) {
+                // Get the SharedPreferences editor
+                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+
+                // Save the notification preferences based on the current count
+                editor.putBoolean("lowDensity", currentCount <= 10);
+                editor.putBoolean("mediumDensity", currentCount > 10 && currentCount <= 30);
+                editor.putBoolean("highDensity", currentCount > 30 && currentCount <= 50);
+
+                // Apply changes
+                editor.apply();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
