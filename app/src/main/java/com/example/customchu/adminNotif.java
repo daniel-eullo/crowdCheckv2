@@ -51,15 +51,15 @@ public class adminNotif extends AppCompatActivity {
                 // Handle the button click here
                 String selectedReason = spinnerReason.getSelectedItem().toString();
                 if (selectedReason.equals("Library Closure")) {
-                    showNotification("Crowd Check", "The library is closed.");
+                    showNotification("Library Closure", "The library is closed.");
                 } else {
-                    showNotification("Crowd Check", "The library is closed due to " + selectedReason);
+                    showNotification("Library Closure", "The library is closed due to " + selectedReason);
                 }
             }
         });
     }
 
-    // Method to show a notification
+    // method to show a notification
     private void showNotification(String title, String message) {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -73,7 +73,7 @@ public class adminNotif extends AppCompatActivity {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notificon) // Set your notification icon
+                .setSmallIcon(R.drawable.icons8_notification_90)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
