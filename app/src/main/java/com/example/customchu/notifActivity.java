@@ -34,11 +34,9 @@ public class notifActivity extends AppCompatActivity {
 
     CheckBox lowDensity, mediumDensity, highDensity, groundfloorchkb, secondfloorchkb;
 
-    // SharedPreferences keys
     private static final String SWITCH_STATE_KEY = "enableSwitchState";
     private static final String SOUND_VIBRATE_SWITCH_KEY = "soundVibrateSwitchState";
 
-    // SharedPreferences
     SharedPreferences sharedPreferences;
     int libRoom1, libRoom2;
 
@@ -62,7 +60,6 @@ public class notifActivity extends AppCompatActivity {
         groundfloorchkb = findViewById(R.id.groundfloorchkb);
         secondfloorchkb = findViewById(R.id.secondfloorchkb);
 
-        // Initialize SharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
@@ -86,7 +83,6 @@ public class notifActivity extends AppCompatActivity {
                 lowDensityNotificationShown = false;
                 mediumDensityNotificationShown = false;
                 highDensityNotificationShown = false;
-                // Uncheck the checkboxes when the switch is turned off
                 lowDensity.setChecked(false);
                 mediumDensity.setChecked(false);
                 highDensity.setChecked(false);
@@ -110,7 +106,6 @@ public class notifActivity extends AppCompatActivity {
         });
 
         notifBack.setOnClickListener(view -> {
-            // Save the current state of checkboxes and switches
             saveCheckboxState(lowDensity, "lowDensity");
             saveCheckboxState(mediumDensity, "mediumDensity");
             saveCheckboxState(highDensity, "highDensity");
@@ -136,7 +131,6 @@ public class notifActivity extends AppCompatActivity {
             createNotifications();
         }
 
-        // Add listeners to groundfloorchkb and secondfloorchkb
         groundfloorchkb.setOnCheckedChangeListener((buttonView, isChecked) -> {
             updateCheckBoxesAvailability(enableSwitch.isChecked());
             if (enableSwitch.isChecked()) {
@@ -183,14 +177,13 @@ public class notifActivity extends AppCompatActivity {
     private void saveCheckboxState(CheckBox checkBox, String key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, checkBox.isChecked());
-        editor.apply();  // Ensure that changes are persisted
+        editor.apply();
     }
 
-    // Save the state of the switches in SharedPreferences
     private void saveSwitchState(boolean isChecked, String key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, isChecked);
-        editor.apply();  // Ensure that changes are persisted
+        editor.apply();
     }
 
     private void getCurrentCount(String room, CountCallback callback) {
@@ -280,7 +273,6 @@ public class notifActivity extends AppCompatActivity {
                     highDensityNotificationShown = true;
                 }
             } else if (floor.equals("Second Floor")) {
-                // Adjust conditions for Second Floor as needed
                 if (roomCount <= 20 && lowDensity.isChecked() && !lowDensityNotificationShown) {
                     Log.d("NotificationDebug", "Showing low density notification for " + floor);
                     showNotification(notificationManager, "lowChannel", LOW_DENSITY_NOTIFICATION_ID, floor, "Low crowd detected!");
@@ -311,7 +303,7 @@ public class notifActivity extends AppCompatActivity {
 
     private void showNotification(NotificationManager notificationManager, String channelId, int notificationId, String title, String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.notificon)
+                .setSmallIcon(R.drawable.icons8_notification_90)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -327,7 +319,6 @@ public class notifActivity extends AppCompatActivity {
         }
     }
 
-    // Callback interface to get the current count from Firebase
     private interface CountCallback {
         void onCountReady(int count);
     }
@@ -335,6 +326,5 @@ public class notifActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cleanup if needed
     }
 }
