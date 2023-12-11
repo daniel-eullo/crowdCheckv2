@@ -8,7 +8,7 @@
 
     <View
         android:id="@+id/adminView"
-        android:layout_width="413dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:foreground="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"

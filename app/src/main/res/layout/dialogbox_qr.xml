@@ -19,11 +19,10 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/interreg"
+            android:fontFamily="@font/interbold"
             android:text="Scanned Success!"
             android:textColor="@color/colorPrimary"
             android:textSize="30sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,15 +34,16 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="@font/interreg"
             android:text="Proceed to map?"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/scannedID"
             app:layout_constraintStart_toStartOf="@+id/scannedID"
             app:layout_constraintTop_toBottomOf="@+id/scannedID" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="10dp"
@@ -60,7 +60,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
-                android:fontFamily="@font/interreg"
+                android:fontFamily="@font/interbold"
                 android:padding="12dp"
                 android:shadowColor="#C8A7A7"
                 android:text="Cancel"
@@ -68,8 +68,7 @@
                 android:textColorHighlight="#3F51B5"
                 android:textColorLink="#03A9F4"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="10dp"
+                app:cornerRadius="20dp"
                 app:strokeColor="@color/black" />
 
             <com.google.android.material.button.MaterialButton
@@ -79,7 +78,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
-                android:fontFamily="@font/interreg"
+                android:fontFamily="@font/interbold"
                 android:padding="12dp"
                 android:shadowColor="#C8A7A7"
                 android:text="Proceed"
@@ -87,8 +86,7 @@
                 android:textColorHighlight="#3F51B5"
                 android:textColorLink="#03A9F4"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="10dp"
+                app:cornerRadius="20dp"
                 app:strokeColor="@color/black" />
         </LinearLayout>
 
