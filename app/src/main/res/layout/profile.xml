@@ -4,29 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textAlignment="center">
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/interreg"
-        android:text="Profile"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
+    android:background="@drawable/profilefomr">
 
     <ImageButton
         android:id="@+id/profileBack"
@@ -40,140 +18,141 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icons8_back_30" />
 
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/profilepicture"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginBottom="-50dp"-->
-    <!--        android:background="#00FFFFFF"-->
-    <!--        android:cropToPadding="false"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/backview2"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/view2" />-->
 
-    <EditText
-        android:id="@+id/firstname"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/interreg"
-        android:enabled="false"
-        android:hint="First Name"
-        android:padding="10dp"
-        android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textColorPrimary"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textColorHighlight="?android:attr/textColorPrimary"
-        android:textColorHint="?android:attr/textColorPrimary"
-        android:textColorLink="?android:attr/textColorPrimary"
-        android:textSize="18sp"
-        android:background="@drawable/border"
+    <ImageView
+        android:id="@+id/profilepicture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.14"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/interreg"
+        android:text="Full Name"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/firstname"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/firstname"
         app:layout_constraintTop_toBottomOf="@+id/profilepicture" />
 
     <EditText
-        android:id="@+id/studentNumber"
-        android:layout_width="300dp"
-        android:inputType="numberDecimal"
+        android:id="@+id/firstname"
+        android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/userborder"
+        android:enabled="false"
         android:fontFamily="@font/interreg"
-        android:hint="Student ID"
-        android:padding="10dp"
-        android:background="@drawable/border"
+        android:paddingLeft="20dp"
         android:textAlignment="textStart"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textColorHighlight="?android:attr/textColorPrimary"
-        android:textColorLink="?android:attr/textColorPrimary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/interreg"
+        android:text="Student Number"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/studentNumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/studentNumber"
         app:layout_constraintTop_toBottomOf="@+id/firstname" />
 
-<!--    <Button-->
-<!--        android:id="@+id/changepassword"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:clickable="true"-->
-<!--        android:fontFamily="@font/interreg"-->
-<!--        android:text="Change Password"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textColorHint="?android:attr/textColorPrimary"-->
-<!--        android:textSize="18dp"-->
-<!--        app:backgroundTint="@color/blue"-->
-<!--        app:cornerRadius="5dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/email" />-->
+    <EditText
+        android:id="@+id/studentNumber"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/userborder"
+        android:fontFamily="@font/interreg"
+        android:inputType="numberDecimal"
+        android:paddingLeft="20dp"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/interreg"
+        android:text="Email"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/studentNumber" />
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/userborder"
+        android:enabled="false"
+        android:fontFamily="@font/interreg"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <Button
         android:id="@+id/changeinfo"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/blue"
         android:clickable="true"
         android:fontFamily="@font/interbold"
         android:text="Update Information"
         android:textColor="@color/white"
-        android:textColorHint="?android:attr/textColorPrimary"
         android:textSize="18dp"
-        app:backgroundTint="@color/blue"
-        app:cornerRadius="5dp"
+        app:cornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/toLogout"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
         android:fontFamily="@font/interbold"
         android:text="Log Out"
-        android:textColor="#A10808"
+        android:textColor="#880808"
         android:textSize="18dp"
         app:backgroundTint="#00183471"
-        app:cornerRadius="5dp"
+        app:cornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeinfo"
-        app:strokeColor="#A10808"
+        app:strokeColor="#880808"
         app:strokeWidth="1.3dp" />
 
-    <EditText
-        android:id="@+id/email"
-        style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:enabled="false"
-        android:ems="10"
-        android:hint="Email"
-        android:background="@drawable/border"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textColorPrimary"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textColorHighlight="?android:attr/textColorPrimary"
-        android:textColorHint="?android:attr/textColorPrimary"
-        android:textColorLink="?android:attr/textColorPrimary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentNumber" />
-
-    <ImageView
-        android:id="@+id/profilepicture"
-        android:layout_width="119dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
