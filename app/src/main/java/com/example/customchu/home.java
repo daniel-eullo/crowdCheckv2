@@ -2,11 +2,13 @@
 package com.example.customchu;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,17 +29,18 @@ import java.util.Objects;
 
 public class home extends AppCompatActivity {
 
-    ImageButton homeBtn, toScanQR, toMap, notificationBtn, profileBtn;
+    ImageButton howTo, toScanQR, toMap, notificationBtn, profileBtn;
     ImageView toFeedback, toAdmin, toGraph;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
     DatabaseReference databaseFacility;
-    Button incrementBtn;
+    Button infoClose;
     Profile userProfile;
     int libRoom1 = 0;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    Dialog dialoghowTo;
 
     String[] adminEmails = {
             "leonard.jade.balajadia@adamson.edu.ph",
@@ -53,7 +56,7 @@ public class home extends AppCompatActivity {
         // fetch the user profile
         userProfile = (Profile) getIntent().getSerializableExtra("profile");
 
-        homeBtn = findViewById(R.id.homebtn);
+        howTo = findViewById(R.id.homebtn);
         greetings = findViewById(R.id.userGreet);
         toScanQR = findViewById(R.id.toScanQR);
         toMap = findViewById(R.id.toMap);
@@ -147,10 +150,25 @@ public class home extends AppCompatActivity {
                 .build();
         gsc = GoogleSignIn.getClient(this, gso);
 
-        homeBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(home.this, home.class);
-            startActivity(intent);
+        dialoghowTo= new Dialog(home.this);
+        dialoghowTo.setContentView(R.layout.dialog_howto);
+        dialoghowTo.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialoghowTo.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialoghowTo.setCancelable(false);
+
+        infoClose = dialoghowTo.findViewById(R.id.infoClose);
+
+        infoClose.setOnClickListener(view -> {
+            dialoghowTo.dismiss();
         });
+
+        howTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialoghowTo.show();
+            }
+        });
+
         updateUsername();
     }
 
