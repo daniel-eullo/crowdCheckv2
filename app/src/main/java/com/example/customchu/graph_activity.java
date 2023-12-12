@@ -1,5 +1,14 @@
 package com.example.customchu;
 
+import android.content.Context;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
+
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Bundle;
+import androidx.annotation.ColorInt;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +19,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -38,6 +49,7 @@ public class graph_activity extends AppCompatActivity {
     Button to2FLogs;
 
     @Override
+    //?android:attr/textColorPrimary
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
@@ -60,6 +72,10 @@ public class graph_activity extends AppCompatActivity {
 
         barArrayList = new ArrayList<>();
         barChart = findViewById(R.id.barChart);
+
+
+        // Color and design change
+
 
         // Assume you have a class for user information, adjust it accordingly
         databaseReference2.addValueEventListener(new ValueEventListener() {

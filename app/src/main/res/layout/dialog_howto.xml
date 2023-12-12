@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="480dp"
+        android:layout_height="500dp"
         android:padding="15dp">
 
         <TextView
@@ -18,103 +18,100 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/interreg"
-            android:text="Review our Crowd Check"
+            android:text="Review the Application."
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/img5"
+            app:layout_constraintEnd_toEndOf="@+id/scannedID"
             app:layout_constraintStart_toEndOf="@+id/img5"
-            app:layout_constraintTop_toBottomOf="@+id/infotxt4" />
+            app:layout_constraintTop_toTopOf="@+id/img5" />
 
         <ImageView
             android:id="@+id/img5"
-            android:layout_width="60dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/infotxt2"
-            app:layout_constraintHorizontal_bias="0.355"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/img4"
             app:layout_constraintTop_toBottomOf="@+id/img4"
-            app:srcCompat="@drawable/icons8_placeholder_96" />
+            app:srcCompat="@drawable/feedback_icon_" />
 
         <TextView
             android:id="@+id/infotxt4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
             android:fontFamily="@font/interreg"
-            android:text="Check analytics"
+            android:text="Check Analytics."
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/img4"
+            app:layout_constraintEnd_toEndOf="@+id/scannedID"
             app:layout_constraintStart_toEndOf="@+id/img4"
-            app:layout_constraintTop_toBottomOf="@+id/infotxt3" />
+            app:layout_constraintTop_toTopOf="@+id/img4" />
 
         <ImageView
             android:id="@+id/img3"
-            android:layout_width="60dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/infotxt4"
-            app:layout_constraintHorizontal_bias="0.19"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/img2"
             app:layout_constraintTop_toBottomOf="@+id/img2"
-            app:srcCompat="@drawable/icons8_placeholder_96" />
+            app:srcCompat="@drawable/icons8_notification_90" />
 
         <TextView
             android:id="@+id/infotxt3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="40dp"
             android:fontFamily="@font/interreg"
-            android:text="Customize your notification"
+            android:text="Customize your notification."
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/infotxt2" />
+            app:layout_constraintBottom_toBottomOf="@+id/img3"
+            app:layout_constraintEnd_toEndOf="@+id/scannedID"
+            app:layout_constraintStart_toEndOf="@+id/img3"
+            app:layout_constraintTop_toTopOf="@+id/img3" />
 
         <ImageView
             android:id="@+id/img4"
-            android:layout_width="60dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/infotxt2"
-            app:layout_constraintHorizontal_bias="0.355"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/img3"
             app:layout_constraintTop_toBottomOf="@+id/img3"
-            app:srcCompat="@drawable/icons8_placeholder_96" />
+            app:srcCompat="@drawable/chart_column_increase_svgrepo_com" />
 
         <TextView
             android:id="@+id/infotxt2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="60dp"
             android:fontFamily="@font/interreg"
-            android:text="Check Occupancy in Map"
+            android:text="Check Occupancy in Map."
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/infotxt1" />
+            app:layout_constraintBottom_toBottomOf="@+id/img2"
+            app:layout_constraintEnd_toEndOf="@+id/scannedID"
+            app:layout_constraintStart_toEndOf="@+id/img2"
+            app:layout_constraintTop_toTopOf="@+id/img2" />
 
         <TextView
             android:id="@+id/infotxt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:fontFamily="@font/interreg"
-            android:text="Scan QR for entries/exit"
+            android:text="Scan QR for Entries/Exit."
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/img1"
+            app:layout_constraintEnd_toEndOf="@+id/scannedID"
             app:layout_constraintStart_toEndOf="@+id/img1"
-            app:layout_constraintTop_toBottomOf="@+id/scannedID" />
+            app:layout_constraintTop_toTopOf="@+id/img1" />
 
         <TextView
             android:id="@+id/scannedID"
@@ -126,7 +123,7 @@
             android:fontFamily="@font/interbold"
             android:text="How to use Crowd Check"
             android:textColor="@color/colorPrimary"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -135,13 +132,11 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.85">
+            app:layout_constraintTop_toBottomOf="@+id/img5">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/infoClose"
@@ -151,37 +146,47 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/interbold"
-                android:padding="12dp"
+                android:padding="5dp"
                 android:shadowColor="#C8A7A7"
                 android:text="Close"
                 android:textColor="@color/black"
                 android:textColorHighlight="#3F51B5"
                 android:textColorLink="#03A9F4"
                 android:textSize="16sp"
-                app:cornerRadius="20dp"
+                app:cornerRadius="10dp"
                 app:strokeColor="@color/black" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/img1"
-            android:layout_width="60dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="60dp"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/scannedID"
             app:layout_constraintTop_toBottomOf="@+id/scannedID"
-            app:srcCompat="@drawable/icons8_placeholder_96" />
+            app:srcCompat="@drawable/qrnew" />
 
         <ImageView
             android:id="@+id/img2"
-            android:layout_width="60dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/infotxt2"
-            app:layout_constraintHorizontal_bias="0.38"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/img1"
             app:layout_constraintTop_toBottomOf="@+id/img1"
-            app:srcCompat="@drawable/icons8_placeholder_96" />
+            app:srcCompat="@drawable/mapnew" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:tint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/scannedID"
+            app:layout_constraintStart_toStartOf="@+id/scannedID"
+            app:layout_constraintTop_toBottomOf="@+id/scannedID"
+            app:srcCompat="@drawable/icons8_information_96" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

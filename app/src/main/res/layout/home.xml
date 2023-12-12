@@ -111,25 +111,23 @@
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/toScanQR"
         app:layout_constraintEnd_toEndOf="@+id/toScanQR"
         app:layout_constraintTop_toTopOf="@+id/toScanQR"
-        app:srcCompat="@drawable/qr" />
+        app:srcCompat="@drawable/qrnew" />
 
     <ImageView
         android:id="@+id/imageView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/toMap"
         app:layout_constraintEnd_toEndOf="@+id/toMap"
         app:layout_constraintTop_toTopOf="@+id/toMap"
-        app:srcCompat="@drawable/map" />
+        app:srcCompat="@drawable/mapnew" />
 
     <TextView
         android:id="@+id/textlabel2"
