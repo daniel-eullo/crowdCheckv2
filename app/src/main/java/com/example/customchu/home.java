@@ -43,12 +43,13 @@ public class home extends AppCompatActivity {
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
     DatabaseReference databaseFacility, facilityStatus;;
-    Button infoClose;
+    Button infoClose, eventClose;
     Profile userProfile;
     int libRoom1 = 0;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    Dialog dialoghowTo;
+    Dialog dialoghowTo, dialogEvent;
+    Boolean status = false;
 
     private static final String CHANNEL_ID = "library_closure_channel";
     private static final String CHANNEL_NAME = "Library Closure Channel";
@@ -139,8 +140,12 @@ public class home extends AppCompatActivity {
         });
 
         toScanQR.setOnClickListener(view -> {
-            Intent intent = new Intent(home.this, QRActivity.class);
-            startActivity(intent);
+            if (status == true){
+                dialogEvent.show();
+            } else if (status == false){
+                Intent intent = new Intent(home.this, QRActivity.class);
+                startActivity(intent);
+            }
         });
 
         notificationBtn.setOnClickListener(view -> {
@@ -155,8 +160,13 @@ public class home extends AppCompatActivity {
         });
 
         toMap.setOnClickListener(view -> {
-            Intent intent = new Intent(home.this, updatedlibrary.class); //mapActivity or updatedlibrary
-            startActivity(intent);
+            if (status == true){
+                dialogEvent.show();
+            } else if (status == false){
+                Intent intent = new Intent(home.this, updatedlibrary.class); //mapActivity or updatedlibrary
+                startActivity(intent);
+            }
+
         });
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -183,10 +193,28 @@ public class home extends AppCompatActivity {
             }
         });
 
+        dialogEvent= new Dialog(home.this);
+        dialogEvent.setContentView(R.layout.dialog_event);
+        dialogEvent.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogEvent.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialogEvent.setCancelable(false);
+
+        eventClose = dialogEvent.findViewById(R.id.eventClose);
+
+        eventClose.setOnClickListener(view -> {
+            dialogEvent.dismiss();
+        });
+
+
         facilityStatus.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 String newStatus = snapshot.getValue(String.class);
+
+
+                //if newStatus equals to None dont notify then else if line below
+
+
                 if (newStatus != null) {
                     // Call the method to handle the notification logic
                     sendNotification("Library Closure", "The library is closed due to " + newStatus);
