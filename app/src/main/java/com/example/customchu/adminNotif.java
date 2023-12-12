@@ -13,8 +13,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class adminNotif extends AppCompatActivity {
 
@@ -24,6 +31,8 @@ public class adminNotif extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "library_closure_channel";
     private static final String CHANNEL_NAME = "Library Closure Channel";
+
+    DatabaseReference facilityStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,8 @@ public class adminNotif extends AppCompatActivity {
             startActivity(intent);
         });
 
+        facilityStatus = FirebaseDatabase.getInstance().getReference().child("Event");
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.library_closure_reasons, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -50,6 +61,7 @@ public class adminNotif extends AppCompatActivity {
             public void onClick(View view) {
                 // Handle the button click here
                 String selectedReason = spinnerReason.getSelectedItem().toString();
+                updateFacilityStatus(selectedReason);
                 if (selectedReason.equals("Library Closure")) {
                     showNotification("Library Closure", "The library is closed.");
                 } else {
@@ -57,6 +69,25 @@ public class adminNotif extends AppCompatActivity {
                 }
             }
         });
+
+        facilityStatus.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String newStatus = snapshot.getValue(String.class);
+                if (newStatus != null){
+                    showNotification("Library Closure", "The library is closed due to " + newStatus);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void updateFacilityStatus(String newStatus) {
+        facilityStatus.setValue(newStatus);
     }
 
     // method to show a notification

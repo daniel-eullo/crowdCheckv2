@@ -3,9 +3,12 @@ package com.example.customchu;
 
 
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +20,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -34,13 +42,16 @@ public class home extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
-    DatabaseReference databaseFacility;
+    DatabaseReference databaseFacility, facilityStatus;;
     Button infoClose;
     Profile userProfile;
     int libRoom1 = 0;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Dialog dialoghowTo;
+
+    private static final String CHANNEL_ID = "library_closure_channel";
+    private static final String CHANNEL_NAME = "Library Closure Channel";
 
     String[] adminEmails = {
             "leonard.jade.balajadia@adamson.edu.ph",
@@ -55,6 +66,9 @@ public class home extends AppCompatActivity {
 
         // fetch the user profile
         userProfile = (Profile) getIntent().getSerializableExtra("profile");
+
+        facilityStatus = FirebaseDatabase.getInstance().getReference().child("Event");
+        
 
         howTo = findViewById(R.id.homebtn);
         greetings = findViewById(R.id.userGreet);
@@ -169,7 +183,44 @@ public class home extends AppCompatActivity {
             }
         });
 
+        facilityStatus.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                String newStatus = snapshot.getValue(String.class);
+                if (newStatus != null) {
+                    // Call the method to handle the notification logic
+                    sendNotification("Library Closure", "The library is closed due to " + newStatus);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Handle onCancelled event if needed
+            }
+        });
+
         updateUsername();
+    }
+
+    private void sendNotification(String title, String message) {
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.icons8_notification_90)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        notificationManager.notify(1, builder.build());
     }
 
     private void updateUsername() {
