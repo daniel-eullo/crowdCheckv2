@@ -222,5 +222,16 @@
         app:srcCompat="@drawable/one"
         app:tint="@color/green" />
 
+    <ImageView
+        android:id="@+id/info"
+        android:layout_width="36dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/floor1count"
+        app:layout_constraintEnd_toEndOf="@+id/crowdLogo"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="@+id/crowdLogo"
+        app:layout_constraintTop_toTopOf="@+id/grid"
+        app:srcCompat="@drawable/icons8_information_96" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

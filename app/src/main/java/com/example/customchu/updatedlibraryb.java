@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ImageViewCompat;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,11 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.jsibbold.zoomage.ZoomageView;
 
 public class updatedlibraryb extends AppCompatActivity {
-    ImageView crowdLogo2;
+    ImageView crowdLogo2, info2;
     DatabaseReference databaseFacility;
     int libRoom2;
     TextView floor2count;
-    Button to1stFloor;
+    Button to1stFloor, infoClose;
+    Dialog dialogInfo2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,30 @@ public class updatedlibraryb extends AppCompatActivity {
         to1stFloor.setOnClickListener(view -> {
             Intent intent = new Intent(updatedlibraryb.this, updatedlibrary.class);
             startActivity(intent);
+        });
+
+        info2 = findViewById(R.id.info2);
+        info2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogInfo2.show();
+            }
+        });
+
+
+
+        dialogInfo2= new Dialog(updatedlibraryb.this);
+        dialogInfo2.setContentView(R.layout.dialog_info);
+        dialogInfo2.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogInfo2.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialogInfo2.setCancelable(false);
+
+        infoClose = dialogInfo2.findViewById(R.id.infoClose);
+        infoClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogInfo2.dismiss();
+            }
         });
 
         ZoomageView MapViewer = findViewById(R.id.img_view);

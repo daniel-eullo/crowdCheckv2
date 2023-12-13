@@ -207,7 +207,7 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="@+id/view7"
         app:layout_constraintTop_toTopOf="@+id/view7"
-        app:srcCompat="@drawable/icons8_home_90" />
+        app:srcCompat="@drawable/icons8_information_96" />
 
     <ImageButton
         android:id="@+id/notificationbtn"
