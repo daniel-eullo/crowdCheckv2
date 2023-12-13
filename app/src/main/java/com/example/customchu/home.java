@@ -216,6 +216,12 @@ public class home extends AppCompatActivity {
                     // Call the method to handle the notification logic
                     sendNotification("Library Closure", "The library is closed due to " + newStatus);
                 }
+
+                if (newStatus.equals("None")) {
+                    status = false;
+                } else if (newStatus != null){
+                    status = true;
+                }
             }
 
             @Override

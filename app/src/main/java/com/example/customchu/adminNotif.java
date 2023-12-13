@@ -71,6 +71,8 @@ public class adminNotif extends AppCompatActivity {
                     } else {
                         showNotification("Library Closure", "The library is closed due to " + selectedReason);
                     }
+                } else if (selectedReason.equals("None")){
+                    updateFacilityStatus(selectedReason);
                 }
             }
         });
