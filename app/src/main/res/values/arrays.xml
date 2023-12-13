@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="library_closure_reasons">
+        <item>None</item>
         <item>Library Closure</item>
         <item>Academic Break</item>
         <item>Annual Inventory</item>

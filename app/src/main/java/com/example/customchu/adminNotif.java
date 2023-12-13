@@ -61,27 +61,35 @@ public class adminNotif extends AppCompatActivity {
             public void onClick(View view) {
                 // Handle the button click here
                 String selectedReason = spinnerReason.getSelectedItem().toString();
-                updateFacilityStatus(selectedReason);
-                if (selectedReason.equals("Library Closure")) {
-                    showNotification("Library Closure", "The library is closed.");
-                } else {
-                    showNotification("Library Closure", "The library is closed due to " + selectedReason);
+
+                // Check if selectedReason is not equal to "None" before updating and notifying
+                if (!selectedReason.equals("None")) {
+                    updateFacilityStatus(selectedReason);
+
+                    if (selectedReason.equals("Library Closure")) {
+                        showNotification("Library Closure", "The library is closed.");
+                    } else {
+                        showNotification("Library Closure", "The library is closed due to " + selectedReason);
+                    }
                 }
             }
         });
 
         facilityStatus.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
                 String newStatus = snapshot.getValue(String.class);
-                if (newStatus != null){
+
+                // Check if newStatus is not null and not equal to "None"
+                if (newStatus != null && !newStatus.equals("None")) {
+                    // Call the method to handle the notification logic
                     showNotification("Library Closure", "The library is closed due to " + newStatus);
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(DatabaseError error) {
+                // Handle onCancelled event if needed
             }
         });
     }

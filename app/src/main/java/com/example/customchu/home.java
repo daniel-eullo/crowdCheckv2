@@ -211,11 +211,8 @@ public class home extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 String newStatus = snapshot.getValue(String.class);
 
-
-                //if newStatus equals to None dont notify then else if line below
-
-
-                if (newStatus != null) {
+                // Check if newStatus is not null and not equal to "None"
+                if (newStatus != null && !newStatus.equals("None")) {
                     // Call the method to handle the notification logic
                     sendNotification("Library Closure", "The library is closed due to " + newStatus);
                 }
