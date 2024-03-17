@@ -119,7 +119,6 @@ public class graph_activity extends AppCompatActivity {
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
                 barDataSet.setColors(Color.parseColor("#4E7AC7"));
-                barDataSet.setValueTextColor(Color.parseColor("#4E7AC7"));
                 barDataSet.setValueTextSize(0f);
                 barData.setValueTextColor(Color.parseColor("#4E7AC7"));
 
@@ -134,18 +133,20 @@ public class graph_activity extends AppCompatActivity {
                 YAxis rightYAxis = barChart.getAxisRight();
                 rightYAxis.setDrawLabels(false);
 
-                Legend legend = barChart.getLegend();
-                legend.setTextColor(Color.parseColor("#4E7AC7"));
-
                 barChart.getAxisLeft().setDrawGridLines(false);
                 barChart.getAxisRight().setDrawGridLines(false);
                 barChart.getXAxis().setDrawGridLines(false);
+
+// Changing the legend entry color
+                Legend legend = barChart.getLegend();
+                legend.setTextColor(Color.parseColor("#4E7AC7"));
 
                 barChart.getDescription().setEnabled(false);
 
                 barData.notifyDataChanged();
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
+
             }
 
             @Override
