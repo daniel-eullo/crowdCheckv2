@@ -37,7 +37,7 @@ public class logHistoryActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView2.setLayoutManager(layoutManager);
 
-        Query query = FirebaseDatabase.getInstance().getReference("/Rooms/GF/History/2023-12-10");
+        Query query = FirebaseDatabase.getInstance().getReference("/Rooms/GF/History/2023-12-13");
         FirebaseRecyclerOptions<LogModel> options =
                 new FirebaseRecyclerOptions.Builder<LogModel>()
                         .setQuery(query, LogModel.class)

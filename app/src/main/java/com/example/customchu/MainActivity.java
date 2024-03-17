@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount gmsacc = task.getResult(ApiException.class);
-                if (!isUserAdamsonian(gmsacc)) {
-                    Toast.makeText(this, "Please use your Adamson email", Toast.LENGTH_SHORT).show();
-                    gsc.signOut();
-                    return;
-                }
+//                if (!isUserAdamsonian(gmsacc)) {
+//                    Toast.makeText(this, "Please use your Adamson email", Toast.LENGTH_SHORT).show();
+//                    gsc.signOut();
+//                    return;
+//                }
                 toHomeActivity();
             } catch (ApiException e) {
                 Log.e("GoogleSignIn", Objects.requireNonNull(e.getMessage()));

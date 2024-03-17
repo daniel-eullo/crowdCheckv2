@@ -29,7 +29,7 @@ public class notifActivity extends AppCompatActivity {
 
     ImageButton notifBack;
     Switch enableSwitch;
-    Switch soundVibrateSwitch;
+    //Switch soundVibrateSwitch;
 
     CheckBox lowDensity, mediumDensity, highDensity, groundfloorchkb, secondfloorchkb;
 
@@ -55,7 +55,6 @@ public class notifActivity extends AppCompatActivity {
 
         notifBack = findViewById(R.id.notifBack);
         enableSwitch = findViewById(R.id.enableswitch);
-        soundVibrateSwitch = findViewById(R.id.defaultswitch);
         lowDensity = findViewById(R.id.lowDensity);
         mediumDensity = findViewById(R.id.mediumDensity);
         highDensity = findViewById(R.id.highDensity);
@@ -73,7 +72,7 @@ public class notifActivity extends AppCompatActivity {
         secondfloorchkb.setChecked(sharedPreferences.getBoolean(CHECKBOX_PREFIX + "secondfloorchkb", false));
 
         enableSwitch.setChecked(sharedPreferences.getBoolean(SWITCH_STATE_KEY, false));
-        soundVibrateSwitch.setChecked(sharedPreferences.getBoolean(SOUND_VIBRATE_SWITCH_KEY, false));
+        //soundVibrateSwitch.setChecked(sharedPreferences.getBoolean(SOUND_VIBRATE_SWITCH_KEY, false));
 
         // Add listeners to the switches
         enableSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -104,9 +103,9 @@ public class notifActivity extends AppCompatActivity {
             }
         });
 
-        soundVibrateSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            saveSwitchState(isChecked, SOUND_VIBRATE_SWITCH_KEY);
-        });
+//        soundVibrateSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            saveSwitchState(isChecked, SOUND_VIBRATE_SWITCH_KEY);
+//        });
 
         notifBack.setOnClickListener(view -> {
             // Save the current state of checkboxes and switches
@@ -116,7 +115,7 @@ public class notifActivity extends AppCompatActivity {
             saveCheckboxState(groundfloorchkb, CHECKBOX_PREFIX + "groundfloorchkb");
             saveCheckboxState(secondfloorchkb, CHECKBOX_PREFIX + "secondfloorchkb");
             saveSwitchState(enableSwitch.isChecked(), SWITCH_STATE_KEY);
-            saveSwitchState(soundVibrateSwitch.isChecked(), SOUND_VIBRATE_SWITCH_KEY);
+            // saveSwitchState(soundVibrateSwitch.isChecked(), SOUND_VIBRATE_SWITCH_KEY);
 
             // Create notifications based on the current count if the switch is on
             if (enableSwitch.isChecked()) {
