@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -118,17 +119,23 @@ public class graph_activity extends AppCompatActivity {
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
                 barDataSet.setColors(Color.parseColor("#4E7AC7"));
-                barDataSet.setValueTextColor(Color.BLACK);
+                barDataSet.setValueTextColor(Color.parseColor("#4E7AC7"));
                 barDataSet.setValueTextSize(0f);
+                barData.setValueTextColor(Color.parseColor("#4E7AC7"));
 
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setTextSize(12f);
+                xAxis.setTextColor(Color.parseColor("#4E7AC7"));
 
                 YAxis leftYAxis = barChart.getAxisLeft();
                 leftYAxis.setTextSize(12f);
+                leftYAxis.setTextColor(Color.parseColor("#4E7AC7"));
 
                 YAxis rightYAxis = barChart.getAxisRight();
                 rightYAxis.setDrawLabels(false);
+
+                Legend legend = barChart.getLegend();
+                legend.setTextColor(Color.parseColor("#4E7AC7"));
 
                 barChart.getAxisLeft().setDrawGridLines(false);
                 barChart.getAxisRight().setDrawGridLines(false);

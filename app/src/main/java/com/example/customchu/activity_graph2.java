@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -98,12 +99,17 @@ public class activity_graph2 extends AppCompatActivity {
 
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setTextSize(12f);
+                xAxis.setTextColor(Color.parseColor("#4E7AC7"));
 
                 YAxis leftYAxis = barChart.getAxisLeft();
                 leftYAxis.setTextSize(12f);
+                leftYAxis.setTextColor(Color.parseColor("#4E7AC7"));
 
                 YAxis rightYAxis = barChart.getAxisRight();
                 rightYAxis.setDrawLabels(false);
+
+                Legend legend = barChart.getLegend();
+                legend.setTextColor(Color.parseColor("#4E7AC7"));
 
                 barChart.getAxisLeft().setDrawGridLines(false);
                 barChart.getAxisRight().setDrawGridLines(false);
