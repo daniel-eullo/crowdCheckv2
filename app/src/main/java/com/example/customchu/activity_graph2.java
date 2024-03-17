@@ -92,7 +92,7 @@ public class activity_graph2 extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barArrayList, "Log Activity");
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
-                barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                barDataSet.setColors(Color.parseColor("#4E7AC7"));
                 barDataSet.setValueTextColor(Color.BLACK);
                 barDataSet.setValueTextSize(0f);
 

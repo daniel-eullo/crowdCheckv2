@@ -7,11 +7,13 @@ import androidx.core.content.ContextCompat;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.annotation.ColorInt;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -115,7 +117,7 @@ public class graph_activity extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barArrayList, "Log Activity");
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
-                barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                barDataSet.setColors(Color.parseColor("#4E7AC7"));
                 barDataSet.setValueTextColor(Color.BLACK);
                 barDataSet.setValueTextSize(0f);
 
