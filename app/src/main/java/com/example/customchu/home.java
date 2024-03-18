@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
@@ -104,17 +105,19 @@ public class home extends AppCompatActivity {
 
         darkModeSwitch.setOnClickListener(view -> {
             if (nightMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                // Change to light mode without animation
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 editor = sharedPreferences.edit();
                 editor.putBoolean("night", false);
             } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                // Change to dark mode without animation
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 editor = sharedPreferences.edit();
                 editor.putBoolean("night", true);
             }
             editor.apply();
-
         });
+
 
         // DARK MODE
 
