@@ -15,12 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -38,7 +36,7 @@ import java.util.Objects;
 
 public class home extends AppCompatActivity {
 
-    ImageButton howTo, toScanQR, toMap, notificationBtn, profileBtn;
+    ImageButton howTo, toBookSystem, toMap, notificationBtn, profileBtn;  //toScanQR,
     ImageView toFeedback, toAdmin, toGraph;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -74,7 +72,7 @@ public class home extends AppCompatActivity {
 
         howTo = findViewById(R.id.homebtn);
         greetings = findViewById(R.id.userGreet);
-        toScanQR = findViewById(R.id.toScanQR);
+        toBookSystem = findViewById(R.id.toBookSystem);
         toMap = findViewById(R.id.toMap);
         notificationBtn = findViewById(R.id.notificationbtn);
         profileBtn = findViewById(R.id.profilebtn);
@@ -89,37 +87,7 @@ public class home extends AppCompatActivity {
             toAdmin.setVisibility(View.GONE);
         }
 
-        // DARK MODE
 
-        Switch darkModeSwitch;
-        darkModeSwitch = findViewById(R.id.darkModeSwitch);
-        boolean nightMode;
-
-        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        nightMode = sharedPreferences.getBoolean("night", false);
-
-        if (nightMode) {
-            darkModeSwitch.setChecked(true);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-
-        darkModeSwitch.setOnClickListener(view -> {
-            if (nightMode) {
-                // Change to light mode without animation
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                editor = sharedPreferences.edit();
-                editor.putBoolean("night", false);
-            } else {
-                // Change to dark mode without animation
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                editor = sharedPreferences.edit();
-                editor.putBoolean("night", true);
-            }
-            editor.apply();
-        });
-
-
-        // DARK MODE
 
 
         // NAVIGATION
@@ -142,7 +110,7 @@ public class home extends AppCompatActivity {
             startActivity(intent);
         });
 
-        toScanQR.setOnClickListener(view -> {
+        toBookSystem.setOnClickListener(view -> {
             if (status == true){
                 dialogEvent.show();
             } else if (status == false){
@@ -152,7 +120,7 @@ public class home extends AppCompatActivity {
         });
 
         notificationBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(home.this, notifActivity.class);
+            Intent intent = new Intent(home.this, settingsActivity.class);
             startActivity(intent);
         });
 
