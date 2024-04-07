@@ -3,19 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF">
 
-
-    <Switch
-        android:id="@+id/darkModeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginEnd="162dp"
-        app:layout_constraintBottom_toTopOf="@+id/view7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toMap" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -32,15 +22,16 @@
         android:id="@+id/userGreet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/interreg"
         android:text="User"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/location"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toEndOf="@+id/greetings" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/greetings"
+        app:layout_constraintTop_toBottomOf="@+id/greetings" />
 
     <TextView
         android:id="@+id/greetings"
@@ -48,11 +39,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/interreg"
-        android:text="Hi,"
+        android:text="Welcome,"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        app:layout_constraintStart_toStartOf="@+id/toBookSystem"
         app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
     <TextView
@@ -63,19 +54,20 @@
         android:text="Library"
         android:textColor="@color/white"
         android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/toBookSystem"
         app:layout_constraintTop_toBottomOf="@+id/greetings" />
 
     <ImageButton
-        android:id="@+id/toScanQR"
+        android:id="@+id/toBookSystem"
         android:layout_width="312dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/userGreet"
         app:srcCompat="@drawable/container"
         app:tint="#ECECEC" />
 
@@ -90,7 +82,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toScanQR"
+        app:layout_constraintTop_toBottomOf="@+id/toBookSystem"
         app:srcCompat="@drawable/container"
         app:tint="#ECECEC" />
 
@@ -99,25 +91,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:fontFamily="@font/interreg"
-        android:text="Scan QR"
+        android:text="Book System"
         android:textColor="@color/border"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textlabel2"
-        app:layout_constraintStart_toStartOf="@+id/toScanQR"
-        app:layout_constraintTop_toBottomOf="@+id/toScanQR" />
+        app:layout_constraintStart_toStartOf="@+id/toBookSystem"
+        app:layout_constraintTop_toBottomOf="@+id/toBookSystem" />
 
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toScanQR"
-        app:layout_constraintEnd_toEndOf="@+id/toScanQR"
-        app:layout_constraintTop_toTopOf="@+id/toScanQR"
-        app:srcCompat="@drawable/qrnew" />
+        app:layout_constraintBottom_toBottomOf="@+id/toBookSystem"
+        app:layout_constraintEnd_toEndOf="@+id/toBookSystem"
+        app:layout_constraintTop_toTopOf="@+id/toBookSystem"
+        app:srcCompat="@drawable/icons8_book_100" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -127,20 +118,33 @@
         app:layout_constraintBottom_toBottomOf="@+id/toMap"
         app:layout_constraintEnd_toEndOf="@+id/toMap"
         app:layout_constraintTop_toTopOf="@+id/toMap"
-        app:srcCompat="@drawable/mapnew" />
+        app:srcCompat="@drawable/icons8_map_100" />
+
+    <ImageButton
+        android:id="@+id/homebtn"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toMap"
+        app:srcCompat="@drawable/boxinfo" />
 
     <TextView
         android:id="@+id/textlabel2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="112dp"
+        android:layout_height="46dp"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/interreg"
         android:shadowRadius="5"
-        android:text="Scan to enter"
+        android:text="Borrow or return books"
         android:textColor="@color/border"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/toScanQR"
-        app:layout_constraintStart_toStartOf="@+id/toScanQR"
+        app:layout_constraintBottom_toTopOf="@+id/toBookSystem"
+        app:layout_constraintStart_toStartOf="@+id/toBookSystem"
         app:layout_constraintTop_toBottomOf="@+id/textlabel" />
 
     <TextView
@@ -171,6 +175,20 @@
         app:layout_constraintStart_toStartOf="@+id/toMap"
         app:layout_constraintTop_toBottomOf="@+id/textlabel4" />
 
+    <TextView
+        android:id="@+id/textlabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/interreg"
+        android:text="More Information"
+        android:textColor="@color/border"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/homebtn"
+        app:layout_constraintStart_toStartOf="@+id/homebtn"
+        app:layout_constraintTop_toTopOf="@+id/homebtn" />
+
     <View
         android:id="@+id/view7"
         android:layout_width="0dp"
@@ -187,25 +205,24 @@
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/friendsbtn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/toFeedback"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view7"
-        app:srcCompat="@drawable/icons8_user_90" />
+        app:srcCompat="@drawable/icons8_user_100" />
 
     <ImageButton
-        android:id="@+id/homebtn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:id="@+id/friendsbtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/notificationbtn"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintEnd_toStartOf="@+id/toFeedback"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="@+id/view7"
+        app:layout_constraintStart_toEndOf="@+id/profilebtn"
         app:layout_constraintTop_toTopOf="@+id/view7"
-        app:srcCompat="@drawable/icons8_information_96" />
+        app:srcCompat="@drawable/icons8_add_male_user_group_100__1_" />
 
     <ImageButton
         android:id="@+id/notificationbtn"
@@ -214,32 +231,33 @@
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toFeedback"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/homebtn"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/toFeedback"
         app:layout_constraintTop_toTopOf="@+id/view7"
-        app:srcCompat="@drawable/icons8_notification_90" />
+        app:srcCompat="@drawable/icons8_settings_100" />
 
     <ImageView
         android:id="@+id/toFeedback"
-        android:layout_width="60dp"
+        android:layout_width="58dp"
         android:layout_height="60dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
-        app:layout_constraintEnd_toStartOf="@+id/profilebtn"
+        app:layout_constraintEnd_toStartOf="@+id/notificationbtn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/notificationbtn"
+        app:layout_constraintStart_toEndOf="@+id/friendsbtn"
         app:layout_constraintTop_toTopOf="@+id/view7"
         app:srcCompat="@drawable/feedback_icon_" />
 
     <ImageView
         android:id="@+id/toAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/toScanQR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toGraph"
+        app:layout_constraintEnd_toStartOf="@+id/toGraph"
+        app:layout_constraintTop_toTopOf="@+id/toGraph"
         app:layout_constraintVertical_bias="0.458"
         app:srcCompat="@drawable/icons8_admin_48"
         app:tint="@color/colorPrimary" />
@@ -248,21 +266,20 @@
         android:id="@+id/toGraph"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/view7"
-        app:layout_constraintStart_toEndOf="@+id/darkModeSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/toMap"
-        app:srcCompat="@drawable/chart_column_increase_svgrepo_com" />
+        app:layout_constraintBottom_toBottomOf="@+id/greetings"
+        app:layout_constraintEnd_toEndOf="@+id/toBookSystem"
+        app:layout_constraintTop_toTopOf="@+id/greetings"
+        app:srcCompat="@drawable/icons8_chart_90" />
 
     <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/view7"
-        app:layout_constraintEnd_toStartOf="@+id/darkModeSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/toMap"
-        app:srcCompat="@drawable/icons8_darkmode_ios_48" />
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/homebtn"
+        app:layout_constraintEnd_toEndOf="@+id/homebtn"
+        app:layout_constraintTop_toTopOf="@+id/homebtn"
+        app:srcCompat="@drawable/icons8_information_96" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

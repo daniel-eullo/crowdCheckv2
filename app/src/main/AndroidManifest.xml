@@ -6,11 +6,13 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
 
     <application
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -61,8 +63,10 @@
             android:name=".profileActivity"
             android:exported="false" />
         <activity
-            android:name=".notifActivity"
-            android:exported="false" />
+            android:name=".settingsActivity"
+            android:exported="false"
+            android:configChanges="uiMode"/>
+
         <activity
             android:name=".mapActivity"
             android:exported="false" />

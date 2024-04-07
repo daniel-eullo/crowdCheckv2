@@ -13,7 +13,9 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class notifActivity extends AppCompatActivity {
+public class settingsActivity extends AppCompatActivity {
     private static final int LOW_DENSITY_NOTIFICATION_ID = 1;
     private static final int MEDIUM_DENSITY_NOTIFICATION_ID = 2;
     private static final int HIGH_DENSITY_NOTIFICATION_ID = 3;
@@ -30,6 +32,7 @@ public class notifActivity extends AppCompatActivity {
     ImageButton notifBack;
     Switch enableSwitch;
     //Switch soundVibrateSwitch;
+    SharedPreferences.Editor editor;
 
     CheckBox lowDensity, mediumDensity, highDensity, groundfloorchkb, secondfloorchkb;
 
@@ -51,10 +54,10 @@ public class notifActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notifications);
+        setContentView(R.layout.settings);
 
         notifBack = findViewById(R.id.notifBack);
-        enableSwitch = findViewById(R.id.enableswitch);
+        enableSwitch = findViewById(R.id.enableSwitch);
         lowDensity = findViewById(R.id.lowDensity);
         mediumDensity = findViewById(R.id.mediumDensity);
         highDensity = findViewById(R.id.highDensity);
@@ -122,7 +125,7 @@ public class notifActivity extends AppCompatActivity {
                 createNotifications();
             }
 
-            Intent intent = new Intent(notifActivity.this, home.class);
+            Intent intent = new Intent(settingsActivity.this, home.class);
             startActivity(intent);
         });
 
@@ -220,6 +223,36 @@ public class notifActivity extends AppCompatActivity {
             createNotificationChannel(notificationManager, "mediumChannel", "Medium Channel");
             createNotificationChannel(notificationManager, "highChannel", "High Channel");
         }
+
+        // DARK MODE
+
+        Switch darkModeSwitch;
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        boolean nightMode;
+
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightMode = sharedPreferences.getBoolean("night", false);
+
+        if (nightMode) {
+            darkModeSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+
+        darkModeSwitch.setOnClickListener(view -> {
+            if (nightMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                editor = sharedPreferences.edit();
+                editor.putBoolean("night", false);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                editor = sharedPreferences.edit();
+                editor.putBoolean("night", true);
+            }
+            editor.apply();
+
+        });
+
+        // DARK MODE
 
         // Retrieve counts for both rooms
         getCurrentCount("GF", new CountCallback() {
