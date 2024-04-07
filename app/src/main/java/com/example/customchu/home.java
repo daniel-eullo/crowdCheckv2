@@ -36,7 +36,7 @@ import java.util.Objects;
 
 public class home extends AppCompatActivity {
 
-    ImageButton howTo, toBookSystem, toMap, notificationBtn, profileBtn;  //toScanQR,
+    ImageButton howTo, toBookSystem, toMap, notificationBtn, profileBtn, friendsBtn, ToBookSystem;  //toScanQR,
     ImageView toFeedback, toAdmin, toGraph;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -74,6 +74,8 @@ public class home extends AppCompatActivity {
         greetings = findViewById(R.id.userGreet);
         toBookSystem = findViewById(R.id.toBookSystem);
         toMap = findViewById(R.id.toMap);
+        toBookSystem = findViewById(R.id.toBookSystem);
+        friendsBtn = findViewById(R.id.friendsbtn);
         notificationBtn = findViewById(R.id.notificationbtn);
         profileBtn = findViewById(R.id.profilebtn);
 
@@ -91,6 +93,7 @@ public class home extends AppCompatActivity {
 
 
         // NAVIGATION
+
 
         toGraph = findViewById(R.id.toGraph);
         toGraph.setOnClickListener(view -> {
@@ -119,10 +122,18 @@ public class home extends AppCompatActivity {
             }
         });
 
+
+        friendsBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(home.this, friends.class);
+            startActivity(intent);
+        });
+
         notificationBtn.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, settingsActivity.class);
             startActivity(intent);
         });
+
+
 
         profileBtn.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, profileActivity.class);
@@ -139,6 +150,17 @@ public class home extends AppCompatActivity {
             }
 
         });
+
+        toBookSystem.setOnClickListener(view -> {
+            if (status == true){
+                dialogEvent.show();
+            } else if (status == false){
+                Intent intent = new Intent(home.this, BookSystem.class); //mapActivity or updatedlibrary
+                startActivity(intent);
+            }
+
+        });
+
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
