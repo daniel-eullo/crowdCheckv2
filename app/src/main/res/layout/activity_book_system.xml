@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/studentNumber3"
+        android:id="@+id/searchboxbook"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
@@ -54,7 +54,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/managefriendsBack2"
+        android:id="@+id/BookSystemBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00FFFFFF"
@@ -89,14 +89,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studentNumber3" />
+        app:layout_constraintTop_toBottomOf="@+id/searchboxbook" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Borrow Book:"
+        android:text="Search for a book:"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="bold"
