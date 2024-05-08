@@ -82,7 +82,7 @@ public class updatedlibraryb extends AppCompatActivity {
 
         // Declare the radiobs
         RadioButton radioNone = findViewById(R.id.radiobuttonnone);
-        RadioButton radioSeats = findViewById(R.id.radiobuttonseats);
+        RadioButton radioSeats = findViewById(R.id.radiobuttonbooks);
         RadioButton radioScanner = findViewById(R.id.radiobuttonscanner);
         RadioButton radioOpac = findViewById(R.id.radiobuttonopac);
 

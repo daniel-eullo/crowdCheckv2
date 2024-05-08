@@ -121,9 +121,11 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/radioheader"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/floor1count"
-        app:srcCompat="@drawable/svgf1base"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/nf1base"
         app:tintMode="multiply"
         app:zoomage_animateOnReset="true"
         app:zoomage_doubleTapToZoom="true"
@@ -173,12 +175,12 @@
             app:layout_constraintTop_toTopOf="@+id/scannerradiobutton" />
 
         <RadioButton
-            android:id="@+id/radiobuttonseats"
+            android:id="@+id/radiobuttonbooks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:text="Seats"
+            android:text="Books"
             android:textColor="#FFFFFF"
             app:buttonTint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="@+id/scannerradiobutton"

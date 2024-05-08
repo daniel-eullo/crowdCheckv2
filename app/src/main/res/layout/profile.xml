@@ -6,6 +6,34 @@
     android:layout_height="match_parent"
     android:background="@drawable/profilefomr">
 
+    <EditText
+        android:id="@+id/idnumber"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:background="@drawable/userborder"
+        android:enabled="false"
+        android:fontFamily="@font/interreg"
+        android:paddingLeft="20dp"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/interreg"
+        android:text="ID Number:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/idnumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/idnumber"
+        app:layout_constraintTop_toBottomOf="@+id/profilepicture" />
+
     <ImageButton
         android:id="@+id/profileBack"
         android:layout_width="wrap_content"
@@ -23,26 +51,24 @@
         android:id="@+id/profilepicture"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/interreg"
         android:text="Full Name"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/firstname"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/firstname"
-        app:layout_constraintTop_toBottomOf="@+id/profilepicture" />
+        app:layout_constraintTop_toBottomOf="@+id/idnumber" />
 
     <EditText
         android:id="@+id/firstname"
@@ -65,7 +91,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/interreg"
         android:text="Student Number"
         android:textSize="16sp"
@@ -95,7 +121,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/interreg"
         android:text="Email"
         android:textSize="16sp"
@@ -127,7 +153,7 @@
         android:id="@+id/changeinfo"
         android:layout_width="350dp"
         android:layout_height="70dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/blue"
         android:clickable="true"
         android:fontFamily="@font/interbold"

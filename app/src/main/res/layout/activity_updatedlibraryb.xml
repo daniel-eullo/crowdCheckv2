@@ -164,7 +164,7 @@
             app:layout_constraintTop_toTopOf="@+id/scannerradiobutton" />
 
         <RadioButton
-            android:id="@+id/radiobuttonseats"
+            android:id="@+id/radiobuttonbooks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
