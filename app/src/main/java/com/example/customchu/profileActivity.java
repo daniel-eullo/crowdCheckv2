@@ -117,39 +117,50 @@ public class profileActivity extends AppCompatActivity {
 
     private void updateProfile() {
         try {
-            // fetch the student number from ui
+            // Fetch the student number and UID from the UI
             String studentNumber = this.studentNumber.getText().toString();
             String userId = uid.getText().toString();
+            Integer uidCur = 0;
 
-            // check if the student number is empty
-            if (studentNumber.equals("") || studentNumber.equals("")) {
+            // Check if the student number or UID is empty
+            if (studentNumber.isEmpty() || userId.isEmpty()) {
                 Toast.makeText(this, "Please complete your profile", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // fetch the id of the user
+            // Fetch the currently signed-in account
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-            // create a reference to the profile
-            DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
+            // Create a reference to the profile
+            DatabaseReference profileReference = DB.child("Profiles").child(account.getId());
 
-            // create a new profile object
+            // Create a new profile object
             profile = new Profile(Integer.parseInt(studentNumber));
 
-            // set the value of the profile
-            ProfileReference.setValue(profile);
+            // Set the value of the profile
+            profileReference.setValue(profile);
 
-            // create or update the profile in the database
-            ProfileReference.setValue(profile);
+            // Create or update the profile in the database
+            profileReference.setValue(profile);
 
-            DatabaseReference userIdReference = ProfileReference.child("uid"); // Child node for UID
+            // Set the UID in the profile
+            DatabaseReference userIdReference = profileReference.child("uid");
             userIdReference.setValue(Integer.parseInt(userId));
 
-            // notify the user that the profile has been updated
+            // Get the name of the user
+            String userName = account.getGivenName() + " " + account.getFamilyName();
+
+            // Update the user's name in the users node
+            uidCur = Integer.parseInt(userId);
+            DatabaseReference nameReference = DB.child("users").child(uidCur.toString()).child("student_name");
+            nameReference.setValue(userName);
+
+            // Notify the user that the profile has been updated
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            // notify the user that the profile has not been updated
+            // Notify the user that there has been an error
             Toast.makeText(this, "There has been an error. Profile has not been updated", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
