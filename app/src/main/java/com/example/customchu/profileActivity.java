@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 public class profileActivity extends AppCompatActivity {
     ImageButton profileBack;
     ImageView profilePicture;
-    EditText firstName, studentNumber, email;
+    EditText firstName, studentNumber, email, uid;
     Button logout, changeInfo;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -53,6 +53,7 @@ public class profileActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         logout = findViewById(R.id.toLogout);
         changeInfo = findViewById(R.id.changeinfo);
+        uid = findViewById(R.id.idnumber);
 
         profileBack.setOnClickListener(view -> {
             Intent intent = new Intent(profileActivity.this, home.class);
@@ -71,32 +72,46 @@ public class profileActivity extends AppCompatActivity {
 
     private void updateUserinfoUI() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        // check if this account has been logged in with Google
-        // if it is, update the profile picture, and make the fields read-only
+        // update the profile picture regardless of the account status
+        String profilePicUrl = account != null && account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "";
+        if (!profilePicUrl.equals("")) {
+            Picasso.get()
+                    .load(profilePicUrl)
+                    .into(profilePicture);
+        }
+
+        // check if the account exists and update other UI fields
         if (account != null) {
-            // update the fields
-            String profilePicUrl = account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : "";
-            // only change profilePicUrl if it's not empty string
-            if (!profilePicUrl.equals("")) {
-                Picasso.get()
-                        .load(profilePicUrl)
-                        .into(profilePicture);
-            }
-
-
-//            email.setTextColor(getResources().getColor(R.color.black));
-//            firstName.setTextColor(getResources().getColor(R.color.black));
-//            studentNumber.setTextColor(getResources().getColor(R.color.black));
-
-            profilePicture.setImageURI(Uri.parse(profilePicUrl));
             email.setText(account.getEmail());
             firstName.setText(account.getGivenName() + " " + account.getFamilyName());
-            studentNumber.setText(profile.student_id.toString() + "");
+
+            // Fetch student number and UID from the database
+            DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
+            ProfileReference.child("student_id").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Integer studentIdValue = task.getResult().getValue(Integer.class);
+                    if (studentIdValue != null) {
+                        studentNumber.setText(String.valueOf(studentIdValue));
+                    }
+                } else {
+                    Log.e("TAG", "Error getting student ID", task.getException());
+                }
+            });
+
+            ProfileReference.child("uid").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Integer uidValue = task.getResult().getValue(Integer.class);
+                    if (uidValue != null) {
+                        uid.setText(String.valueOf(uidValue));
+                    }
+                } else {
+                    Log.e("TAG", "Error getting UID", task.getException());
+                }
+            });
 
             // make the fields read-only
             email.setEnabled(false);
             firstName.setEnabled(false);
-            //studentNumber.setEnabled(false);
         }
     }
 
@@ -104,10 +119,11 @@ public class profileActivity extends AppCompatActivity {
         try {
             // fetch the student number from ui
             String studentNumber = this.studentNumber.getText().toString();
+            String userId = uid.getText().toString();
 
             // check if the student number is empty
-            if (studentNumber.equals("")) {
-                Toast.makeText(this, "Please enter your student number", Toast.LENGTH_SHORT).show();
+            if (studentNumber.equals("") || studentNumber.equals("")) {
+                Toast.makeText(this, "Please complete your profile", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -125,6 +141,9 @@ public class profileActivity extends AppCompatActivity {
 
             // create or update the profile in the database
             ProfileReference.setValue(profile);
+
+            DatabaseReference userIdReference = ProfileReference.child("uid"); // Child node for UID
+            userIdReference.setValue(Integer.parseInt(userId));
 
             // notify the user that the profile has been updated
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();

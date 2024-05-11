@@ -11,7 +11,7 @@
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:background="@drawable/userborder"
-        android:enabled="false"
+        android:enabled="true"
         android:fontFamily="@font/interreg"
         android:paddingLeft="20dp"
         android:textAlignment="textStart"

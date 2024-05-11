@@ -109,21 +109,21 @@ public class updatedlibraryb extends AppCompatActivity {
         floor2count = findViewById(R.id.floor2count);
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference room2 = databaseFacility.child("Rooms").child("2F").child("Current");
+        DatabaseReference room2 = databaseFacility.child("Library").child("Current");
 
         ValueEventListener postListener2 = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 floor2count.setText("Current Occupied: " + dataSnapshot.getValue() + "");
                 libRoom2 = Integer.parseInt(dataSnapshot.getValue() + "");
-                if (libRoom2 < 26)
+                if (libRoom2 < 50)
                 {
                     floor2count.setTextColor(getResources().getColor(R.color.green));
                     ImageViewCompat.setImageTintMode(crowdLogo2, PorterDuff.Mode.SRC_ATOP);
                     ImageViewCompat.setImageTintList(crowdLogo2, ColorStateList.valueOf(Color.parseColor("#388E3C")));
 
                 }
-                else if (libRoom2 < 51)
+                else if (libRoom2 < 100)
                 {
                     floor2count.setTextColor(getResources().getColor(R.color.yellow));
                     ImageViewCompat.setImageTintMode(crowdLogo2, PorterDuff.Mode.SRC_ATOP);
