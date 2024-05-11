@@ -24,8 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view13" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <View
         android:id="@+id/view2"
@@ -54,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/interreg"
-        android:text="Friends"
+        android:text="Friend List"
         android:textColor="@color/white"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
@@ -63,27 +62,16 @@
         app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:srcCompat="@drawable/icons8_add_male_user_group_100__1_" />
-
-    <ImageView
         android:id="@+id/borderz"
         android:layout_width="0dp"
         android:layout_height="340dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/border"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        tools:layout_editor_absoluteY="251dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

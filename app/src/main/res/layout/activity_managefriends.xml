@@ -8,7 +8,7 @@
     tools:context=".managefriends">
 
     <Button
-        android:id="@+id/AddFriendBtn"
+        android:id="@+id/uidSubmit"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginStart="50dp"
@@ -35,24 +35,24 @@
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/studentNumber2"
+        app:layout_constraintBottom_toTopOf="@+id/uidTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/studentNumber2"
+        android:id="@+id/uidTxt"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/userborder"
         android:backgroundTint="@color/colorAccent"
         android:fontFamily="@font/interreg"
-        android:hint="Type Student Name:"
+        android:hint="UID"
         android:inputType="text|textPersonName"
         android:paddingLeft="20dp"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/AddFriendBtn"
+        app:layout_constraintBottom_toTopOf="@+id/uidSubmit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/interreg"
-        android:text="Manage Friends"
+        android:text="Send Request"
         android:textColor="@color/white"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/view14"
