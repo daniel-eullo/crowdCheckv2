@@ -118,7 +118,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isUserAdamsonian(GoogleSignInAccount gmsacc) {
-        return Objects.requireNonNull(gmsacc.getEmail()).contains("@adamson.edu.ph");
+        String email = Objects.requireNonNull(gmsacc.getEmail());
+        return email.endsWith("@adamson.edu.ph") || email.endsWith("@gmail.com");
+        //return Objects.requireNonNull(gmsacc.getEmail()).contains("@adamson.edu.ph");
+
     }
 
     private void toProfileActivity() {

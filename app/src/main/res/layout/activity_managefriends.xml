@@ -30,7 +30,7 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:text="Search for friends:"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/interreg"
-        android:text="Send Request"
+        android:text="Sent Request"
         android:textColor="@color/white"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/view14"
@@ -91,37 +91,37 @@
         app:layout_constraintTop_toTopOf="@+id/view14" />
 
     <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Current Friends:"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view14" />
-
-    <TextView
         android:id="@+id/testTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintBottom_toTopOf="@+id/uidSubmit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testTxt2" />
+        app:layout_constraintTop_toBottomOf="@+id/uidTxt" />
 
     <TextView
         android:id="@+id/testTxt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="196dp"
-        android:layout_marginBottom="172dp"
+        android:layout_marginStart="28dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/uidSubmit"
+        app:layout_constraintEnd_toStartOf="@+id/testTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uidTxt" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSent"
+        android:layout_width="409dp"
+        android:layout_height="427dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/textView16"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/testTxt" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

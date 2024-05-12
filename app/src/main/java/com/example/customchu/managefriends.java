@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -36,8 +38,9 @@ public class managefriends extends AppCompatActivity {
     GoogleSignInClient gsc;
     DatabaseReference DB;
     Integer uidCur = 0, uidFr = 0;
-    String uidInput = "";
+    String uidInput = "", userName = "";
     boolean uidFound = false;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,11 @@ public class managefriends extends AppCompatActivity {
             Intent intent = new Intent(managefriends.this, friends.class);
             startActivity(intent);
         });
+
+        getCurrentUser();
+
+        recyclerView = (RecyclerView)findViewById(R.id.rvSent);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         uid = findViewById(R.id.uidTxt);
         uidSubmit = findViewById(R.id.uidSubmit);
@@ -103,7 +111,9 @@ public class managefriends extends AppCompatActivity {
 
 
 
+    }
 
+    private void getCurrentUser(){
         DB = FirebaseDatabase.getInstance().getReference();
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -111,6 +121,7 @@ public class managefriends extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        userName = account.getGivenName() + " " + account.getFamilyName();
         if (account != null){
             DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
 
@@ -125,7 +136,6 @@ public class managefriends extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     private void sendFriendRequest(String senderUid, String receiverUid) {
@@ -135,16 +145,62 @@ public class managefriends extends AppCompatActivity {
         // Reference to the receiver's node in the database
         DatabaseReference receiverRef = DB.child("users").child(receiverUid);
 
-        // Create a node under sender's node to store current request
-        senderRef.child("currentRequest").child(receiverUid).setValue(true);
+        // Retrieve the name of the sender (current user) from the database
+        DatabaseReference senderNameRef = senderRef.child("student_name");
+        senderNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Get the name of the sender
+                String senderName = dataSnapshot.getValue(String.class);
 
-        // Create a node under receiver's node to store friend request
-        receiverRef.child("friendRequests").child(senderUid).setValue(true);
+                // Check if the sender's name is available
+                if (senderName != null) {
 
-        // Inform user that friend request has been sent
-        // You can add any additional UI feedback here
-        Log.d("TAG", "Friend request sent successfully");
+                    // Retrieve the name of the receiver from the database
+                    DatabaseReference receiverNameRef = receiverRef.child("student_name");
+                    receiverNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // Get the name of the receiver
+                            String receiverName = dataSnapshot.getValue(String.class);
+
+                            // Check if the receiver's name is available
+                            if (receiverName != null) {
+                                // Create a node under sender's node to store receiver's name
+                                senderRef.child("currentRequest").child(receiverUid).child("receiver_name").setValue(receiverName);
+
+                                // Create a node under receiver's node to store sender's name
+                                receiverRef.child("friendRequests").child(senderUid).child("sender_name").setValue(senderName);
+
+                                // Inform user that friend request has been sent
+                                // You can add any additional UI feedback here
+                                Log.d("TAG", "Friend request sent successfully");
+                            } else {
+                                // Handle the case where the receiver's name is not available
+                                Log.e("TAG", "Receiver name is null");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle errors
+                            Log.e("TAG", "Error reading receiver name", databaseError.toException());
+                        }
+                    });
+                } else {
+                    // Handle the case where the sender's name is not available
+                    Log.e("TAG", "Sender name is null");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors
+                Log.e("TAG", "Error reading sender name", databaseError.toException());
+            }
+        });
     }
+
 
 
 }
