@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Customchu"
         tools:targetApi="31">
         <activity
+            android:name=".recFriendRequest"
+            android:exported="false" />
+        <activity
             android:name=".BookReturn"
             android:exported="false" />
         <activity

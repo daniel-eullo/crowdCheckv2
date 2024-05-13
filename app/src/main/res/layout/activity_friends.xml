@@ -9,22 +9,37 @@
 
     <Button
         android:id="@+id/ManageFriendsBtn"
-        android:layout_width="0dp"
+        android:layout_width="170dp"
         android:layout_height="65dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="36dp"
         android:clickable="true"
         android:fontFamily="@font/interreg"
-        android:text="Manage Friends"
+        android:text="Sent Request"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/friendRequestBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/friendRequestBtn"
+        android:layout_width="170dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        android:fontFamily="@font/interreg"
+        android:text="Friend Request"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:backgroundTint="@color/blue"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/view2"
@@ -61,17 +76,12 @@
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2" />
 
-    <ImageView
-        android:id="@+id/borderz"
-        android:layout_width="0dp"
-        android:layout_height="340dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/border"
-        android:backgroundTint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="251dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFriends"
+        android:layout_width="409dp"
+        android:layout_height="528dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="101dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

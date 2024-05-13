@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class friends extends AppCompatActivity {
 
     private ImageButton friendsBack;
-    private Button ManageFriendsButton;
+    private Button ManageFriendsButton, friendRequestBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,12 @@ public class friends extends AppCompatActivity {
         ManageFriendsButton = findViewById(R.id.ManageFriendsBtn);
         ManageFriendsButton.setOnClickListener(view -> {
             Intent intent = new Intent(friends.this, managefriends.class);
+            startActivity(intent);
+        });
+
+        friendRequestBtn = findViewById(R.id.friendRequestBtn);
+        friendRequestBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(friends.this, recFriendRequest.class);
             startActivity(intent);
         });
 
