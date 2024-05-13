@@ -31,7 +31,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
         holder.rating.setText(String.valueOf(model.getRating()));
         holder.userFeedback.setText(model.getUserFeedback());
         holder.date.setText(model.getDate());
-
+        holder.ticketNumber.setText(model.getTicketNumber()); // Set the ticket number
     }
 
     @NonNull
@@ -43,6 +43,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
 
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView username, account_id,rating,userFeedback, date;
+        TextView ticketNumber; // Add the ticket number TextView
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +52,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
             account_id = itemView.findViewById(R.id.account_id);
             rating = itemView.findViewById(R.id.rating);
             userFeedback = itemView.findViewById(R.id.userFeedback);
+            ticketNumber = itemView.findViewById(R.id.ticketNumber); // Initialize the ticket number TextView
         }
     }
 }

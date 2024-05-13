@@ -48,7 +48,14 @@ public class checkFeedbackActivity extends AppCompatActivity {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Feedback").child("feedbackTicket"), MainModel.class)
                         .build();
 
-        mainAdapter = new MainAdapter(options);
+        mainAdapter = new MainAdapter(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull MainModel model) {
+                super.onBindViewHolder(holder, position, model);
+                holder.ticketNumber.setText(getRef(position).getKey());
+            }
+        };
+
         recyclerView.setAdapter(mainAdapter);
 
         Log.d("CheckFeedbackActivity", "onCreate: Initialized successfully");

@@ -5,6 +5,16 @@ public class MainModel {
     String username, account_id, userFeedback, date;
     Long rating;
 
+    private String ticketNumber;
+
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
+
     public MainModel(String username, String account_id, String userFeedback, String date, Long rating) {
         this.username = username;
         this.account_id = account_id;
