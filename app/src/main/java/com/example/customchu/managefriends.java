@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,10 +38,12 @@ public class managefriends extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     DatabaseReference DB;
-    Integer uidCur = 0, uidFr = 0;
+    Integer uidCur = 0;
     String uidInput = "", userName = "";
     boolean uidFound = false;
     RecyclerView recyclerView;
+    sentAdapter sentAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +57,38 @@ public class managefriends extends AppCompatActivity {
 
         getCurrentUser();
 
-        recyclerView = (RecyclerView)findViewById(R.id.rvSent);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         uid = findViewById(R.id.uidTxt);
         uidSubmit = findViewById(R.id.uidSubmit);
         testTxt = findViewById(R.id.testTxt);
         testTxt2 = findViewById(R.id.testTxt2);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
+
+            ProfileReference.child("uid").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Integer uidValue = task.getResult().getValue(Integer.class);
+                    if (uidValue != null) {
+                        String uidPath = String.valueOf(uidValue);
+                        testTxt2.setText(uidPath);
+                    }
+                } else {
+                    Log.e("TAG", "Error getting UID", task.getException());
+                }
+            });
+        }
+
+        recyclerView = (RecyclerView)findViewById(R.id.rvSent);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseRecyclerOptions<sentModel> options =
+                new FirebaseRecyclerOptions.Builder<sentModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference(), sentModel.class)
+                        .build();
+
+        sentAdapter = new sentAdapter(options);
+        recyclerView.setAdapter(sentAdapter);
 
         uidSubmit.setOnClickListener(view -> {
             uidInput = uid.getText().toString();
@@ -109,9 +137,20 @@ public class managefriends extends AppCompatActivity {
             });
         });
 
-
-
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sentAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sentAdapter.stopListening();
+    }
+
 
     private void getCurrentUser(){
         DB = FirebaseDatabase.getInstance().getReference();
@@ -121,7 +160,6 @@ public class managefriends extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        userName = account.getGivenName() + " " + account.getFamilyName();
         if (account != null){
             DatabaseReference ProfileReference = DB.child("Profiles").child(account.getId());
 
@@ -130,12 +168,24 @@ public class managefriends extends AppCompatActivity {
                     uidCur = task.getResult().getValue(Integer.class);
                     if (uidCur != null) {
                         testTxt.setText("Current User: " + String.valueOf(uidCur));
+
+                        // Now that you have the UID, update the FirebaseRecyclerOptions query
+                        updateRecyclerView(uidCur);
                     }
                 } else {
                     Log.e("TAG", "Error getting UID", task.getException());
                 }
             });
         }
+    }
+
+    private void updateRecyclerView(Integer uid) {
+        FirebaseRecyclerOptions<sentModel> options =
+                new FirebaseRecyclerOptions.Builder<sentModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").child(uid.toString()).child("currentRequest"), sentModel.class)
+                        .build();
+
+        sentAdapter.updateOptions(options);
     }
 
     private void sendFriendRequest(String senderUid, String receiverUid) {
@@ -168,9 +218,11 @@ public class managefriends extends AppCompatActivity {
                             if (receiverName != null) {
                                 // Create a node under sender's node to store receiver's name
                                 senderRef.child("currentRequest").child(receiverUid).child("receiver_name").setValue(receiverName);
+                                senderRef.child("currentRequest").child(receiverUid).child("receiver_uid").setValue(receiverUid);
 
                                 // Create a node under receiver's node to store sender's name
                                 receiverRef.child("friendRequests").child(senderUid).child("sender_name").setValue(senderName);
+                                receiverRef.child("friendRequests").child(senderUid).child("sender_uid").setValue(senderUid);
 
                                 // Inform user that friend request has been sent
                                 // You can add any additional UI feedback here
