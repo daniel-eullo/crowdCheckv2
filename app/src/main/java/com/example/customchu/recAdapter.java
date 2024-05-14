@@ -41,7 +41,7 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
     Integer uidCur = 0;
     Dialog dialog_confirm_decline, dialog_confirm_request;
     Button confirmDeclineBtn, cancelBtn, cancelAcceptBtn, confirmAcceptBtn;
-    TextView userRequest;
+    TextView userRequest, userAcceptRequest;
     public recAdapter(@NonNull FirebaseRecyclerOptions<recModel> options) {
         super(options);
     }
@@ -137,7 +137,7 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
 
         cancelAcceptBtn = dialog_confirm_request.findViewById(R.id.cancelAcceptBtn);
         confirmAcceptBtn = dialog_confirm_request.findViewById(R.id.confirmAcceptBtn);
-        userRequest = dialog_confirm_request.findViewById(R.id.userRequest);
+        userAcceptRequest = dialog_confirm_request.findViewById(R.id.userAcceptRequest);
 
         holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +155,7 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String sender_name = dataSnapshot.getValue(String.class);
                         if (sender_name != null) {
-                            userRequest.setText("Accept request from " + sender_name + "?");
+                            userAcceptRequest.setText("Add " + sender_name + " as friends?");
                             dialog_confirm_request.show();
 
                             cancelAcceptBtn.setOnClickListener(view -> {
@@ -172,6 +172,7 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
 
                                 friendsRef.child("name").setValue(sender_name).addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
+                                        Log.d("recAdapter", "Friend added with UID: " + getRef(position).getKey());
                                         // Remove the item from friendRequests node
                                         FirebaseDatabase.getInstance().getReference()
                                                 .child("users")

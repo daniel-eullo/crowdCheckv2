@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/userRequest"
+            android:id="@+id/userAcceptRequest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userRequest">
+            app:layout_constraintTop_toBottomOf="@+id/userAcceptRequest">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancelAcceptBtn"
