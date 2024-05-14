@@ -1,14 +1,17 @@
 package com.example.customchu;
 
+import android.app.Dialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -17,8 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myViewHolder> {
 
@@ -33,6 +39,9 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
     GoogleSignInClient gsc;
     DatabaseReference DB;
     Integer uidCur = 0;
+    Dialog dialog_confirm_decline;
+    Button confirmDeclineBtn, cancelBtn;
+    TextView userRequest;
     public recAdapter(@NonNull FirebaseRecyclerOptions<recModel> options) {
         super(options);
     }
@@ -64,12 +73,59 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
             });
         }
 
+        dialog_confirm_decline = new Dialog(holder.itemView.getContext());
+        dialog_confirm_decline.setContentView(R.layout.dialog_confirm_decline);
+        dialog_confirm_decline.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog_confirm_decline.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.dialogbox_qr_bg));
+        dialog_confirm_decline.setCancelable(false);
+
+        cancelBtn = dialog_confirm_decline.findViewById(R.id.cancelBtn);
+        confirmDeclineBtn = dialog_confirm_decline.findViewById(R.id.confirmDeclineBtn);
+        userRequest = dialog_confirm_decline.findViewById(R.id.userRequest);
+
         holder.declineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("recAdapter", "decline btn working" + uidCur);
-                FirebaseDatabase.getInstance().getReference().child("users").child(uidCur.toString()).child("friendRequests")
-                        .child(getRef(position).getKey()).removeValue();
+                DatabaseReference senderRef = FirebaseDatabase.getInstance().getReference()
+                        .child("users")
+                        .child(uidCur.toString())
+                        .child("friendRequests")
+                        .child(getRef(position).getKey())
+                        .child("sender_name");
+
+                senderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String sender_name = dataSnapshot.getValue(String.class);
+                        if (sender_name != null) {
+                            userRequest.setText("Decline request from " + sender_name + "?");
+                            dialog_confirm_decline.show();
+
+                            cancelBtn.setOnClickListener(view -> {
+                                dialog_confirm_decline.dismiss();
+                            });
+
+                            confirmDeclineBtn.setOnClickListener(view -> {
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("users")
+                                        .child(uidCur.toString())
+                                        .child("friendRequests")
+                                        .child(getRef(position).getKey())
+                                        .removeValue();
+
+                                dialog_confirm_decline.dismiss();
+                            });
+                        } else {
+                            Log.e("recAdapter", "Sender name is null");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("recAdapter", "Error getting sender name", databaseError.toException());
+                    }
+                });
             }
         });
 
