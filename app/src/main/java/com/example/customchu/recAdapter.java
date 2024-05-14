@@ -39,8 +39,8 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
     GoogleSignInClient gsc;
     DatabaseReference DB;
     Integer uidCur = 0;
-    Dialog dialog_confirm_decline;
-    Button confirmDeclineBtn, cancelBtn;
+    Dialog dialog_confirm_decline, dialog_confirm_request;
+    Button confirmDeclineBtn, cancelBtn, cancelAcceptBtn, confirmAcceptBtn;
     TextView userRequest;
     public recAdapter(@NonNull FirebaseRecyclerOptions<recModel> options) {
         super(options);
@@ -129,10 +129,73 @@ public class recAdapter extends FirebaseRecyclerAdapter<recModel, recAdapter.myV
             }
         });
 
+        dialog_confirm_request = new Dialog(holder.itemView.getContext());
+        dialog_confirm_request.setContentView(R.layout.dialog_confirm_request);
+        dialog_confirm_request.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog_confirm_request.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.dialogbox_qr_bg));
+        dialog_confirm_request.setCancelable(false);
+
+        cancelAcceptBtn = dialog_confirm_request.findViewById(R.id.cancelAcceptBtn);
+        confirmAcceptBtn = dialog_confirm_request.findViewById(R.id.confirmAcceptBtn);
+        userRequest = dialog_confirm_request.findViewById(R.id.userRequest);
+
         holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("recAdapter", "accept btn working" + uidCur);
+                DatabaseReference senderRef = FirebaseDatabase.getInstance().getReference()
+                        .child("users")
+                        .child(uidCur.toString())
+                        .child("friendRequests")
+                        .child(getRef(position).getKey())
+                        .child("sender_name");
+
+                senderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String sender_name = dataSnapshot.getValue(String.class);
+                        if (sender_name != null) {
+                            userRequest.setText("Accept request from " + sender_name + "?");
+                            dialog_confirm_request.show();
+
+                            cancelAcceptBtn.setOnClickListener(view -> {
+                                dialog_confirm_request.dismiss();
+                            });
+
+                            confirmAcceptBtn.setOnClickListener(view -> {
+                                // Add sender_name to friends node
+                                DatabaseReference friendsRef = FirebaseDatabase.getInstance().getReference()
+                                        .child("users")
+                                        .child(uidCur.toString())
+                                        .child("friends")
+                                        .child(getRef(position).getKey());
+
+                                friendsRef.child("name").setValue(sender_name).addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        // Remove the item from friendRequests node
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("users")
+                                                .child(uidCur.toString())
+                                                .child("friendRequests")
+                                                .child(getRef(position).getKey())
+                                                .removeValue();
+
+                                        dialog_confirm_request.dismiss();
+                                    } else {
+                                        Log.e("recAdapter", "Error adding friend", task.getException());
+                                    }
+                                });
+                            });
+                        } else {
+                            Log.e("recAdapter", "Sender name is null");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("recAdapter", "Error getting sender name", databaseError.toException());
+                    }
+                });
             }
         });
     }
