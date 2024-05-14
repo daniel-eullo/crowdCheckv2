@@ -39,15 +39,11 @@ import java.util.Map;
 public class QRActivity extends AppCompatActivity {
     ImageButton qrBack;
     TextView txtScan;
-    DatabaseReference databaseFacility;
-    int libRoom1 = 0, libRoom2 = 0;
-    int capLibRoom1 = 50, capLibRoom2 = 50;
     private CodeScanner mCodeScanner;
     GoogleSignInAccount user;
     Boolean qrScanned;
     String scannedContent;
 
-    DatabaseReference room1, room2, capRoom1, capRoom2;
     Dialog dialog, dialogExit;
     Button qrDialogCancel, qrDialogProceed, qrToHome;
     @Override
@@ -65,224 +61,67 @@ public class QRActivity extends AppCompatActivity {
         qrBack = findViewById(R.id.qrBack);
         qrBack.setOnClickListener(view -> finish());
 
-        databaseFacility = FirebaseDatabase.getInstance().getReference();
+        //databaseFacility = FirebaseDatabase.getInstance().getReference();
 
         //dialog box
-        dialog = new Dialog(QRActivity.this);
-        dialog.setContentView(R.layout.dialogbox_qr);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
-        dialog.setCancelable(false);
+//        dialog = new Dialog(QRActivity.this);
+//        dialog.setContentView(R.layout.dialogbox_qr);
+//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+//        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+//        dialog.setCancelable(false);
+//
+//        qrDialogCancel = dialog.findViewById(R.id.qrDialogCancel);
+//        qrDialogProceed = dialog.findViewById(R.id.qrDialogProceed);
 
-        qrDialogCancel = dialog.findViewById(R.id.qrDialogCancel);
-        qrDialogProceed = dialog.findViewById(R.id.qrDialogProceed);
+//        qrDialogCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//            }
+//        });
 
-        qrDialogCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        qrDialogProceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-//                startActivity(intent);
-
-                if (scannedContent.equalsIgnoreCase("Library Ground Floor")){
-                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-                    startActivity(intent);
-                } else if (scannedContent.equalsIgnoreCase("Library Second Floor")){
-                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-                    startActivity(intent);
-                }
-
-                dialog.dismiss();
-            }
-        });
+//        qrDialogProceed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+////                startActivity(intent);
+//
+//                if (scannedContent.equalsIgnoreCase("Library Ground Floor")){
+//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
+//                    startActivity(intent);
+//                } else if (scannedContent.equalsIgnoreCase("Library Second Floor")){
+//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
+//                    startActivity(intent);
+//                }
+//
+//                dialog.dismiss();
+//            }
+//        });
 
         //dialog box for
-        dialogExit = new Dialog(QRActivity.this);
-        dialogExit.setContentView(R.layout.dialog_exit);
-        dialogExit.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialogExit.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
-        dialogExit.setCancelable(false);
-
-        qrToHome = dialogExit.findViewById(R.id.qrToHome);
-        qrToHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(QRActivity.this, home.class);
-                startActivity(intent);
-
-                dialogExit.dismiss();
-            }
-        });
-
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                libRoom1 = Integer.parseInt(dataSnapshot.child("Current").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-
-        };
-        room1 = databaseFacility.child("Rooms").child("GF");
-        room1.addValueEventListener(postListener);
-
-        ValueEventListener postListener3 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                capLibRoom1 = Integer.parseInt(dataSnapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-
-        };
-        capRoom1 = databaseFacility.child("Rooms").child("GF").child("Cap");
-        capRoom1.addValueEventListener(postListener3);
-
-        ValueEventListener postListener2 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                libRoom2 = Integer.parseInt(dataSnapshot.child("Current").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-
-        };
-        room2 = databaseFacility.child("Rooms").child("2F");
-        room2.addValueEventListener(postListener2);
-
-        ValueEventListener postListener4 = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                capLibRoom2 = Integer.parseInt(dataSnapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-
-        };
-        capRoom2 = databaseFacility.child("Rooms").child("2F").child("Cap");
-        capRoom2.addValueEventListener(postListener4);
+//        dialogExit = new Dialog(QRActivity.this);
+//        dialogExit.setContentView(R.layout.dialog_exit);
+//        dialogExit.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+//        dialogExit.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+//        dialogExit.setCancelable(false);
+//
+//        qrToHome = dialogExit.findViewById(R.id.qrToHome);
+//        qrToHome.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(QRActivity.this, home.class);
+//                startActivity(intent);
+//
+//                dialogExit.dismiss();
+//            }
+//        });
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
             scannedContent = result.getText();
-            String expectedContent = "Library Room1";
-            if (scannedContent.equalsIgnoreCase("Library Ground Floor") && qrScanned == false) {
-                // check if room is full
-                if (libRoom1 >= capLibRoom1) {
-                    // show message that the room is full
-                    txtScan.setText("Room is full, try again later");
-                    return;
-                }
+            txtScan.setText(scannedContent);
 
-                else{
-                    txtScan.setText("QR Code successfully scanned: " + scannedContent);
-
-                    // insert to database
-                    room1.child("Current").setValue(libRoom1 + 1);
-                    insertOnRoom1();
-
-                    qrScanned = true;
-                    dialog.show();
-//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-//                    startActivity(intent);
-                }
-            } else if (scannedContent.equalsIgnoreCase("Library Second Floor") && qrScanned == false) {
-                // check if room is full
-                if (libRoom2 >= capLibRoom2) {
-                    txtScan.setText("Room is full, try again later");
-                    return;
-                }
-
-                else{
-                    txtScan.setText("QR Code successfully scanned: " + scannedContent);
-
-                    // insert to database
-                    room2.child("Current").setValue(libRoom2 + 1);
-                    insertOnRoom2();
-
-                    qrScanned = true;
-
-                    dialog.show();
-
-//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-//                    startActivity(intent);
-                }
-
-
-            } else if (scannedContent.equalsIgnoreCase("Library Ground Floor Exit") && qrScanned == false) {
-                // check if room is full
-                if (libRoom1 <= 0) {
-                    txtScan.setText("Room is empty, try again later");
-                    return;
-                }
-
-                else {
-                    txtScan.setText("QR Code successfully scanned: " + scannedContent);
-
-                    // insert to database
-                    room1.child("Current").setValue(libRoom1 - 1);
-                    outsertOnRoom1();
-
-                    qrScanned = true;
-
-                    dialogExit.show();
-
-                    txtScan.setText("Exit scanned. See you again!");
-//                    Intent intent = new Intent(QRActivity.this, updatedlibrary.class);
-//                    startActivity(intent);
-                }
-            } else if (scannedContent.equalsIgnoreCase("Library Second Floor Exit") && qrScanned == false) {
-                // check if room is full
-                if (libRoom2 <= 0) {
-                    txtScan.setText("Room is empty, try again later");
-                    return;
-                }
-
-                else{
-                    txtScan.setText("QR Code successfully scanned: " + scannedContent);
-
-                    // insert to database
-                    room2.child("Current").setValue(libRoom2 - 1);
-                    outsertOnRoom2();
-
-                    qrScanned = true;
-
-                    dialogExit.show();
-
-                    txtScan.setText("Exit scanned. See you again!");
-                    //successful notif muna dapat dito
-//                    Intent intent = new Intent(QRActivity.this, updatedlibraryb.class);
-//                    startActivity(intent);
-                }
-
-
-            } else {
-                txtScan.setText("Invalid QR Code, try again");
-            }
             mCodeScanner.startPreview();
         }));
 
@@ -326,105 +165,6 @@ public class QRActivity extends AppCompatActivity {
         }
     }
 
-    private void outsertOnRoom1() {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String dateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-        room1.child(date).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("account_id", user.getId());
-                    data.put("in", false);
-                    data.put("out", true);
-                    data.put("date_and_time", dateAndTime);
-
-                    room1.child("History").child(date).child(user.getId()+":out:"+dateAndTime).setValue(data);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void outsertOnRoom2() {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String dateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-        room2.child(date).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("account_id", user.getId());
-                    data.put("in", false);
-                    data.put("out", true);
-                    data.put("date_and_time", dateAndTime);
-
-                    room2.child("History").child(date).child(user.getId()+":out:"+dateAndTime).setValue(data);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void insertOnRoom1() {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String dateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-        room1.child(date).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("account_id", user.getId());
-                    data.put("in", true);
-                    data.put("out", false);
-                    data.put("date_and_time", dateAndTime);
-
-                    room1.child("History").child(date).child(user.getId()+":in:"+dateAndTime).setValue(data);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void insertOnRoom2() {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String dateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-        room2.child(date).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("account_id", user.getId());
-                    data.put("in", true);
-                    data.put("out", false);
-                    data.put("date_and_time", dateAndTime);
-
-                    room2.child("History").child(date).child(user.getId()+":in:"+dateAndTime).setValue(data);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     public static final int CAMERA_REQUEST_CODE = 101;
 }

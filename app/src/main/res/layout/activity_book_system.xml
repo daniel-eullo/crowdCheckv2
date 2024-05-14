@@ -26,23 +26,6 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/searchboxbook"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/userborder"
-        android:backgroundTint="@color/colorAccent"
-        android:fontFamily="@font/interreg"
-        android:hint="Type Book Name:"
-        android:inputType="text"
-        android:paddingLeft="20dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
     <View
         android:id="@+id/view12"
         android:layout_width="0dp"
@@ -77,30 +60,50 @@
         app:layout_constraintStart_toStartOf="@+id/view12"
         app:layout_constraintTop_toTopOf="@+id/view12" />
 
-    <ImageView
-        android:id="@+id/borderz2"
-        android:layout_width="0dp"
-        android:layout_height="360dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/border"
-        android:backgroundTint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchboxbook" />
-
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/txtScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Search for a book:"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/interbold"
+        android:text="SCAN HERE"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/ReturnBookBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanner_view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="196dp"
+        app:autoFocusButtonColor="@android:color/white"
+        app:autoFocusButtonVisible="true"
+        app:flashButtonColor="@android:color/white"
+        app:flashButtonVisible="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.576"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view12"
+        app:layout_constraintVertical_bias="0.933"
+        app:maskColor="#6C000000" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="260dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/scanner_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view12" />
+        app:layout_constraintTop_toBottomOf="@+id/view12"
+        app:srcCompat="@drawable/cclogo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

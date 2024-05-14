@@ -74,7 +74,6 @@ public class home extends AppCompatActivity {
         greetings = findViewById(R.id.userGreet);
         toBookSystem = findViewById(R.id.toBookSystem);
         toMap = findViewById(R.id.toMap);
-        toBookSystem = findViewById(R.id.toBookSystem);
         friendsBtn = findViewById(R.id.friendsbtn);
         notificationBtn = findViewById(R.id.notificationbtn);
         profileBtn = findViewById(R.id.profilebtn);
@@ -151,15 +150,15 @@ public class home extends AppCompatActivity {
 
         });
 
-        toBookSystem.setOnClickListener(view -> {
-            if (status == true){
-                dialogEvent.show();
-            } else if (status == false){
-                Intent intent = new Intent(home.this, BookSystem.class); //mapActivity or updatedlibrary
-                startActivity(intent);
-            }
-
-        });
+//        toBookSystem.setOnClickListener(view -> {
+//            if (status == true){
+//                dialogEvent.show();
+//            } else if (status == false){
+//                Intent intent = new Intent(home.this, BookSystem.class); //mapActivity or updatedlibrary
+//                startActivity(intent);
+//            }
+//
+//        });
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
