@@ -82,26 +82,26 @@ public class updatedlibraryb extends AppCompatActivity {
 
         // Declare the radiobs
         RadioButton radioNone = findViewById(R.id.radiobuttonnone);
-        RadioButton radioSeats = findViewById(R.id.radiobuttonbooks);
+        RadioButton radioBooks = findViewById(R.id.radiobuttonbooks);
         RadioButton radioScanner = findViewById(R.id.radiobuttonscanner);
         RadioButton radioOpac = findViewById(R.id.radiobuttonopac);
 
-        radioSeats.setChecked(true);
+        //radioBooks.setChecked(true);
 
         // Events for clicks
-        radioNone.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.f2n3base));
-        radioSeats.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.f2n3seats));
-        radioScanner.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.f2n3scanner));
-        radioOpac.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.f2n3opac));
+        radioNone.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2base));
+        radioBooks.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2books));
+        radioScanner.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2scanner));
+        radioOpac.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2opac));
 
-        radioSeats.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        radioBooks.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 // Remove the listener to avoid multiple calls
-                radioSeats.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                radioBooks.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 // Perform click after the layout is complete
-                radioSeats.performClick();
+                radioBooks.performClick();
             }
         });
 
