@@ -80,8 +80,21 @@
         android:id="@+id/rvFriends"
         android:layout_width="409dp"
         android:layout_height="528dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="101dp" />
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/ManageFriendsBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/friendTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ManageFriendsBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
