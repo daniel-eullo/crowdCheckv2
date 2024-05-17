@@ -63,26 +63,15 @@ public class friendAdapter extends FirebaseRecyclerAdapter<friendModel, friendAd
         String friendUid = getRef(position).getKey();
 
         if (friendUid != null) {
-            // Navigate to the status node under the friend's UID to check if they are online or offline
             DatabaseReference friendStatusRef = DB.child("users").child(friendUid).child("status");
 
-            // Retrieve the status (online/offline)
+            // Use addListenerForSingleValueEvent to get the current status
             friendStatusRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Integer status = dataSnapshot.getValue(Integer.class);
                     if (status != null) {
-                        if (status == 1) {
-                            Log.d("friendAdapter", friendUid + " is online");
-                            // Update UI to indicate that the friend is online
-                            holder.isOnline.setVisibility(View.VISIBLE);
-                            holder.isOffline.setVisibility(View.GONE);
-                        } else {
-                            Log.d("friendAdapter", friendUid + " is offline");
-                            // Update UI to indicate that the friend is offline
-                            holder.isOnline.setVisibility(View.GONE);
-                            holder.isOffline.setVisibility(View.VISIBLE);
-                        }
+                        updateStatusUI(status, holder);
                     }
                 }
 
@@ -91,6 +80,36 @@ public class friendAdapter extends FirebaseRecyclerAdapter<friendModel, friendAd
                     Log.e("friendAdapter", "Error getting status", databaseError.toException());
                 }
             });
+
+            // Use addValueEventListener for real-time updates
+            friendStatusRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Integer status = dataSnapshot.getValue(Integer.class);
+                    if (status != null) {
+                        updateStatusUI(status, holder);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("friendAdapter", "Error getting status", databaseError.toException());
+                }
+            });
+        }
+    }
+
+    private void updateStatusUI(Integer status, myViewHolder holder) {
+        if (status == 1) {
+            Log.d("friendAdapter", "Friend is online");
+            // Update UI to indicate that the friend is online
+            holder.isOnline.setVisibility(View.VISIBLE);
+            holder.isOffline.setVisibility(View.GONE);
+        } else {
+            Log.d("friendAdapter", "Friend is offline");
+            // Update UI to indicate that the friend is offline
+            holder.isOnline.setVisibility(View.GONE);
+            holder.isOffline.setVisibility(View.VISIBLE);
         }
     }
 
