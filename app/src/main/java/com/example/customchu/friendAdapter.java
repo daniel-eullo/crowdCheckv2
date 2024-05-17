@@ -14,8 +14,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class friendAdapter extends FirebaseRecyclerAdapter<friendModel, friendAdapter.myViewHolder> {
 
@@ -53,6 +56,39 @@ public class friendAdapter extends FirebaseRecyclerAdapter<friendModel, friendAd
                     }
                 } else {
                     Log.e("TAG", "Error getting UID", task.getException());
+                }
+            });
+        }
+
+        String friendUid = getRef(position).getKey();
+
+        if (friendUid != null) {
+            // Navigate to the status node under the friend's UID to check if they are online or offline
+            DatabaseReference friendStatusRef = DB.child("users").child(friendUid).child("status");
+
+            // Retrieve the status (online/offline)
+            friendStatusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Integer status = dataSnapshot.getValue(Integer.class);
+                    if (status != null) {
+                        if (status == 1) {
+                            Log.d("friendAdapter", friendUid + " is online");
+                            // Update UI to indicate that the friend is online
+                            holder.isOnline.setVisibility(View.VISIBLE);
+                            holder.isOffline.setVisibility(View.GONE);
+                        } else {
+                            Log.d("friendAdapter", friendUid + " is offline");
+                            // Update UI to indicate that the friend is offline
+                            holder.isOnline.setVisibility(View.GONE);
+                            holder.isOffline.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("friendAdapter", "Error getting status", databaseError.toException());
                 }
             });
         }
