@@ -1,5 +1,8 @@
 package com.example.customchu;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +33,16 @@ public class profileActivity extends AppCompatActivity {
     GoogleSignInClient gsc;
     DatabaseReference DB;
     Profile profile;
+    ImageButton copytoclipboard;
+
+    private void copyTextToClipboard(String text) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("ID Number", text);
+        clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +68,13 @@ public class profileActivity extends AppCompatActivity {
         changeInfo = findViewById(R.id.changeinfo);
         uid = findViewById(R.id.idnumber);
 
+        /// BRUH
+        copytoclipboard = findViewById(R.id.copytoclipboard);
+        copytoclipboard.setOnClickListener(view -> copyTextToClipboard(uid.getText().toString()));
+
+
+
+
         profileBack.setOnClickListener(view -> {
             Intent intent = new Intent(profileActivity.this, home.class);
             intent.putExtra("profile", profile);
@@ -68,6 +88,14 @@ public class profileActivity extends AppCompatActivity {
         changeInfo.setOnClickListener(view -> updateProfile());
 
         updateUserinfoUI();
+
+
+
+
+
+
+
+
     }
 
     private void updateUserinfoUI() {
@@ -163,4 +191,16 @@ public class profileActivity extends AppCompatActivity {
         }
     }
 
+    // Method to copy text to clipboard
+
+
+
+
+
+
+
+
+
+
 }
+
