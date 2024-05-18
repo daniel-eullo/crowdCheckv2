@@ -28,39 +28,39 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jsibbold.zoomage.ZoomageView;
 
-public class updatedlibraryb extends AppCompatActivity {
+public class updatedlibraryc extends AppCompatActivity {
     ImageView crowdLogo2, info2;
     DatabaseReference databaseFacility;
     int libRoom2;
     TextView floor2count;
-    Button to1stFloor, to3rdFloor ,infoClose;
+    Button to1stFloor, to2ndFloor, infoClose;
     Dialog dialogInfo2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_updatedlibraryb);
+        setContentView(R.layout.activity_updatedlibraryc);
 
         //Navigation
-        ImageButton mapBack = findViewById(R.id.toHome1);
+        ImageButton mapBack = findViewById(R.id.toHome2);
         mapBack.setOnClickListener(view -> {
-            Intent intent = new Intent(updatedlibraryb.this, home.class);
+            Intent intent = new Intent(updatedlibraryc.this, home.class);
             startActivity(intent);
             finish();
         });
 
-        to1stFloor = findViewById(R.id.to1stFloor);
+        to1stFloor = findViewById(R.id.to1stFloor3);
         to1stFloor.setOnClickListener(view -> {
-            Intent intent = new Intent(updatedlibraryb.this, updatedlibrary.class);
+            Intent intent = new Intent(updatedlibraryc.this, updatedlibrary.class);
             startActivity(intent);
         });
 
-        to3rdFloor = findViewById(R.id.to3rdFloor2);
-        to3rdFloor.setOnClickListener(view -> {
-            Intent intent = new Intent(updatedlibraryb.this, updatedlibraryc.class);
+        to2ndFloor = findViewById(R.id.to2ndFloor4);
+        to2ndFloor.setOnClickListener(view -> {
+            Intent intent = new Intent(updatedlibraryc.this, updatedlibraryb.class);
             startActivity(intent);
         });
 
-        info2 = findViewById(R.id.info2);
+        info2 = findViewById(R.id.info4);
         info2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +70,7 @@ public class updatedlibraryb extends AppCompatActivity {
 
 
 
-        dialogInfo2= new Dialog(updatedlibraryb.this);
+        dialogInfo2= new Dialog(updatedlibraryc.this);
         dialogInfo2.setContentView(R.layout.dialog_info);
         dialogInfo2.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogInfo2.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
@@ -84,7 +84,7 @@ public class updatedlibraryb extends AppCompatActivity {
             }
         });
 
-        ZoomageView MapViewer = findViewById(R.id.img_view);
+        ZoomageView MapViewer = findViewById(R.id.img_view3);
 
         // Declare the radiobs
         RadioButton radioNone = findViewById(R.id.radiobuttonnone);
@@ -95,10 +95,10 @@ public class updatedlibraryb extends AppCompatActivity {
         //radioBooks.setChecked(true);
 
         // Events for clicks
-        radioNone.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2base));
-        radioBooks.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2books));
-        radioScanner.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2scanner));
-        radioOpac.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf2opac));
+        radioNone.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf3base));
+        radioBooks.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf3books));
+        radioScanner.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf3scanner));
+        radioOpac.setOnClickListener(view -> MapViewer.setImageResource(R.drawable.nf3opac));
 
         radioBooks.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -111,8 +111,8 @@ public class updatedlibraryb extends AppCompatActivity {
             }
         });
 
-        crowdLogo2 = findViewById(R.id.crowdLogo2);
-        floor2count = findViewById(R.id.floor2count);
+        crowdLogo2 = findViewById(R.id.crowdLogo4);
+        floor2count = findViewById(R.id.floor2count3);
 
         databaseFacility = FirebaseDatabase.getInstance().getReference();
         DatabaseReference room2 = databaseFacility.child("Library").child("Current");
