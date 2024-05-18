@@ -96,7 +96,7 @@ public class home extends AppCompatActivity {
 
         toGraph = findViewById(R.id.toGraph);
         toGraph.setOnClickListener(view -> {
-            Intent intent = new Intent(home.this, graph_activity.class);
+            Intent intent = new Intent(home.this, activity_graph2.class);
             startActivity(intent);
         });
 

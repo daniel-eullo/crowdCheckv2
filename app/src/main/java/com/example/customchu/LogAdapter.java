@@ -24,10 +24,10 @@ public class LogAdapter extends FirebaseRecyclerAdapter<LogModel,LogAdapter.myVi
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull LogModel model) {
-        holder.date_and_time.setText(model.getDate_and_time());
-        holder.account_id.setText(model.getAccount_id());
-        holder.in.setText(Boolean.toString(model.getIn()));
-        holder.out.setText(Boolean.toString(model.getOut()));
+        holder.date.setText(model.getDate());
+        holder.uid.setText(model.getUid());
+        holder.time.setText(model.getTime());
+        holder.status.setText(String.valueOf(model.getStatus()));
     }
 
     @NonNull
@@ -37,14 +37,14 @@ public class LogAdapter extends FirebaseRecyclerAdapter<LogModel,LogAdapter.myVi
         return new myViewHolder(view);
     }
     class myViewHolder extends RecyclerView.ViewHolder{
-        TextView account_id, date_and_time,in,out;
+        TextView date, uid, time, status;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            date_and_time = itemView.findViewById(R.id.date_and_time);
-            account_id = itemView.findViewById(R.id.account_id);
-            in = itemView.findViewById(R.id.in);
-            out = itemView.findViewById(R.id.out);
+            date = itemView.findViewById(R.id.date_and_time);
+            uid = itemView.findViewById(R.id.account_id);
+            time = itemView.findViewById(R.id.in);
+            status = itemView.findViewById(R.id.out);
         }
     }
 }

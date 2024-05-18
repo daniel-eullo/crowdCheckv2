@@ -56,29 +56,42 @@
 
         -->
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="470dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkFeedbackView"
-        app:layout_constraintVertical_bias="0.59" />
-
-    <Button
-        android:id="@+id/to1FLogs"
+    <TextView
+        android:id="@+id/timeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:backgroundTint="@color/blue"
-        android:text="to 1F Log ->"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/barChart"
+        android:layout_marginTop="124dp"
+        android:fontFamily="@font/interreg"
+        android:text="Time (in hour)"
+        android:textColor="@color/graphBlue"
+        android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkFeedbackView" />
+
+    <TextView
+        android:id="@+id/activityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="#\n\nO\n\F\n\nA\nC\nT\nI\nV\nI\nT\nY"
+        android:textColor="@color/graphBlue"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkFeedbackView"
+        android:textAlignment="center"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="390dp"
+        android:layout_height="470dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activityTxt"
+        app:layout_constraintTop_toBottomOf="@+id/timeTxt" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

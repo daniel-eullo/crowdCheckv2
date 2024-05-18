@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.graphics.Color;
+
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -16,6 +18,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +36,8 @@ public class activity_graph2 extends AppCompatActivity {
     DatabaseReference databaseReference2;
     ArrayList<BarEntry> barArrayList;
     BarChart barChart;
+    HashMap<String, Integer> hourCounts; // HashMap to store counts of each hour
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,120 +49,106 @@ public class activity_graph2 extends AppCompatActivity {
             startActivity(intent);
         });
 
-        to1FLogs = findViewById(R.id.to1FLogs);
-        to1FLogs.setOnClickListener(view -> {
-            Intent intent = new Intent(activity_graph2.this, graph_activity.class);
-            startActivity(intent);
-        });
+//        to1FLogs = findViewById(R.id.to1FLogs);
+//        to1FLogs.setOnClickListener(view -> {
+//            Intent intent = new Intent(activity_graph2.this, graph_activity.class);
+//            startActivity(intent);
+//        });
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference2 = database.getReference("Rooms").child("2F").child("History");
+        databaseReference2 = database.getReference("attendance");
+
+        // Initialize HashMap
+        hourCounts = new HashMap<>();
+
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot numerSnapshot : dataSnapshot.getChildren()) {
+                        DataSnapshot timeSnapshot = numerSnapshot.child("time");
+                        if (timeSnapshot.exists()) {
+                            String time = timeSnapshot.getValue(String.class);
+                            String hour = time.split(":")[0]; // Extracting only the hour part
+                            Log.d("Hour", hour);
+
+                            // Increment count for this hour in the HashMap
+                            if (hourCounts.containsKey(hour)) {
+                                hourCounts.put(hour, hourCounts.get(hour) + 1);
+                            } else {
+                                hourCounts.put(hour, 1);
+                            }
+                        } else {
+                            Log.d("Firebase", "No 'time' child found for numerical snapshot: " + numerSnapshot.getKey());
+                        }
+                    }
+                    // After iterating through all data, update the graph
+                    updateGraph();
+                } else {
+                    Log.d("Firebase", "DataSnapshot does not have children");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase", "Error reading data", databaseError.toException());
+            }
+        });
 
         barArrayList = new ArrayList<>();
         barChart = findViewById(R.id.barChart);
-
-        // Assume you have a class for user information, adjust it accordingly
-        databaseReference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Map<String, Integer> hourCounts = new HashMap<>();
-
-                for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
-                    for (DataSnapshot userSnapshot : dateSnapshot.getChildren()) {
-                        // Get the date_and_time from user information
-                        String dateTime = userSnapshot.child("date_and_time").getValue(String.class);
-
-                        // Check if dateTime is not null before splitting
-                        if (dateTime != null) {
-                            // Extract only the time part (HH:mm:ss)
-                            String[] dateTimeParts = dateTime.split(" ");
-                            if (dateTimeParts.length > 1) {
-                                String time = dateTimeParts[1];
-
-                                // Extract only the hour part (HH)
-                                String hour = time.split(":")[0];
-
-                                // Update the count for this hour
-                                hourCounts.put(hour, hourCounts.getOrDefault(hour, 0) + 1);
-                            }
-                        }
-                    }
-                }
-
-                // Populate barArrayList with actual data from Firebase
-                getData(hourCounts);
-
-                // Update the text view with the log counts
-                //updateGraphStat(hourCounts);
-
-                // Notify the chart that the data has changed
-                BarDataSet barDataSet = new BarDataSet(barArrayList, "Log Activity");
-                BarData barData = new BarData(barDataSet);
-                barChart.setData(barData);
-                barDataSet.setColors(Color.parseColor("#4E7AC7"));
-                barDataSet.setValueTextColor(Color.BLACK);
-                barDataSet.setValueTextSize(0f);
-
-                XAxis xAxis = barChart.getXAxis();
-                xAxis.setTextSize(12f);
-                xAxis.setTextColor(Color.parseColor("#4E7AC7"));
-
-                YAxis leftYAxis = barChart.getAxisLeft();
-                leftYAxis.setTextSize(12f);
-                leftYAxis.setTextColor(Color.parseColor("#4E7AC7"));
-
-                YAxis rightYAxis = barChart.getAxisRight();
-                rightYAxis.setDrawLabels(false);
-
-                Legend legend = barChart.getLegend();
-                legend.setTextColor(Color.parseColor("#4E7AC7"));
-
-                barChart.getAxisLeft().setDrawGridLines(false);
-                barChart.getAxisRight().setDrawGridLines(false);
-                barChart.getXAxis().setDrawGridLines(false);
-
-                barChart.getDescription().setEnabled(false);
-
-                barData.notifyDataChanged();
-                barChart.notifyDataSetChanged();
-                barChart.invalidate();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error
-            }
-        });
     }
 
-    private void getData(Map<String, Integer> hourCounts) {
-        // Ensure barArrayList is initialized
-        if (barArrayList == null) {
-            barArrayList = new ArrayList<>();
-        } else {
-            // Clear the existing entries
-            barArrayList.clear();
-        }
-
-        // Populate barArrayList with actual data from Firebase
+    private void updateGraph() {
+        // Populate barArrayList with actual data from HashMap
         for (Map.Entry<String, Integer> entry : hourCounts.entrySet()) {
             float hour = Float.parseFloat(entry.getKey());
-            float count = entry.getValue();
+            int count = entry.getValue(); // Convert count to integer
             barArrayList.add(new BarEntry(hour, count));
         }
+
+        BarDataSet barDataSet = new BarDataSet(barArrayList, "Log Activity");
+        BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+        barDataSet.setColors(Color.parseColor("#4E7AC7"));
+        barDataSet.setValueTextSize(0f);
+        barData.setValueTextColor(Color.parseColor("#4E7AC7"));
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setTextSize(16f);
+        xAxis.setTextColor(Color.parseColor("#4E7AC7"));
+
+        // Set a custom formatter to display whole numbers for x-axis labels
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                // Convert float value to integer
+                int intValue = (int) value;
+                // Return integer value as string
+                return String.valueOf(intValue);
+            }
+        });
+
+        YAxis leftYAxis = barChart.getAxisLeft();
+        leftYAxis.setTextSize(16f);
+        leftYAxis.setTextColor(Color.parseColor("#4E7AC7"));
+
+        YAxis rightYAxis = barChart.getAxisRight();
+        rightYAxis.setDrawLabels(false);
+
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawGridLines(false);
+        barChart.getXAxis().setDrawGridLines(false);
+
+        // Changing the legend entry color
+        Legend legend = barChart.getLegend();
+        legend.setTextColor(Color.parseColor("#4E7AC7"));
+
+        barChart.getDescription().setEnabled(false);
+
+        barData.notifyDataChanged();
+        barChart.notifyDataSetChanged();
+        barChart.invalidate();
     }
 
-//    private void updateGraphStat(Map<String, Integer> hourCounts) {
-//        // Display the counts in the TextView
-//        StringBuilder result = new StringBuilder();
-//        for (Map.Entry<String, Integer> entry : hourCounts.entrySet()) {
-//            result.append(entry.getKey()).append(": ").append(entry.getValue()).append(" logs\n");
-//        }
-//
-//        // Make sure statTxt is not null before trying to set its text
-//        if (statTxt != null) {
-//            statTxt.setText(result.toString());
-//        } else {
-//            Log.e("graph_activity", "statTxt is null");
-//        }
-//    }
 }
