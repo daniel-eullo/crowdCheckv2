@@ -77,7 +77,7 @@
         app:srcCompat="@drawable/icons8_back_30" />
 
     <TextView
-        android:id="@+id/floornumber2"
+        android:id="@+id/floornumber3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/interreg"
@@ -93,7 +93,6 @@
         android:id="@+id/floor2count"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:fontFamily="@font/interreg"
         android:text="Current Occupied: 70"
         android:textAlignment="center"
@@ -106,15 +105,13 @@
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/img_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
         android:scaleType="fitCenter"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/radioheader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/to1stFloor"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/floor2count"
         app:srcCompat="@drawable/nf2base"
         app:zoomage_animateOnReset="true"
@@ -126,7 +123,8 @@
     <Button
         android:id="@+id/to1stFloor"
         android:layout_width="370dp"
-        android:layout_height="65dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
         android:fontFamily="@font/interreg"
         android:text="to 1st Floor"
@@ -134,11 +132,26 @@
         android:textSize="18dp"
         app:backgroundTint="@color/blue"
         app:cornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bgcolored2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view13" />
+
+    <Button
+        android:id="@+id/to3rdFloor2"
+        android:layout_width="370dp"
+        android:layout_height="55dp"
+        android:clickable="true"
+        android:fontFamily="@font/interreg"
+        android:text="to 3rd Floor"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to1stFloor" />
 
     <RadioGroup
         android:id="@+id/radioGroup2"
@@ -207,7 +220,7 @@
         android:id="@+id/crowdLogo2"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view9"
@@ -222,7 +235,7 @@
         app:layout_constraintEnd_toEndOf="@+id/crowdLogo2"
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="@+id/crowdLogo2"
-        app:layout_constraintTop_toTopOf="@+id/grid2"
+        app:layout_constraintTop_toTopOf="@+id/crowdLogo2"
         app:srcCompat="@drawable/icons8_information_96" />
 
 

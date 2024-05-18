@@ -35,7 +35,7 @@ public class updatedlibrary extends AppCompatActivity {
     DatabaseReference databaseFacility;
     int libRoom1;
     TextView floor1count;
-    Button to2ndFloor, infoClose;
+    Button to2ndFloor, to3rdFloor, infoClose;
     Dialog dialogInfo;
 
     @Override
@@ -46,14 +46,20 @@ public class updatedlibrary extends AppCompatActivity {
         //Navigation
         ImageButton mapBack = findViewById(R.id.toHome1);
         mapBack.setOnClickListener(view -> {
-//            Intent intent = new Intent(updatedlibrary.this, home.class);
-//            startActivity(intent);
+            Intent intent = new Intent(updatedlibrary.this, home.class);
+            startActivity(intent);
             finish();
         });
 
         to2ndFloor = findViewById(R.id.to2ndFloor);
         to2ndFloor.setOnClickListener(view -> {
             Intent intent = new Intent(updatedlibrary.this, updatedlibraryb.class);
+            startActivity(intent);
+        });
+
+        to3rdFloor = findViewById(R.id.to3rdFloor);
+        to3rdFloor.setOnClickListener(view -> {
+            Intent intent = new Intent(updatedlibrary.this, updatedlibraryc.class);
             startActivity(intent);
         });
 

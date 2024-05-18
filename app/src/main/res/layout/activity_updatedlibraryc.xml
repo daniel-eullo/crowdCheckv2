@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".updatedlibrary">
+    tools:context=".updatedlibraryb">
 
     <ImageView
-        android:id="@+id/grid"
+        android:id="@+id/grid3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha=".05"
         android:scaleType="centerCrop"
         android:tint="?android:attr/textColorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/radioheader"
-        app:layout_constraintEnd_toEndOf="@+id/bgcolored2"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view9"
+        app:layout_constraintTop_toBottomOf="@+id/view19"
         app:srcCompat="@drawable/grid_png_thumb8" />
 
     <View
-        android:id="@+id/view9"
+        android:id="@+id/view19"
         android:layout_width="411dp"
         android:layout_height="100dp"
         android:background="@color/blue"
@@ -30,31 +30,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/bgcolored2"
+        android:id="@+id/bgcolored4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view9" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/slightcolor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view9" />
-
-    <View
-        android:id="@+id/radioheader"
+        android:id="@+id/radioheader3"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/view13"
+        app:layout_constraintBottom_toTopOf="@+id/view21"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
-        android:id="@+id/view11"
+        android:id="@+id/view20"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:background="@color/blue"
@@ -64,96 +58,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/view13"
+        android:id="@+id/view21"
         android:layout_width="0dp"
         android:layout_height="125dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/toHome1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/view9"
-        app:layout_constraintStart_toStartOf="@+id/view9"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icons8_back_30" />
-
-    <TextView
-        android:id="@+id/floornumber3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/interreg"
-        android:text="1st Floor"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/view9"
-        app:layout_constraintTop_toTopOf="@+id/view9" />
-
-    <TextView
-        android:id="@+id/floor1count"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/interreg"
-        android:text="Current Occupied: 70"
-        android:textAlignment="center"
-        android:textColor="#388E3C"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crowdLogo" />
-
-    <com.jsibbold.zoomage.ZoomageView
-        android:id="@+id/img_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:scaleType="fitCenter"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/radioheader"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/floor1count"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/nf1base"
-        app:tintMode="multiply"
-        app:zoomage_animateOnReset="true"
-        app:zoomage_doubleTapToZoom="true"
-        app:zoomage_maxScale="5"
-        app:zoomage_minScale="0.5"
-        app:zoomage_zoomable="true" />
-
     <Button
-        android:id="@+id/to3rdFloor"
+        android:id="@+id/to2ndFloor4"
         android:layout_width="370dp"
         android:layout_height="55dp"
-        android:clickable="true"
-        android:fontFamily="@font/interreg"
-        android:text="to 3rd Floor"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:backgroundTint="@color/blue"
-        app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/to2ndFloor" />
-
-    <Button
-        android:id="@+id/to2ndFloor"
-        android:layout_width="370dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="10dp"
         android:clickable="true"
         android:fontFamily="@font/interreg"
         android:text="to 2nd Floor"
@@ -164,7 +79,79 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioheader" />
+        app:layout_constraintTop_toBottomOf="@+id/to1stFloor3" />
+
+    <Button
+        android:id="@+id/to1stFloor3"
+        android:layout_width="370dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:fontFamily="@font/interreg"
+        android:text="to 1st Floor"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioheader3" />
+
+    <ImageButton
+        android:id="@+id/toHome2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/view19"
+        app:layout_constraintStart_toStartOf="@+id/view19"
+        app:layout_constraintTop_toTopOf="@+id/view19"
+        app:srcCompat="@drawable/icons8_back_30" />
+
+    <TextView
+        android:id="@+id/floornumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="3rd Floor"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view19"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view19"
+        app:layout_constraintTop_toTopOf="@+id/view19" />
+
+    <TextView
+        android:id="@+id/floor2count3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/interreg"
+        android:text="Current Occupied: 70"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crowdLogo4" />
+
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/img_view3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/radioheader3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bgcolored4"
+        app:layout_constraintTop_toBottomOf="@+id/floor2count3"
+        app:srcCompat="@drawable/nf3base"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_doubleTapToZoom="true"
+        app:zoomage_maxScale="5"
+        app:zoomage_minScale="0.5"
+        app:zoomage_zoomable="true" />
 
     <RadioGroup
         android:id="@+id/radioGroup2"
@@ -172,10 +159,10 @@
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/view13"
-        app:layout_constraintEnd_toEndOf="@+id/bgcolored2"
+        app:layout_constraintBottom_toBottomOf="@+id/radioheader3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioheader">
+        app:layout_constraintTop_toTopOf="@+id/radioheader3">
 
         <RadioButton
             android:id="@+id/radiobuttonnone"
@@ -230,26 +217,24 @@
     </RadioGroup>
 
     <ImageView
-        android:id="@+id/crowdLogo"
+        android:id="@+id/crowdLogo4"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view9"
+        app:layout_constraintTop_toBottomOf="@+id/view19"
         app:srcCompat="@drawable/one"
         app:tint="@color/green" />
 
     <ImageView
-        android:id="@+id/info"
+        android:id="@+id/info4"
         android:layout_width="36dp"
         android:layout_height="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/floor1count"
-        app:layout_constraintEnd_toEndOf="@+id/crowdLogo"
+        app:layout_constraintBottom_toTopOf="@+id/floor2count3"
+        app:layout_constraintEnd_toEndOf="@+id/bgcolored4"
         app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="@+id/crowdLogo"
-        app:layout_constraintTop_toTopOf="@+id/grid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/crowdLogo4"
         app:srcCompat="@drawable/icons8_information_96" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

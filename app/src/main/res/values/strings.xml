@@ -2,9 +2,9 @@
     <string name="app_name">Crowd Check</string>
     <string name="server_client_id">17035764095-uf6qiftfii1a3sng19c6qvn36gfkbl42.apps.googleusercontent.com</string>
     <string-array name="due_dates">
-            <item>1 day</item>
-            <item>3 days</item>
-            <item>5 days</item>
-            <item>1 week</item>
+        <item>1 day</item>
+        <item>3 days</item>
+        <item>5 days</item>
+        <item>1 week</item>
     </string-array>
 </resources>
