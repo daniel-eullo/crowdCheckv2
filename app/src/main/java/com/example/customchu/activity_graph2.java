@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -50,76 +51,25 @@ public class activity_graph2 extends AppCompatActivity {
             startActivity(intent);
         });
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference2 = database.getReference("Rooms").child("2F").child("History");
+        databaseReference2 = database.getReference("attendance");
 
         barArrayList = new ArrayList<>();
         barChart = findViewById(R.id.barChart);
 
-        // Assume you have a class for user information, adjust it accordingly
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Map<String, Integer> hourCounts = new HashMap<>();
-
-                for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
-                    for (DataSnapshot userSnapshot : dateSnapshot.getChildren()) {
-                        // Get the date_and_time from user information
-                        String dateTime = userSnapshot.child("date_and_time").getValue(String.class);
-
-                        // Check if dateTime is not null before splitting
-                        if (dateTime != null) {
-                            // Extract only the time part (HH:mm:ss)
-                            String[] dateTimeParts = dateTime.split(" ");
-                            if (dateTimeParts.length > 1) {
-                                String time = dateTimeParts[1];
-
-                                // Extract only the hour part (HH)
-                                String hour = time.split(":")[0];
-
-                                // Update the count for this hour
-                                hourCounts.put(hour, hourCounts.getOrDefault(hour, 0) + 1);
-                            }
-                        }
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    // Iterate over the dynamic numerical children nodes
+                    for (DataSnapshot userSnapshot : childSnapshot.getChildren()) {
+                        // Access the "time" value for each child
+                        String time = userSnapshot.child("time").getValue(String.class);
+                        // Log the time value
+                        Log.d("TimeValue", "Time: " + time);
                     }
                 }
-
-                // Populate barArrayList with actual data from Firebase
-                getData(hourCounts);
-
-                // Update the text view with the log counts
-                //updateGraphStat(hourCounts);
-
-                // Notify the chart that the data has changed
-                BarDataSet barDataSet = new BarDataSet(barArrayList, "Log Activity");
-                BarData barData = new BarData(barDataSet);
-                barChart.setData(barData);
-                barDataSet.setColors(Color.parseColor("#4E7AC7"));
-                barDataSet.setValueTextColor(Color.BLACK);
-                barDataSet.setValueTextSize(0f);
-
-                XAxis xAxis = barChart.getXAxis();
-                xAxis.setTextSize(12f);
-                xAxis.setTextColor(Color.parseColor("#4E7AC7"));
-
-                YAxis leftYAxis = barChart.getAxisLeft();
-                leftYAxis.setTextSize(12f);
-                leftYAxis.setTextColor(Color.parseColor("#4E7AC7"));
-
-                YAxis rightYAxis = barChart.getAxisRight();
-                rightYAxis.setDrawLabels(false);
-
-                Legend legend = barChart.getLegend();
-                legend.setTextColor(Color.parseColor("#4E7AC7"));
-
-                barChart.getAxisLeft().setDrawGridLines(false);
-                barChart.getAxisRight().setDrawGridLines(false);
-                barChart.getXAxis().setDrawGridLines(false);
-
-                barChart.getDescription().setEnabled(false);
-
-                barData.notifyDataChanged();
-                barChart.notifyDataSetChanged();
-                barChart.invalidate();
+                // Your existing code to update the chart can go here
+                updateChart();
             }
 
             @Override
@@ -128,6 +78,41 @@ public class activity_graph2 extends AppCompatActivity {
             }
         });
     }
+
+    private void updateChart() {
+        // Populate barArrayList with actual data from Firebase
+        BarDataSet barDataSet = new BarDataSet(barArrayList, "Log Activity");
+        BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+        barDataSet.setColors(Color.parseColor("#4E7AC7"));
+        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(0f);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setTextSize(12f);
+        xAxis.setTextColor(Color.parseColor("#4E7AC7"));
+
+        YAxis leftYAxis = barChart.getAxisLeft();
+        leftYAxis.setTextSize(12f);
+        leftYAxis.setTextColor(Color.parseColor("#4E7AC7"));
+
+        YAxis rightYAxis = barChart.getAxisRight();
+        rightYAxis.setDrawLabels(false);
+
+        Legend legend = barChart.getLegend();
+        legend.setTextColor(Color.parseColor("#4E7AC7"));
+
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setDrawGridLines(false);
+        barChart.getXAxis().setDrawGridLines(false);
+
+        barChart.getDescription().setEnabled(false);
+
+        barData.notifyDataChanged();
+        barChart.notifyDataSetChanged();
+        barChart.invalidate();
+    }
+
 
     private void getData(Map<String, Integer> hourCounts) {
         // Ensure barArrayList is initialized

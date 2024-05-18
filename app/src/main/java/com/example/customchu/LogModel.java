@@ -3,38 +3,45 @@ package com.example.customchu;
 public class LogModel {
 
     LogModel(){}
-    String account_id, date_and_time;
-    Boolean  in,  out;
+    String date, time, uid;
+    Integer status;
 
-    public LogModel(String account_id, String date_and_time, Boolean in, Boolean out) {
-        this.account_id = account_id;
-        this.date_and_time = date_and_time;
-        this.in = in;
-        this.out = out;
-    }
-
-    public String getAccount_id() {
-        return account_id;
-    }
-    public void setAccount_id(String account_id) {
-        this.account_id = account_id;
-    }
-    public String getDate_and_time() {
-        return date_and_time;
-    }
-    public void setDate_and_time(String date_and_time) {
-        this.date_and_time = date_and_time;
+    public LogModel(String date, String time, String uid, Integer status) {
+        this.date = date;
+        this.time = time;
+        this.uid = uid;
+        this.status = status;
     }
 
-    public Boolean getIn() {
-        return in;
-    }
-    public void setIn(Boolean in) {
-        this.in = in;
+    public String getDate() {
+        return date;
     }
 
-    public Boolean getOut() {return out;}
-    public void setOut(Boolean out) {
-        this.out = out;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
