@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#183471</color>
+    <color name="graphBlue">#4E7AC7</color>
     <color name="barBlue">#4285F4</color>
     <color name="border">#1E1E1E</color>
     <color name="bg">#CED5DC</color>
