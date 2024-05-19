@@ -108,14 +108,24 @@ public class MainActivity extends AppCompatActivity {
                 }
                 toHomeActivity();
             } catch (ApiException e) {
-                //Log.e("GoogleSignIn", Objects.requireNonNull(e.getMessage()));
-                //Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show(); // OLD ERROR PRINT FUNCTION
+                Log.e("GoogleSignIn", "Error signing in: " + e.getStatusCode());
+                Toast.makeText(this, "ERROR: " + e.getStatusCode(), Toast.LENGTH_SHORT).show();
 
-                Log.e("GoogleSignIn", "Error signing in: " + e.getStatusCode()); // Log the specific error code
-                Toast.makeText(this, "ERROR: " + e.getStatusCode(), Toast.LENGTH_SHORT).show(); // Show error code in toast
+                switch (e.getStatusCode()) {
+                    case 7:  // NETWORK_ERROR
+                        Toast.makeText(this, "Network error. Please check your connection.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 10: // DEVELOPER_ERROR
+                        Toast.makeText(this, "Developer error. Please check your configuration.", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(this, "Unknown error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         }
     }
+
 
     private boolean isUserAdamsonian(GoogleSignInAccount gmsacc) {
         String email = Objects.requireNonNull(gmsacc.getEmail());
