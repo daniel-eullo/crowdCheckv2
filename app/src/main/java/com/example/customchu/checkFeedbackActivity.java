@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -28,6 +29,7 @@ public class checkFeedbackActivity extends AppCompatActivity {
     DatabaseReference database;
 
     MainAdapter mainAdapter;
+    Button printBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class checkFeedbackActivity extends AppCompatActivity {
         recyclerView.setAdapter(mainAdapter);
 
         Log.d("CheckFeedbackActivity", "onCreate: Initialized successfully");
+
+        printBtn = findViewById(R.id.printBtn);
     }
 
     @Override
