@@ -10,7 +10,7 @@ import android.widget.ImageView;
 public class adminActivity extends AppCompatActivity {
 
     ImageButton adminBack;
-    ImageView setNotif, checkFeedback, checkLog;
+    ImageView setNotif, checkFeedback2, checkLog, occupancy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,8 @@ public class adminActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        checkFeedback = findViewById(R.id.checkFeedback);
-        checkFeedback.setOnClickListener(view -> {
+        checkFeedback2 = findViewById(R.id.checkFeedback2);
+        checkFeedback2.setOnClickListener(view -> {
             Intent intent = new Intent(adminActivity.this, checkFeedbackActivity.class);
             startActivity(intent);
         });
@@ -41,6 +41,12 @@ public class adminActivity extends AppCompatActivity {
         checkLog= findViewById(R.id.checkLog);
         checkLog.setOnClickListener(view -> {
             Intent intent = new Intent(adminActivity.this, logHistoryActivity.class);
+            startActivity(intent);
+        });
+
+        occupancy = findViewById(R.id.occupancy);
+        occupancy.setOnClickListener(view -> {
+            Intent intent = new Intent(adminActivity.this, setOccupancy.class);
             startActivity(intent);
         });
     }

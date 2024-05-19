@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".adminActivity">
 
+    <ImageView
+        android:id="@+id/occupancy"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkFeedback2"
+        app:srcCompat="@drawable/border" />
+
     <View
         android:id="@+id/adminView"
         android:layout_width="match_parent"
@@ -22,7 +33,6 @@
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
-        android:tint="?android:attr/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setNotif"
@@ -33,7 +43,6 @@
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
-        android:tint="?android:attr/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +50,10 @@
         app:srcCompat="@drawable/border" />
 
     <ImageView
-        android:id="@+id/checkFeedback"
+        android:id="@+id/checkFeedback2"
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
-        android:tint="?android:attr/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,9 +130,9 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkFeedback"
-        app:layout_constraintStart_toStartOf="@+id/checkFeedback"
-        app:layout_constraintTop_toTopOf="@+id/checkFeedback"
+        app:layout_constraintBottom_toBottomOf="@+id/checkFeedback2"
+        app:layout_constraintStart_toStartOf="@+id/checkFeedback2"
+        app:layout_constraintTop_toTopOf="@+id/checkFeedback2"
         app:srcCompat="@drawable/icons8_open_email_96" />
 
     <TextView
@@ -136,9 +144,9 @@
         android:text="Check Feedback"
         android:textColor="@color/blue"
         android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkFeedback"
+        app:layout_constraintBottom_toBottomOf="@+id/checkFeedback2"
         app:layout_constraintStart_toEndOf="@+id/icon3"
-        app:layout_constraintTop_toTopOf="@+id/checkFeedback" />
+        app:layout_constraintTop_toTopOf="@+id/checkFeedback2" />
 
     <ImageView
         android:id="@+id/icon2"
@@ -162,6 +170,30 @@
         app:layout_constraintBottom_toBottomOf="@+id/checkLog"
         app:layout_constraintStart_toEndOf="@+id/icon2"
         app:layout_constraintTop_toTopOf="@+id/checkLog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="97dp"
+        android:fontFamily="@font/interbold"
+        android:text="Occupancy \nThreshold"
+        android:textColor="@color/blue"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/occupancy"
+        app:layout_constraintEnd_toEndOf="@+id/occupancy"
+        app:layout_constraintStart_toEndOf="@+id/imageView18"
+        app:layout_constraintTop_toTopOf="@+id/occupancy" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="23dp"
+        app:layout_constraintBottom_toBottomOf="@+id/occupancy"
+        app:layout_constraintStart_toStartOf="@+id/occupancy"
+        app:layout_constraintTop_toTopOf="@+id/occupancy"
+        app:srcCompat="@drawable/customize3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
