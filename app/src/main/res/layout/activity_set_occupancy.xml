@@ -41,6 +41,151 @@
         app:layout_constraintTop_toTopOf="@+id/setNotifView"
         app:srcCompat="@drawable/icons8_back_30" />
 
+    <TextView
+        android:id="@+id/medLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="160dp"
+        android:fontFamily="@font/interreg"
+        android:text="Medium: "
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lowLabel" />
+
+    <EditText
+        android:id="@+id/highTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:fontFamily="@font/interreg"
+        android:hint="0"
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medLabel" />
+
+    <EditText
+        android:id="@+id/medTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:fontFamily="@font/interreg"
+        android:hint="0"
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lowTxt" />
+
+    <TextView
+        android:id="@+id/curLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="170dp"
+        android:fontFamily="@font/interreg"
+        android:text="Current: "
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setNotifView" />
+
+    <EditText
+        android:id="@+id/lowTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="70dp"
+        android:fontFamily="@font/interreg"
+        android:hint="0"
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/curTxt" />
+
+    <TextView
+        android:id="@+id/lowLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="205dp"
+        android:fontFamily="@font/interreg"
+        android:text="Low: "
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/curLabel" />
+
+    <EditText
+        android:id="@+id/curTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="70dp"
+        android:fontFamily="@font/interreg"
+        android:hint="0"
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setNotifView" />
+
+    <TextView
+        android:id="@+id/highLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="195dp"
+        android:fontFamily="@font/interreg"
+        android:text="High: "
+        android:textColor="@color/blue"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.746"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medLabel" />
+
+    <Button
+        android:id="@+id/occupancySubmit"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:clickable="true"
+        android:fontFamily="@font/interreg"
+        android:text="Update \nThreshold"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:backgroundTint="@color/blue"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/highTxt"
+        app:layout_constraintVertical_bias="0.152" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
