@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/interreg"
-        android:text="Sent Request"
+        android:text="Current Request"
         android:textColor="@color/white"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/view14"
@@ -114,7 +114,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSent"
         android:layout_width="409dp"
-        android:layout_height="427dp"
+        android:layout_height="400dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"

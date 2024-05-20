@@ -15,7 +15,7 @@
         android:layout_marginBottom="36dp"
         android:clickable="true"
         android:fontFamily="@font/interreg"
-        android:text="Sent Request"
+        android:text="Send Request"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:backgroundTint="@color/blue"
