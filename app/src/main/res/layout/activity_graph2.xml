@@ -60,7 +60,7 @@
         android:id="@+id/timeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="115dp"
         android:fontFamily="@font/interreg"
         android:text="Time (in hour)"
         android:textColor="@color/graphBlue"
@@ -85,7 +85,8 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="390dp"
-        android:layout_height="470dp"
+        android:layout_height="480dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
