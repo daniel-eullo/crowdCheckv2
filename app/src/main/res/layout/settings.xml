@@ -53,28 +53,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/floortxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Select the floor level for notifications." />
-
-            <CheckBox
-                android:id="@+id/groundfloorchkb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="Ground Floor" />
-
-            <CheckBox
-                android:id="@+id/secondfloorchkb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="Second Floor" />
-
-
-            <TextView
                 android:id="@+id/textViewDensity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,10 +98,11 @@
         android:id="@+id/imageView6"
         android:layout_width="370dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:backgroundTint="?android:attr/textColorPrimary"
         app:layout_constraintEnd_toEndOf="@+id/densityContainer"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/densityContainer"
         app:layout_constraintTop_toBottomOf="@+id/densityContainer" />
 
