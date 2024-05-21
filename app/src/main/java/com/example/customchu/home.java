@@ -1,6 +1,4 @@
-
 package com.example.customchu;
-
 
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -10,13 +8,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -31,17 +30,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
-
 
 public class home extends AppCompatActivity {
 
-    ImageButton howTo, toBookSystem, toMap, notificationBtn, profileBtn, friendsBtn, ToBookSystem;  //toScanQR,
+    private static final String CHANNEL_ID = "library_closure_channel";
+    private static final String CHANNEL_NAME = "Library Closure Channel";
+    private static final String DUE_BOOK_CHANNEL_ID = "due_book_channel";
+    private static final String DUE_BOOK_CHANNEL_NAME = "Due Book Channel";
+
+    ImageButton howTo, toBookSystem, toMap, notificationBtn, profileBtn, friendsBtn, ToBookSystem;
     ImageView toFeedback, toAdmin, toGraph;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView greetings, txtCounter;
-    DatabaseReference databaseFacility, facilityStatus;;
+    DatabaseReference databaseFacility, facilityStatus;
     Button infoClose, eventClose;
     Profile userProfile;
     int libRoom1 = 0;
@@ -49,9 +55,6 @@ public class home extends AppCompatActivity {
     SharedPreferences.Editor editor;
     Dialog dialoghowTo, dialogEvent;
     Boolean status = false;
-
-    private static final String CHANNEL_ID = "library_closure_channel";
-    private static final String CHANNEL_NAME = "Library Closure Channel";
 
     String[] adminEmails = {
             "leonard.jade.balajadia@adamson.edu.ph",
@@ -68,7 +71,6 @@ public class home extends AppCompatActivity {
         userProfile = (Profile) getIntent().getSerializableExtra("profile");
 
         facilityStatus = FirebaseDatabase.getInstance().getReference().child("Event");
-        
 
         howTo = findViewById(R.id.homebtn);
         greetings = findViewById(R.id.userGreet);
@@ -88,11 +90,7 @@ public class home extends AppCompatActivity {
             toAdmin.setVisibility(View.GONE);
         }
 
-
-
-
         // NAVIGATION
-
 
         toGraph = findViewById(R.id.toGraph);
         toGraph.setOnClickListener(view -> {
@@ -113,14 +111,13 @@ public class home extends AppCompatActivity {
         });
 
         toBookSystem.setOnClickListener(view -> {
-            if (status == true){
+            if (status == true) {
                 dialogEvent.show();
-            } else if (status == false){
+            } else if (status == false) {
                 Intent intent = new Intent(home.this, QRActivity.class);
                 startActivity(intent);
             }
         });
-
 
         friendsBtn.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, friends.class);
@@ -132,8 +129,6 @@ public class home extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-
         profileBtn.setOnClickListener(view -> {
             Intent intent = new Intent(home.this, profileActivity.class);
             intent.putExtra("profile", userProfile);
@@ -141,79 +136,49 @@ public class home extends AppCompatActivity {
         });
 
         toMap.setOnClickListener(view -> {
-            if (status == true){
+            if (status == true) {
                 dialogEvent.show();
-            } else if (status == false){
+            } else if (status == false) {
                 Intent intent = new Intent(home.this, updatedlibrary.class); //mapActivity or updatedlibrary
                 startActivity(intent);
             }
-
         });
-
-//        toBookSystem.setOnClickListener(view -> {
-//            if (status == true){
-//                dialogEvent.show();
-//            } else if (status == false){
-//                Intent intent = new Intent(home.this, BookSystem.class); //mapActivity or updatedlibrary
-//                startActivity(intent);
-//            }
-//
-//        });
-
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         gsc = GoogleSignIn.getClient(this, gso);
 
-        dialoghowTo= new Dialog(home.this);
+        dialoghowTo = new Dialog(home.this);
         dialoghowTo.setContentView(R.layout.dialog_howto);
-        dialoghowTo.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialoghowTo.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialoghowTo.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
         dialoghowTo.setCancelable(false);
 
         infoClose = dialoghowTo.findViewById(R.id.infoClose);
+        infoClose.setOnClickListener(view -> dialoghowTo.dismiss());
 
-        infoClose.setOnClickListener(view -> {
-            dialoghowTo.dismiss();
-        });
+        howTo.setOnClickListener(view -> dialoghowTo.show());
 
-        howTo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialoghowTo.show();
-            }
-        });
-
-        dialogEvent= new Dialog(home.this);
+        dialogEvent = new Dialog(home.this);
         dialogEvent.setContentView(R.layout.dialog_event);
-        dialogEvent.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogEvent.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogEvent.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
         dialogEvent.setCancelable(false);
 
         eventClose = dialogEvent.findViewById(R.id.eventClose);
-
-        eventClose.setOnClickListener(view -> {
-            dialogEvent.dismiss();
-        });
-
+        eventClose.setOnClickListener(view -> dialogEvent.dismiss());
 
         facilityStatus.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 String newStatus = snapshot.getValue(String.class);
 
-                // Check if newStatus is not null and not equal to "None"
                 if (newStatus != null && !newStatus.equals("None")) {
-                    // Call the method to handle the notification logic
                     sendNotification("Library Closure", "The library is closed due to " + newStatus);
                 }
 
-                if (newStatus.equals("None")) {
-                    status = false;
-                } else if (newStatus != null){
-                    status = true;
-                }
+                status = newStatus != null && !newStatus.equals("None");
             }
 
             @Override
@@ -223,6 +188,12 @@ public class home extends AppCompatActivity {
         });
 
         updateUsername();
+
+        // Check for due books on start
+        checkDueBooks();
+
+        // Schedule periodic checks
+        scheduleDueBookCheck();
     }
 
     private void sendNotification(String title, String message) {
@@ -246,12 +217,73 @@ public class home extends AppCompatActivity {
         notificationManager.notify(1, builder.build());
     }
 
+    private void sendDueBookNotification(String title, String message) {
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    DUE_BOOK_CHANNEL_ID,
+                    DUE_BOOK_CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, DUE_BOOK_CHANNEL_ID)
+                .setSmallIcon(R.drawable.icons8_notification_90)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        notificationManager.notify(2, builder.build());
+    }
+
     private void updateUsername() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
             String name = account.getGivenName();
             greetings.setText(name);
-            //Toast.makeText(this, "Login Success! Welcome " + name, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void checkDueBooks() {
+        DatabaseReference booksRef = FirebaseDatabase.getInstance().getReference().child("Books");
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account == null) return;
+
+        String currentUserName = account.getGivenName();
+        String currentDate = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+
+        booksRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot bookSnapshot : dataSnapshot.getChildren()) {
+                    String dateDue = bookSnapshot.child("date_due").getValue(String.class);
+                    String borrower = bookSnapshot.child("borrower").getValue(String.class);
+
+                    if (dateDue != null && borrower != null &&
+                            borrower.equals(currentUserName) && dateDue.equals(currentDate)) {
+                        sendDueBookNotification("Book Due", "Your borrowed book is due today.");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle onCancelled event if needed
+            }
+        });
+    }
+
+    private void scheduleDueBookCheck() {
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                checkDueBooks();
+                handler.postDelayed(this, 24 * 60 * 60 * 1000); // Repeat every 24 hours
+            }
+        };
+        handler.post(runnable);
     }
 }
