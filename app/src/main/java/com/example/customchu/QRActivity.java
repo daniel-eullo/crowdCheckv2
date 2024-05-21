@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,9 +48,9 @@ public class QRActivity extends AppCompatActivity {
     private boolean qrCodeScanned = false, returningBook = false;
     GoogleSignInAccount user;
     String scannedContent;
-    Button testDialog;
-
-    Dialog dialog, dialogExit, book_title_item;
+    Button testDialog, bookClose;
+    ImageView bookInfo;
+    Dialog dialog, dialogExit, book_title_item, dialog_book_tutorial;
     Button qrDialogCancel, qrDialogProceed, qrToHome, confirmBtn, cancelBtn;
     Spinner bookSpinner;
 
@@ -68,7 +69,24 @@ public class QRActivity extends AppCompatActivity {
         qrBack = findViewById(R.id.qrBack);
         qrBack.setOnClickListener(view -> finish());
 
-        testDialog = findViewById(R.id.testDialog);
+        dialog_book_tutorial = new Dialog(QRActivity.this);
+        dialog_book_tutorial.setContentView(R.layout.dialog_book_tutorial);
+        dialog_book_tutorial.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog_book_tutorial.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialogbox_qr_bg));
+        dialog_book_tutorial.setCancelable(false);
+
+        bookClose = dialog_book_tutorial.findViewById(R.id.bookClose);
+        bookClose.setOnClickListener(view -> dialog_book_tutorial.dismiss());
+
+        bookInfo = findViewById(R.id.bookInfo);
+        bookInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_book_tutorial.show();
+            }
+        });
+
+        //testDialog = findViewById(R.id.testDialog);
 
         book_title_item = new Dialog(QRActivity.this);
         book_title_item.setContentView(R.layout.book_title_item);
