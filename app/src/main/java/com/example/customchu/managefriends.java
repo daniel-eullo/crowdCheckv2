@@ -167,7 +167,7 @@ public class managefriends extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     uidCur = task.getResult().getValue(Integer.class);
                     if (uidCur != null) {
-                        testTxt.setText("Current User: " + String.valueOf(uidCur));
+                        //testTxt.setText("Current User: " + String.valueOf(uidCur));
 
                         // Now that you have the UID, update the FirebaseRecyclerOptions query
                         updateRecyclerView(uidCur);

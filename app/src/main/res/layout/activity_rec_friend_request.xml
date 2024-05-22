@@ -41,26 +41,6 @@
         app:layout_constraintStart_toStartOf="@+id/view14"
         app:layout_constraintTop_toTopOf="@+id/view14" />
 
-    <TextView
-        android:id="@+id/testTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="707dp" />
-
-    <TextView
-        android:id="@+id/testTxt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/testTxt"
-        app:layout_constraintHorizontal_bias="0.432"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="707dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvReceived"
         android:layout_width="409dp"

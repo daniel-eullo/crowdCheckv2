@@ -56,8 +56,8 @@ public class recFriendRequest extends AppCompatActivity {
 
 //        uid = findViewById(R.id.uidTxt);
 //        uidSubmit = findViewById(R.id.uidSubmit);
-        testTxt = findViewById(R.id.testTxt);
-        testTxt2 = findViewById(R.id.testTxt2);
+        //testTxt = findViewById(R.id.testTxt);
+        //testTxt2 = findViewById(R.id.testTxt2);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
@@ -68,7 +68,7 @@ public class recFriendRequest extends AppCompatActivity {
                     Integer uidValue = task.getResult().getValue(Integer.class);
                     if (uidValue != null) {
                         String uidPath = String.valueOf(uidValue);
-                        testTxt2.setText(uidPath);
+                        //testTxt2.setText(uidPath);
                     }
                 } else {
                     Log.e("TAG", "Error getting UID", task.getException());
@@ -164,7 +164,7 @@ public class recFriendRequest extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     uidCur = task.getResult().getValue(Integer.class);
                     if (uidCur != null) {
-                        testTxt.setText("Current User: " + String.valueOf(uidCur));
+                        //testTxt.setText("Current User: " + String.valueOf(uidCur));
 
                         // Now that you have the UID, update the FirebaseRecyclerOptions query
                         updateRecyclerView(uidCur);

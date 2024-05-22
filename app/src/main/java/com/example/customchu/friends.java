@@ -58,7 +58,7 @@ public class friends extends AppCompatActivity {
             startActivity(intent);
         });
 
-        friendTxt = findViewById(R.id.friendTxt);
+        //friendTxt = findViewById(R.id.friendTxt);
 
         getCurrentUser();
 
@@ -101,7 +101,7 @@ public class friends extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     uidCur = task.getResult().getValue(Integer.class);
                     if (uidCur != null) {
-                        friendTxt.setText("Current User: " + String.valueOf(uidCur));
+                        //friendTxt.setText("Current User: " + String.valueOf(uidCur));
 
                         // Now that you have the UID, update the FirebaseRecyclerOptions query
                         updateRecyclerView(uidCur);
